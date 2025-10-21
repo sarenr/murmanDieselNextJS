@@ -5,19 +5,19 @@
   --foreground: #171717;
 }
 
-/* @theme inline {
+@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-} */
+}
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-} */
+} 
 
 body {
   background: var(--background);
@@ -78,25 +78,36 @@ body {
   font-size: 3.2em;
   line-height: 1.1;
 } */
+/* В globals.css */
 
-button {
-  border-radius: 16px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: var(--inter);
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Восстанавливаем шрифт Inter */
+button.bg-blue-600,
+button.bg-green-700,
+button.bg-blue-500 {
+  background-color: initial;
+  color: initial;
+  font-family: var(--font-inter), sans-serif; /* Inter шрифт */
+  transition: background-color 0.2s ease-in-out;
 }
 
+/* Основные цвета */
+button.bg-blue-600 { 
+  background-color: #2563eb !important; 
+  color: white !important; 
+}
+button.bg-green-700 { 
+  background-color: #15803d !important; 
+  color: white !important; 
+}
+button.bg-blue-500 { 
+  background-color: #3b82f6 !important; 
+  color: white !important; 
+}
+
+/* Ховеры */
+button.bg-blue-600:hover { background-color: #1d4ed8 !important; }
+button.bg-blue-500:hover { background-color: #2563eb !important; }
+button.bg-green-700:hover { background-color: #166534 !important; }
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

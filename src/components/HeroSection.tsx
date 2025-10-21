@@ -36,7 +36,7 @@ export default function HeroSection() {
           {/* Кнопки и адрес */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4
                          md:mb-6">
-            <button className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-sm whitespace-nowrap drop-shadow-lg">
+            <button className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg">
               +7 911 300-17-55
             </button>
             <button className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg">
@@ -64,7 +64,7 @@ export default function HeroSection() {
           </p>
           
           {/* Кнопка CTA */}
-          <button className="font-extrabold bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors text-sm md:text-base drop-shadow-xl">
+          <button className=" bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl">
             Оставить заявку
           </button>
         </div>
