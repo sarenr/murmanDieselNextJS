@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 export default function HeaderScroll() {
   const [isTransparent, setIsTransparent] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [logoSrc, setLogoSrc] = useState<string>("/images/logo-white.svg"); 
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsTransparent(window.scrollY < 10);
+      const transparent = window.scrollY < 10;
+      setIsTransparent(transparent);
+      setLogoSrc(transparent ? "/images/logo-white.svg" : "/images/logo-blue.svg");
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -34,13 +37,14 @@ export default function HeaderScroll() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between">
-          {/* Логотип */}
+          {/* Логотип - теперь с динамическим src */}
           <div className="flex items-center">
             <Image
-              src="/images/logo.png"
+              src={logoSrc} // Используем динамический src
               alt="Мурман-Дизель"
               width={150}
               height={150}
+              className="w-40 h-20 object-cover object-center transition-all duration-300" // Добавляем плавность
             />
           </div>
 
@@ -49,7 +53,7 @@ export default function HeaderScroll() {
             <a
               href="#hero"
               className={`${
-                isTransparent ? "text-white/70" : "text-foreground/70"
+                isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Главная
@@ -57,7 +61,7 @@ export default function HeaderScroll() {
             <a
               href="#services"
               className={`${
-                isTransparent ? "text-white/70" : "text-foreground/70"
+                isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Услуги
@@ -65,7 +69,7 @@ export default function HeaderScroll() {
             <a
               href="#contacts"
               className={`${
-                isTransparent ? "text-white/70" : "text-foreground/70"
+                isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Контакты
@@ -73,7 +77,7 @@ export default function HeaderScroll() {
             <a
               href="#gallery"
               className={`${
-                isTransparent ? "text-white/70" : "text-foreground/70"
+                isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Фото
@@ -81,7 +85,7 @@ export default function HeaderScroll() {
             <a
               href="#articles"
               className={`${
-                isTransparent ? "text-white/70" : "text-foreground/70"
+                isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Статьи
@@ -89,7 +93,7 @@ export default function HeaderScroll() {
             <a
               href="#reviews"
               className={`${
-                isTransparent ? "text-white/70" : "text-foreground/70"
+                isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Отзывы

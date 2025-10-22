@@ -57,15 +57,20 @@ export default function HeroSection() {
           </h1>
 
           {/* Список услуг */}
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-2 drop-shadow-lg">
-            Профессиональная диагностика кодирование и ремонт форсунок
-          </p>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-2 drop-shadow-lg">
-            Обучение впрыска топливных систем
-          </p>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 drop-shadow-lg">
-            Ремонт турбин
-          </p>
+         <div className="flex flex-wrap gap-3 mb-8">
+            <span className="bg-blue-600/10 text-white px-4 py-2 rounded-xl text-sm sm:text-base font-medium backdrop-blur-sm border border-blue-400/30">
+              Профессиональная диагностика форсунок
+            </span>
+            <span className="bg-blue-600/10 text-white px-4 py-2 rounded-xl text-sm sm:text-base font-medium backdrop-blur-sm border border-blue-400/30">
+              Кодирование и ремонт форсунок
+            </span>
+            <span className="bg-blue-600/10 text-white px-4 py-2 rounded-xl text-sm sm:text-base font-medium backdrop-blur-sm border border-blue-400/30">
+              Обучение впрыска топливных систем
+            </span>
+            <span className="bg-blue-600/10 text-white px-4 py-2 rounded-xl text-sm sm:text-base font-medium backdrop-blur-sm border border-blue-400/30">
+              Ремонт турбин
+            </span>
+          </div>
 
           {/* Кнопка CTA */}
           <button className=" bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl">
