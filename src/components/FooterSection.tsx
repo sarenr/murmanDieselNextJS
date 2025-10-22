@@ -1,6 +1,6 @@
 export default function FooterSection() {     
     return (
-        <footer className="bg-gray-900 text-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <footer className="bg-background/95 backdrop-blur-sm text-foreground py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Верхняя часть */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
@@ -8,7 +8,7 @@ export default function FooterSection() {
                     <div>
                       <div className="text-center sm:text-left">
                           <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">ООО &quot;Мурман - Дизель&quot;</h3>
-                          <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                          <p className="text-foreground/70 text-sm sm:text-base leading-relaxed">
                               Мы делаем качественный ремонт Дизельных форсунок
                           </p>
                       </div>
@@ -34,16 +34,16 @@ export default function FooterSection() {
                                         12.39 16.32 12.5 16.63 12.78C17.57 13.63 18.15 14.77 18.15 15.68C18.15 16.04 18.02 16.27 18.15 16.27Z"/>
                                     </svg>
                                 </a>
-                                <p className="text-xs text-gray-400 mt-2">Мы в VK</p>
+                                <p className="text-xs text-foreground/50 mt-2">Мы в VK</p>
                         </div>
                     </div>
 
                     {/* Навигация */}
                     <div className="text-center sm:text-left sm:pl-0 lg:pl-10">
                         <h4 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Разделы сайта</h4>
-                        <ul className="space-y-2 sm:space-y-3 text-gray-300">
+                        <ul className="space-y-2 sm:space-y-3 text-foreground/70">
                             <li>
-                                <a href="#main" className="hover:text-white transition-colors text-sm sm:text-base block py-1">
+                                <a href="#main" className="hover:text-foreground transition-colors text-sm sm:text-base block py-1">
                                     Главная
                                 </a>
                             </li>
@@ -68,7 +68,7 @@ export default function FooterSection() {
                     {/* Адрес */}
                     <div className="text-center sm:text-left">
                         <h4 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Адрес</h4>
-                        <div className="space-y-2 sm:space-y-3 text-gray-300">
+                        <div className="space-y-2 sm:space-y-3 text-foreground/70">
                             <div>
                                 <p className="font-medium text-sm sm:text-base">
                                     г. Мурманск, Кооперативная 4/4
@@ -80,14 +80,14 @@ export default function FooterSection() {
                     {/* Контактная информация */}
                     <div className="text-center sm:text-left">
                         <h4 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Связь</h4>
-                        <div className="space-y-2 sm:space-y-3 text-gray-300">
+                        <div className="space-y-2 sm:space-y-3 text-foreground/70">
                             <div>
                                 <p className="font-medium text-sm sm:text-base">+7 (911) 3001755</p>
-                                <p className="text-xs sm:text-sm text-gray-400">Телефон для связи</p>
+                                <p className="text-xs sm:text-sm text-foreground/50">Телефон для связи</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm sm:text-base">+79533023022</p>
-                                <p className="text-xs sm:text-sm text-gray-400">WhatsApp/Viber</p>
+                                <p className="text-xs sm:text-sm text-foreground/50">WhatsApp/Viber</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm sm:text-base leading-tight">
@@ -102,7 +102,7 @@ export default function FooterSection() {
                 </div>
 
                 {/* Нижняя часть */}
-                <div className="border-t border-gray-700 pt-6 sm:pt-8 text-center text-gray-400">
+                <div className="border-t border-foreground/10 pt-6 sm:pt-8 text-center text-foreground/50">
                     <p className="text-xs sm:text-sm">
                        ООО «Мурман - Дизель». Все права защищены.
                     </p>

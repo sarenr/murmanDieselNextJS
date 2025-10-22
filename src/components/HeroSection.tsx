@@ -1,42 +1,46 @@
 export default function HeroSection() {
-  return ( 
+  return (
     <div className="relative h-screen">
       {/* Фоновое видео */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
-        autoPlay 
-        muted 
-        loop 
+        autoPlay
+        muted
+        loop
         playsInline
       >
         <source src="/video/vehicle.mp4" type="video/mp4" />
         Ваш браузер не поддерживает видео тег.
       </video>
-      
+
       {/* Overlays поверх видео */}
       <div className="absolute inset-0 z-0">
-        {/* Базовый лёгкий слой */} 
-        <div className="absolute inset-0 bg-black/35" /> 
-        {/* Градиент сверху вниз для читаемости */} 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" /> 
-        {/* Виньетка по краям */} 
-        <div className="pointer-events-none absolute inset-0 mask-[radial-gradient(75%_75%_at_50%_50%,black,transparent)]" /> 
+        {/* Базовый лёгкий слой */}
+        <div className="absolute inset-0 bg-black/35" />
+        {/* Градиент сверху вниз для читаемости */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
+        {/* Виньетка по краям */}
+        <div className="pointer-events-none absolute inset-0 mask-[radial-gradient(75%_75%_at_50%_50%,black,transparent)]" />
       </div>
-      
+
       {/* Контент */}
-      <div className="absolute inset-0 flex items-start 
+      <div
+        className="absolute inset-0 flex items-start 
                 pt-40 
                 sm:pt-80 
                 md:pt-90
                 lg:items-center lg:pt-0 lg:pl-12 
                 xl:pl-48   
                 2xl:pl-48  
-                px-4 sm:px-6 lg:px-8">
+                px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-4xl w-full">
           {/* Кнопки и адрес */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4
-                         md:mb-6">
-            <button className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg">
+          <div
+            className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4
+                         md:mb-6"
+          >
+            <button className="px-4 py-2 text-white bg-primary hover:bg-primary/90 rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg">
               +7 911 300-17-55
             </button>
             <button className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg">
@@ -62,9 +66,9 @@ export default function HeroSection() {
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 drop-shadow-lg">
             Ремонт турбин
           </p>
-          
+
           {/* Кнопка CTA */}
-          <button className=" bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl">
+          <button className=" bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl">
             Оставить заявку
           </button>
         </div>

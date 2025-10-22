@@ -1,22 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Inter } from 'next/font/google';
-import Script from 'next/script';
+import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-inter',
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -31,9 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         {children}
-        
+
         {/* Яндекс.Метрика */}
         <Script
           id="yandex-metrika"
@@ -53,7 +42,12 @@ export default function RootLayout({
         />
         <noscript>
           <div>
-            <img src="https://mc.yandex.ru/watch/104725408" style={{position:'absolute', left:'-9999px'}} alt="" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://mc.yandex.ru/watch/104725408"
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
           </div>
         </noscript>
       </body>

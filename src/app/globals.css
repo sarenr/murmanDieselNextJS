@@ -3,32 +3,29 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #007bff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-inter);
+  --color-primary: var(--primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary: #0ea5e9; /* Более светлый синий для темной темы */
   }
-} 
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--inter);
-  
-}
-
-
-h1 {
-  font-family: var(--inter);
+  font-family: var(--font-inter);
 }
 
 :root {
@@ -37,13 +34,13 @@ h1 {
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -59,64 +56,9 @@ h1 {
   opacity: 0;
   animation: slideUp 0.7s ease-out forwards;
 }
-a {
-  font-weight: 500;
-  color: #f7eeee;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-}
-
-/* h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-} */
-/* В globals.css */
-
-/* Восстанавливаем шрифт Inter */
-button.bg-blue-600,
-button.bg-green-700,
-button.bg-blue-500 {
-  background-color: initial;
-  color: initial;
-  font-family: var(--font-inter), sans-serif; /* Inter шрифт */
-  transition: background-color 0.2s ease-in-out;
-}
-
-/* Основные цвета */
-button.bg-blue-600 { 
-  background-color: #2563eb !important; 
-  color: white !important; 
-}
-button.bg-green-700 { 
-  background-color: #15803d !important; 
-  color: white !important; 
-}
-button.bg-blue-500 { 
-  background-color: #3b82f6 !important; 
-  color: white !important; 
-}
-
-/* Ховеры */
-button.bg-blue-600:hover { background-color: #1d4ed8 !important; }
-button.bg-blue-500:hover { background-color: #2563eb !important; }
-button.bg-green-700:hover { background-color: #166534 !important; }
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
