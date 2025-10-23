@@ -38,7 +38,7 @@ export default function HeaderScroll() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between">
           {/* Логотип - теперь с динамическим src */}
-          <div className="flex items-center">
+          <div className="flex items-center p-0 mt-0">
             <Image
               src={logoSrc} // Используем динамический src
               alt="Мурман-Дизель"
