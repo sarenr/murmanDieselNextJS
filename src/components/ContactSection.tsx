@@ -2,6 +2,7 @@
 
 import { FormData } from "@/types";
 import { ChangeEvent, FormEvent, useState } from "react";
+import Image from "next/image";
 
 export default function ContactSection() {
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
@@ -21,7 +22,6 @@ export default function ContactSection() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Обработка отправки формы
     console.log("Форма отправлена:", formData);
     setIsFormOpen(false);
     setFormData({ name: "", phone: "", car: "" });
@@ -57,91 +57,348 @@ export default function ContactSection() {
   return (
     <>
       {/* Секция с контактами */}
-      <div className="bg-background text-foreground">
+      <div className="bg-primary text-background relative">
+        {/* Источник света сверху по центру - адаптивный */}
+        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 
+                        w-200 h-100 
+                        md:w-300 md:h-150 
+                        lg:w-400 lg:h-200 
+                        xl:w-500 xl:h-250 
+                        2xl:w-600 2xl:h-300 
+                        bg-gradient-to-b from-white/60 to-transparent rounded-full blur-3xl z-0"></div>
+
         {/* Оглавление */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 
+                        py-12 sm:py-16 lg:py-20 xl:py-24 2xl:py-28 relative z-10">
+          
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20">
+            <h1 className="text-2xl 
+                            sm:text-4xl
+                            md:text-4xl
+                            lg:text-3xl 
+                            xl:text-3xl 
+                            2xl:text-5xl 
+                            
+                            
+                            font-bold mb-4">
               Контакты
             </h1>
-            <p className="text-lg sm:text-xl text-foreground/70">
+            <p className="text-lg 
+                          sm:text-2xl 
+                          lg:text-xl 
+                          xl:text-xl 
+                          2xl:text-2xl">
               Как вы можете связаться с нами
             </p>
           </div>
 
-          {/* Таблица контактов */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 mb-8">
-            {/* Адрес */}
-            <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-foreground/10">
-              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
-                Адрес
-              </h3>
-              <p className="text-foreground/70 text-sm sm:text-base">
-                г. Мурманск, Кооперативная 4/4
-              </p>
+          {/* Таблица контактов - адаптивная сетка */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 mb-8 lg:mb-12 xl:mb-16">
+            
+            {/* Время */}
+            <div className="w-full h-100 
+                                  lg:h-85 
+                                  xl:h-90 
+                                  2xl:h-100 
+                                  bg-primary/10 hover:bg-primary/80 duration-200 backdrop-blur-sm rounded-xl p-4 sm:p-6 
+                                                                                                                  lg:p-8 
+                                                                                                                  xl:p-10
+                                  border border-foreground/10 flex flex-col items-center overflow-hidden relative group">
+              <div className="absolute top-20 left-1/2 transform -translate-x-1/2 
+                              w-300 h-300 
+                              lg:w-350 lg:h-350 
+                              xl:w-400 xl:h-400 
+                              2xl:w-450 2xl:h-450 
+                              bg-gradient-to-b from-white/30 to-transparent rounded-full blur-3xl z-0"></div>
+              
+              <div className="w-full text-center">
+                <h1 className="text-xl sm:text-3xl 
+                                       md:text-3xl 
+                                       lg:text-xl 
+                                       xl:text-2xl 
+                                       2xl:text-2xl font-bold mb-4 lg:mb-6">
+                  Рабочие часы
+                </h1>
+                <p className="text-lg 
+                              sm:text-xm 
+                              md:text-xl 
+                              lg:text-xm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  Понедельник - Пятница 
+                </p>
+                <p className="text-lg 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-2 lg:mb-3">
+                  10:00-18:00
+                </p>
+                <p className="text-lg 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  Суббота
+                </p>
+                <p className="text-lg 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  10:00-17:00
+                </p>
+              </div>
+
+              <div className="absolute inset-0 flex justify-center items-center top-70
+                                                                                sm:top-90
+                                                                                md:top-90 
+                                                                                lg:top-80 
+                                                                                xl:top-85
+                                                                                2xl:top-90">
+                <div className="relative w-65 h-65 
+                                          sm:w-75 sm:h-75
+                                          md:w-50 md:h-50
+                                          lg:w-40 lg:h-40 
+                                          xl:w-50 xl:h-50 
+                                          2xl:w-60 2xl:h-60 transition-transform duration-300 group-hover:scale-110"> 
+                  <Image
+                    src="/images/time2.svg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Ремонт форсунок */}
-            <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-foreground/10">
-              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
-                Ремонт форсунок
-              </h3>
-              <p className="text-foreground/70 text-sm sm:text-base">
-                +7 (911) 3001755
-              </p>
+            {/* Мессенджеры */}
+            <div className="w-full h-100 
+                                  lg:h-85 
+                                  xl:h-90 
+                                  2xl:h-100 
+                                  bg-primary/10 hover:bg-primary/80 duration-200 backdrop-blur-sm rounded-xl p-4 sm:p-6 
+                                                                                                                  lg:p-8 
+                                                                                                                  xl:p-10
+                                  border border-foreground/10 flex flex-col items-center overflow-hidden relative group">
+              <div className="absolute top-20 left-1/2 transform -translate-x-1/2 
+                              w-300 h-300 
+                              lg:w-350 lg:h-350 
+                              xl:w-400 xl:h-400 
+                              2xl:w-450 2xl:h-450 
+                              bg-gradient-to-b from-white/30 to-transparent rounded-full blur-3xl z-0"></div>
+              
+              <div className="w-full text-center">
+                <h1 className="text-xl sm:text-3xl 
+                                       md:text-3xl 
+                                       lg:text-xl 
+                                       xl:text-2xl 
+                                       2xl:text-2xl font-bold mb-4 lg:mb-6">
+                  Мессенджеры
+                </h1>
+                <p className="text-lg 
+                              sm:text-xm 
+                              md:text-xl 
+                              lg:text-xm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  WhatsApp 
+                </p>
+                <p className="text-lg 
+                              sm:text-xm 
+                              md:text-xl 
+                              lg:text-xm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  +7(953)302-30-22
+                </p>  
+                <p className="text-lg 
+                              sm:text-xm 
+                              md:text-xl 
+                              lg:text-xm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  Telegramm
+                </p>
+                 
+                <p className="text-lg 
+                              sm:text-xm 
+                              md:text-xl 
+                              lg:text-xm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  @TelegrammAcount
+                </p>
+              </div>
+
+               <div className="absolute inset-0 flex justify-center items-center top-70
+                                                                                sm:top-90
+                                                                                md:top-90 
+                                                                                lg:top-80 
+                                                                                xl:top-85
+                                                                                2xl:top-90">
+                <div className="relative w-65 h-65 
+                                          sm:w-75 sm:h-75
+                                          md:w-50 md:h-50
+                                          lg:w-40 lg:h-40 
+                                          xl:w-50 xl:h-50  
+                                          2xl:w-60 2xl:h-60 transition-transform duration-300 group-hover:scale-110"> 
+                  <Image
+                    src="/images/message2.svg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Ремонт турбин */}
-            <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-foreground/10">
-              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
-                Ремонт турбин
-              </h3>
-              <p className="text-foreground/70 text-sm sm:text-base">
-                +7 (911) 3001199
-              </p>
+            {/* Почта */}
+            <div className="w-full h-100 
+                                  lg:h-85 
+                                  xl:h-90 
+                                  2xl:h-100 
+                                  bg-primary/10 hover:bg-primary/80 duration-200 backdrop-blur-sm rounded-xl p-4 sm:p-6 
+                                                                                                                  lg:p-8 
+                                                                                                                  xl:p-10
+                                  border border-foreground/10 flex flex-col items-center overflow-hidden relative group">
+              <div className="absolute top-20 left-1/2 transform -translate-x-1/2 
+                              w-300 h-300 
+                              lg:w-350 lg:h-350 
+                              xl:w-400 xl:h-400 
+                              2xl:w-450 2xl:h-450 
+                              bg-gradient-to-b from-white/30 to-transparent rounded-full blur-3xl z-0"></div>
+              
+              <div className="w-full text-center">
+                <h1 className="text-xl sm:text-3xl 
+                                       md:text-3xl 
+                                       lg:text-xl 
+                                       xl:text-2xl 
+                                       2xl:text-2xl font-bold mb-4 lg:mb-6">
+                       Почта
+                </h1>
+                 <p className="text-lg 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                  murmandiesel@ya.ru
+                </p>
+              </div>
+
+              <div className="absolute inset-0 flex justify-center items-center top-70
+                                                                                sm:top-90
+                                                                                md:top-90 
+                                                                                lg:top-80 
+                                                                                xl:top-85
+                                                                                2xl:top-90">
+                <div className="relative w-65 h-65 
+                                          sm:w-75 sm:h-75
+                                          md:w-50 md:h-50
+                                          lg:w-40 lg:h-40 
+                                          xl:w-50 xl:h-50  
+                                          2xl:w-60 2xl:h-60 transition-transform duration-300 group-hover:scale-110"> 
+                  <Image
+                    src="/images/mail2.svg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* WhatsApp */}
-            <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-foreground/10">
-              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
-                WhatsApp и Viber
-              </h3>
-              <p className="text-foreground/70 text-sm sm:text-base">
-                +79533023022 (Антон)
-              </p>
-            </div>
+            {/* Карта */}
+             <div className="w-full h-100 
+                                  lg:h-85 
+                                  xl:h-90 
+                                  2xl:h-100 
+                                  bg-primary/10 hover:bg-primary/80 duration-200 backdrop-blur-sm rounded-xl p-4 sm:p-6 
+                                                                                                                  lg:p-8 
+                                                                                                                  xl:p-10
+                                  border border-foreground/10 flex flex-col items-center overflow-hidden relative group">
+              <div className="absolute top-20 left-1/2 transform -translate-x-1/2 
+                              w-300 h-300 
+                              lg:w-350 lg:h-350 
+                              xl:w-400 xl:h-400 
+                              2xl:w-450 2xl:h-450 
+                              bg-gradient-to-b from-white/30 to-transparent rounded-full blur-3xl z-0"></div>
+              
+              <div className="w-full text-center">
+                <h1 className="text-xl sm:text-3xl 
+                                       md:text-3xl 
+                                       lg:text-xl 
+                                       xl:text-2xl 
+                                       2xl:text-2xl font-bold mb-4 lg:mb-6">
+                  Адресс
+                </h1>
+                <p className="text-lg 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                   г. Мурманск, Кооперативная 4/4
+                </p>
+              </div>
 
-            {/* Часы работы */}
-            <div className="bg-gray-900 rounded-xl p-4 sm:p-6 border border-gray-700 xl:order-6">
-              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
-                Часы работы
-              </h3>
-              <p className="text-gray-300 text-sm sm:text-base mb-1">
-                Пн-Пт: 10:00-18:00
-              </p>
-              <p className="text-gray-300 text-sm sm:text-base mb-1">
-                Сб: 10:00-17:00
-              </p>
-              <p className="text-foreground/70 text-sm sm:text-base">
-                Вс: выходной
-              </p>
-            </div>
-
-            {/* Вопросы? - кликабельная карточка */}
-            <div
-              className="bg-blue-600 hover:bg-blue-700 rounded-xl p-4 sm:p-6 border border-gray-700 
-                                        xl:col-span-full xl:order-last cursor-pointer transition-colors duration-200"
-              onClick={() => setIsFormOpen(true)}
-            >
-              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
-                Есть вопросы?
-              </h3>
-              <p className="text-white text-sm sm:text-base mb-1">
-                Звоните нам мы поможем!
-              </p>
+               <div className="absolute inset-0 flex justify-center items-center top-70
+                                                                                sm:top-90
+                                                                                md:top-90 
+                                                                                lg:top-80 
+                                                                                xl:top-85
+                                                                                2xl:top-90">
+                <div className="relative w-65 h-65 
+                                          sm:w-75 sm:h-75
+                                          md:w-50 md:h-50
+                                          lg:w-40 lg:h-40 
+                                          xl:w-50 xl:h-50  
+                                          2xl:w-60 2xl:h-60 transition-transform duration-300 group-hover:scale-110"> 
+                  <Image
+                    src="/images/map.svg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Вопросы? - кликабельная карточка */}
+          <div
+            className="rounded-xl p-4 sm:p-6 lg:p-8 xl:p-10 border-2 border-gray-700 cursor-pointer transition-transform duration-300 hover:scale-105 bg-primary/10 hover:bg-primary/80"
+            onClick={() => setIsFormOpen(true)}
+          >
+            <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-background mb-2 lg:mb-3">
+              Есть вопросы?
+            </h3>
+            <p className="text-background text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+              Звоните нам мы поможем!
+            </p>
+          </div>
         </div>
+         {/* YandexMap */}
+                <div className="w-100 h-80 
+                sm:w-100 sm:h-80 
+                md:w-175 md:h-100 
+                lg:w-250 lg:h-150 
+                xl:w-300 xl:h-180 
+                2xl:w-400 2xl:h-200 
+                mx-auto rounded-lg overflow-hidden 
+                pb-4 md:pb-6 lg:pb-8 xl:pb-10 2xl:pb-12">
+                  <iframe
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3Aa9bb9ef349dd8d170f4d774ef044ff68d2191f18f13d23524a91b223a019d9fe"
+                    width="100%"
+                    height="100%"
+                    className="rounded-lg"
+                    allowFullScreen
+                  ></iframe>
+                </div>
       </div>
 
       {/* Модальное окно с формой */}
