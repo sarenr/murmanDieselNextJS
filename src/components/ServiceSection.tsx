@@ -78,9 +78,8 @@ export default function ServiceSection() {
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-white">от 14000 ₽</span>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
-              <button className="w-full font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
                 Оставить заявку
               </button>
             </div>
@@ -88,14 +87,18 @@ export default function ServiceSection() {
             {/* 2 */}
           <ServiceCard delay="0.1s" bgImage="/images/card2.jpg">
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Профессиональный ремонт любых форсунок Common Rail
+              Профессиональный ремонт любых форсунок 
             </h3>
+          <div className="flex flex-wrap">
+            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+              Common rail
+              </span>
+          </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-white">от 4000 ₽</span>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
-              <button className="w-full font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
                 Оставить заявку
               </button>
             </div>
@@ -105,12 +108,21 @@ export default function ServiceSection() {
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Кодирование форсунок - присвоение ремонтных кодов
             </h3>
+           <div className="flex flex-wrap gap-2 mb-6">
+            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+              Delphi E3
+            </span>
+            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+              CATERPILLAR C6, C7, С9
+            </span>
+            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+              SCANIA HPI
+            </span>
+          </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-white">Цена зависит от тех. задания</span>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
-              <button className="w-full font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
                 Оставить заявку
               </button>
             </div>
@@ -137,9 +149,8 @@ export default function ServiceSection() {
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
-             <button className="w-full font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+             <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
                 Оставить заявку
               </button>
             </div>
@@ -147,17 +158,21 @@ export default function ServiceSection() {
             {/* 5 */}
           <ServiceCard delay="0.1s" bgImage="/images/card5.jpg">
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Диагностика и ремонт дизельных форсунок Ford Transit
+              Диагностика и ремонт дизельных форсунок,  обучение впрыска топливных систем Ford Transit
             </h3>
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Обучение впрыска топливных систем Denso и Simens
-            </h3>
+            <div className="flex flex-wrap gap-2 mb-6">
+            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+              Ford Transit
+            </span>
+            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+              Denso и Simens
+            </span>
+          </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
-             <button className="w-full font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+             <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
                 Оставить заявку
               </button>
             </div>
@@ -170,9 +185,8 @@ export default function ServiceSection() {
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
-              <button className="w-full font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
                 Оставить заявку
               </button>
             </div>

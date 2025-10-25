@@ -120,9 +120,9 @@ export default function ContactSection() {
                   Рабочие часы
                 </h1>
                 <p className="text-lg 
-                              sm:text-xm 
-                              md:text-xl 
-                              lg:text-xm 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
                               xl:text-xm 
                               2xl:text-xm font-bold mb-1 lg:mb-2">
                   Понедельник - Пятница 
@@ -200,35 +200,35 @@ export default function ContactSection() {
                   Мессенджеры
                 </h1>
                 <p className="text-lg 
-                              sm:text-xm 
-                              md:text-xl 
-                              lg:text-xm 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
                               xl:text-xm 
                               2xl:text-xm font-bold mb-1 lg:mb-2">
                   WhatsApp 
                 </p>
                 <p className="text-lg 
-                              sm:text-xm 
-                              md:text-xl 
-                              lg:text-xm 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
                               xl:text-xm 
                               2xl:text-xm font-bold mb-1 lg:mb-2">
                   +7(953)302-30-22
                 </p>  
                 <p className="text-lg 
-                              sm:text-xm 
-                              md:text-xl 
-                              lg:text-xm 
-                              xl:text-xm 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm  
                               2xl:text-xm font-bold mb-1 lg:mb-2">
                   Telegramm
                 </p>
                  
                 <p className="text-lg 
-                              sm:text-xm 
-                              md:text-xl 
-                              lg:text-xm 
-                              xl:text-xm 
+                              sm:text-xm
+                              md:text-xl  
+                              lg:text-sm 
+                              xl:text-xm  
                               2xl:text-xm font-bold mb-1 lg:mb-2">
                   @TelegrammAcount
                 </p>

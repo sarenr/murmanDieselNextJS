@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 export default function HeaderScroll() {
   const [isTransparent, setIsTransparent] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [logoSrc, setLogoSrc] = useState<string>("/images/logo-white.svg"); 
+  const [logoSrc, setLogoSrc] = useState<string>("/images/logo.svg"); 
 
   useEffect(() => {
     const handleScroll = () => {
       const transparent = window.scrollY < 10;
       setIsTransparent(transparent);
-      setLogoSrc(transparent ? "/images/logo-white.svg" : "/images/logo-blue.svg");
+      setLogoSrc(transparent ? "/images/logo.svg" : "/images/logo-blue.svg");
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,20 +38,20 @@ export default function HeaderScroll() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between">
           {/* Логотип - теперь с динамическим src */}
-          <div className="flex items-center p-0 mt-0">
+          <div className="flex max-w-xl items-center p-0 mt-0">
             <Image
               src={logoSrc} // Используем динамический src
               alt="Мурман-Дизель"
               width={150}
               height={150}
-              className="w-40 h-20 object-cover object-center transition-all duration-300" // Добавляем плавность
+              className="w-40 h-10 object-cover object-center transition-all duration-300" // Добавляем плавность
             />
           </div>
 
           {/* Десктопное меню */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
             <a
-              href="#hero"
+              href="#main"
               className={`${
                 isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
@@ -59,7 +59,7 @@ export default function HeaderScroll() {
               Главная
             </a>
             <a
-              href="#services"
+              href="#service"
               className={`${
                 isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
@@ -67,7 +67,7 @@ export default function HeaderScroll() {
               Услуги
             </a>
             <a
-              href="#contacts"
+              href="#contact"
               className={`${
                 isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
@@ -75,20 +75,12 @@ export default function HeaderScroll() {
               Контакты
             </a>
             <a
-              href="#gallery"
+              href="#about"
               className={`${
                 isTransparent ? "text-white/90" : "text-white"
               } hover:text-primary transition-colors text-sm lg:text-base`}
             >
               Фото
-            </a>
-            <a
-              href="#articles"
-              className={`${
-                isTransparent ? "text-white/90" : "text-white"
-              } hover:text-primary transition-colors text-sm lg:text-base`}
-            >
-              Статьи
             </a>
             <a
               href="#reviews"
@@ -100,7 +92,7 @@ export default function HeaderScroll() {
             </a>
 
             <button
-              className={`font-bold cursor-pointer px-3 py-2 lg:px-4 lg:py-2 rounded-lg transition-colors text-sm lg:text-base ${
+              className={`font-bold cursor-pointer px-3 py-2 lg:px-4 lg:py-2 rounded-3xl transition-colors text-sm lg:text-base ${
                 isTransparent
                   ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
                   : "bg-primary hover:bg-primary/90 text-white"
