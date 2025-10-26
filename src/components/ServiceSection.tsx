@@ -8,17 +8,11 @@ interface ServiceCardProps {
   delay: string;
   children: ReactNode;
   bgImage: string;
-  serviceName: string;
   onOpenForm: (service: string) => void;
 }
 
-function ServiceCard({ delay, children, bgImage, serviceName, onOpenForm }: ServiceCardProps) {
+function ServiceCard({ delay, children, bgImage, onOpenForm }: ServiceCardProps) {
   const [ref, isInView] = animationCard();
-
-  const handleOpenForm = () => {
-    onOpenForm(serviceName);
-  };
-
   return (
     <div
       ref={ref}
@@ -83,7 +77,6 @@ export default function ServiceSection() {
           <ServiceCard 
             delay="0.1s" 
             bgImage="/images/card1.jpg"
-            serviceName="Ремонт дизельных форсунок"
             onOpenForm={handleOpenForm}
           >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
@@ -117,7 +110,6 @@ export default function ServiceSection() {
           <ServiceCard 
             delay="0.1s" 
             bgImage="/images/card2.jpg"
-            serviceName="Профессиональный ремонт любых форсунок Common Rail"
             onOpenForm={handleOpenForm}
           >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
@@ -133,7 +125,7 @@ export default function ServiceSection() {
                 <span className="text-2xl font-bold text-white">от 4000 ₽</span>
               </div>
               <button 
-                onClick={() => handleOpenForm("Профессиональный ремонт любых форсунок Common Rail")}
+                onClick={() => handleOpenForm("Профессиональный ремонт любых форсунок")}
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
                 Оставить заявку
@@ -145,7 +137,6 @@ export default function ServiceSection() {
           <ServiceCard 
             delay="0.1s" 
             bgImage="/images/card3.jpg"
-            serviceName="Кодирование форсунок - присвоение ремонтных кодов"
             onOpenForm={handleOpenForm}
           >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
@@ -179,7 +170,6 @@ export default function ServiceSection() {
           <ServiceCard 
             delay="0.1s" 
             bgImage="/images/card4.jpg"
-            serviceName="Диагностика форсунок"
             onOpenForm={handleOpenForm}
           >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
@@ -216,7 +206,6 @@ export default function ServiceSection() {
           <ServiceCard 
             delay="0.1s" 
             bgImage="/images/card5.jpg"
-            serviceName="Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем"
             onOpenForm={handleOpenForm}
           >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
@@ -235,7 +224,7 @@ export default function ServiceSection() {
                 <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
               </div>
               <button 
-                onClick={() => handleOpenForm("Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем Ford Transit")}
+                onClick={() => handleOpenForm("Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем")}
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
                 Оставить заявку
@@ -247,7 +236,6 @@ export default function ServiceSection() {
           <ServiceCard 
             delay="0.1s" 
             bgImage="/images/card6.jpg"
-            serviceName="Ремонт турбин в Мурманске"
             onOpenForm={handleOpenForm}
           >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
