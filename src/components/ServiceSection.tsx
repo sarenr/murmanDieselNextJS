@@ -1,5 +1,5 @@
 "use client";
-
+import { useFormModal } from '@/components/useFormModal';
 import Image from "next/image";
 import { ReactNode } from "react";
 import animationCard from "./AnimationCard";
@@ -8,10 +8,16 @@ interface ServiceCardProps {
   delay: string;
   children: ReactNode;
   bgImage: string;
+  serviceName: string;
+  onOpenForm: (service: string) => void;
 }
 
-function ServiceCard({ delay, children, bgImage }: ServiceCardProps) {
+function ServiceCard({ delay, children, bgImage, serviceName, onOpenForm }: ServiceCardProps) {
   const [ref, isInView] = animationCard();
+
+  const handleOpenForm = () => {
+    onOpenForm(serviceName);
+  };
 
   return (
     <div
@@ -26,7 +32,7 @@ function ServiceCard({ delay, children, bgImage }: ServiceCardProps) {
       <div className="absolute inset-0 z-0">
         <Image
           src={bgImage}
-          alt=""
+          alt="Фоновое изображение"
           fill
           className="object-cover"
         />
@@ -43,6 +49,21 @@ function ServiceCard({ delay, children, bgImage }: ServiceCardProps) {
 }
 
 export default function ServiceSection() {
+  const {
+    isFormOpen,
+    formData,
+    openFormWithService,
+    closeForm,
+    handleInputChange,
+    handleFileChange,
+    handlePhoneChange,
+    handleSubmit,
+  } = useFormModal();
+
+  const handleOpenForm = (serviceName: string) => {
+    openFormWithService(serviceName);
+  };
+
   return (
     <div className="py-16 bg-gradient-to-b from-gray-50 to-white relative">
       {/* Заголовок */}
@@ -58,142 +79,319 @@ export default function ServiceSection() {
       {/* Сетка карточек */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ServiceCard delay="0.1s" bgImage="/images/card1.jpg">
           {/* 1 */}
-
+          <ServiceCard 
+            delay="0.1s" 
+            bgImage="/images/card1.jpg"
+            serviceName="Ремонт дизельных форсунок"
+            onOpenForm={handleOpenForm}
+          >
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Ремонт дизельных форсунок 
             </h3>
             <div className="flex flex-wrap gap-2 mb-6">
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Delphi E3
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              CATERPILLAR C6, C7, С9
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              SCANIA HPI
-            </span>
-          </div>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Delphi E3
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                CATERPILLAR C6, C7, С9
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                SCANIA HPI
+              </span>
+            </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-white">от 14000 ₽</span>
               </div>
-              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
-                Оставить заявку
-              </button>
-            </div>
-          </ServiceCard>
-            {/* 2 */}
-          <ServiceCard delay="0.1s" bgImage="/images/card2.jpg">
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Профессиональный ремонт любых форсунок 
-            </h3>
-          <div className="flex flex-wrap">
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Common rail
-              </span>
-          </div>
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-white">от 4000 ₽</span>
-              </div>
-              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
-                Оставить заявку
-              </button>
-            </div>
-          </ServiceCard>
-            {/* 3 */}
-          <ServiceCard delay="0.1s" bgImage="/images/card3.jpg">
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Кодирование форсунок - присвоение ремонтных кодов
-            </h3>
-           <div className="flex flex-wrap gap-2 mb-6">
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Delphi E3
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              CATERPILLAR C6, C7, С9
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              SCANIA HPI
-            </span>
-          </div>
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-              </div>
-              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
-                Оставить заявку
-              </button>
-            </div>
-          </ServiceCard>
-            {/* 4 */}
-          <ServiceCard delay="0.1s" bgImage="/images/card4.jpg">
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Дигностика форсунок
-            </h3>
-            <div className="flex flex-wrap gap-2 mb-6">
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Boch
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Delphi
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Siemens
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Denso
-            </span>
-          </div>
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
-              </div>
-             <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
-                Оставить заявку
-              </button>
-            </div>
-          </ServiceCard>
-            {/* 5 */}
-          <ServiceCard delay="0.1s" bgImage="/images/card5.jpg">
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Диагностика и ремонт дизельных форсунок,  обучение впрыска топливных систем Ford Transit
-            </h3>
-            <div className="flex flex-wrap gap-2 mb-6">
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Ford Transit
-            </span>
-            <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-              Denso и Simens
-            </span>
-          </div>
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
-              </div>
-             <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
-                Оставить заявку
-              </button>
-            </div>
-          </ServiceCard>
-            {/* 6 */}
-          <ServiceCard delay="0.1s" bgImage="/images/card6.jpg">
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-             Ремонт турбин в Мурманске
-            </h3>
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
-              </div>
-              <button className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30">
+              <button 
+                onClick={() => handleOpenForm("Ремонт дизельных форсунок")} 
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
                 Оставить заявку
               </button>
             </div>
           </ServiceCard>
 
+          {/* 2 */}
+          <ServiceCard 
+            delay="0.1s" 
+            bgImage="/images/card2.jpg"
+            serviceName="Профессиональный ремонт любых форсунок Common Rail"
+            onOpenForm={handleOpenForm}
+          >
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
+              Профессиональный ремонт любых форсунок 
+            </h3>
+            <div className="flex flex-wrap">
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Common rail
+              </span>
+            </div>
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-bold text-white">от 4000 ₽</span>
+              </div>
+              <button 
+                onClick={() => handleOpenForm("Профессиональный ремонт любых форсунок Common Rail")}
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
+                Оставить заявку
+              </button>
+            </div>
+          </ServiceCard>
+
+          {/* 3 */}
+          <ServiceCard 
+            delay="0.1s" 
+            bgImage="/images/card3.jpg"
+            serviceName="Кодирование форсунок - присвоение ремонтных кодов"
+            onOpenForm={handleOpenForm}
+          >
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
+              Кодирование форсунок - присвоение ремонтных кодов
+            </h3>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Delphi E3
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                CATERPILLAR C6, C7, С9
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                SCANIA HPI
+              </span>
+            </div>
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between">
+                {/* Цена может быть добавлена позже */}
+              </div>
+              <button 
+                onClick={() => handleOpenForm("Кодирование форсунок - присвоение ремонтных кодов")}
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
+                Оставить заявку
+              </button>
+            </div>
+          </ServiceCard>
+
+          {/* 4 */}
+          <ServiceCard 
+            delay="0.1s" 
+            bgImage="/images/card4.jpg"
+            serviceName="Диагностика форсунок"
+            onOpenForm={handleOpenForm}
+          >
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
+              Диагностика форсунок
+            </h3>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Bosch
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Delphi
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Siemens
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Denso
+              </span>
+            </div>
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
+              </div>
+              <button 
+                onClick={() => handleOpenForm("Диагностика форсунок")}
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
+                Оставить заявку
+              </button>
+            </div>
+          </ServiceCard>
+
+          {/* 5 */}
+          <ServiceCard 
+            delay="0.1s" 
+            bgImage="/images/card5.jpg"
+            serviceName="Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем"
+            onOpenForm={handleOpenForm}
+          >
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
+              Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем
+            </h3>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Ford Transit
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Denso и Siemens
+              </span>
+            </div>
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
+              </div>
+              <button 
+                onClick={() => handleOpenForm("Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем Ford Transit")}
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
+                Оставить заявку
+              </button>
+            </div>
+          </ServiceCard>
+
+          {/* 6 */}
+          <ServiceCard 
+            delay="0.1s" 
+            bgImage="/images/card6.jpg"
+            serviceName="Ремонт турбин в Мурманске"
+            onOpenForm={handleOpenForm}
+          >
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
+              Ремонт турбин в Мурманске
+            </h3>
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
+              </div>
+              <button 
+                onClick={() => handleOpenForm("Ремонт турбин в Мурманске")}
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
+                Оставить заявку
+              </button>
+            </div>
+          </ServiceCard>
         </div>
       </div>
+
+      {/* Модальное окно с формой */}
+      {isFormOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-black text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl">
+            <div className="max-w-7xl mx-auto">
+              <div className="bg-gradient-to-l from-blue-950 via-black to-blue-950 rounded-xl p-6 sm:p-8 lg:p-12 relative">
+                
+                {/* Кнопка закрытия */}
+                <button
+                  onClick={closeForm}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
+                  aria-label="Закрыть окно"
+                >
+                  ×
+                </button>
+
+                {/* Заголовок с выбранной услугой */}
+                <div className="text-center mb-8">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                    {formData.service || "ПРОФЕССИОНАЛЬНЫЙ РЕМОНТ ЛЮБЫХ ФОРСУНОК COMMON RAIL"}
+                  </h1>
+                  
+                </div>
+
+                {/* Форма */}
+                <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
+                  
+                  {/* Имя */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Имя
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      placeholder="Введите ваше имя"
+                      required
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      E-mail
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      placeholder="Введите ваш email"
+                      required
+                    />
+                  </div>
+
+                  {/* Телефон */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Контактный телефон
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handlePhoneChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      placeholder="+7 (___)-___-__-__"
+                      required
+                    />
+                  </div>
+
+                  {/* Комментарий */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Комментарий
+                    </label>
+                    <textarea
+                      name="comment"
+                      value={formData.comment}
+                      onChange={handleInputChange}
+                      rows={4}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      placeholder="Добавьте комментарии"
+                    />
+                  </div>
+
+                  {/* Файл */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Прикрепить файл
+                    </label>
+                    <input
+                      type="file"
+                      onChange={handleFileChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+                    />
+                  </div>
+
+                  {/* Кнопки */}
+                  <div className="flex gap-4 pt-4">
+                    <button
+                      type="button"
+                      onClick={closeForm}
+                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
+                    >
+                      Отмена
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
+                    >
+                      Отправить
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

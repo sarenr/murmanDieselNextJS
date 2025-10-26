@@ -53,11 +53,6 @@ export default function ContactSection() {
       phone: formattedPhone,
     }));
   };
-
-  // Функция для рендеринга формы (чтобы избежать дублирования кода)
- // Функция для рендеринга формы (чтобы избежать дублирования кода)
-
-
   return (
     <>
          {/* Дублированная форма в начале секции */}
@@ -506,7 +501,7 @@ export default function ContactSection() {
                   ></iframe>
                 </div>
       </div>
-
+      
       {/* Модальное окно с формой */}
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">

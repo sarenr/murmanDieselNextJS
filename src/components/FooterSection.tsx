@@ -13,7 +13,7 @@ export default function FooterSection() {
                     <div className="text-left flex flex-row">
                        <div className="relative w-30 h-15"> 
                                 <Image
-                                    src="/images/logo.svg"
+                                    src="/images/logo-blue.svg"
                                     alt="Logo"
                                     fill
                                 />
@@ -43,7 +43,7 @@ export default function FooterSection() {
                             </div>
                             </a>
                         </div>
-                        <p className="text-xs text-foreground/50 mt-2">Мы в VK</p>
+                        <p className="pl-1 text-xs text-foreground/50 mt-2">Мы в VK</p>
                     </div>
 
                     {/* Навигация */}
