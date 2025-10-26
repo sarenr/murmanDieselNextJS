@@ -139,7 +139,7 @@ export default function HeroSection() {
                 onClick={() => window.location.href = "tel:+79113001755"}>
                 <div className="relative w-5 h-5">
                   <Image
-                    src="/images/phone-icon.svg" // путь к твоей иконке
+                    src="/images/phone-icon.svg" 
                     alt="Телефон"
                     width={20}
                     height={20}
@@ -154,7 +154,7 @@ export default function HeroSection() {
               >
                 <div className="relative w-5 h-5">
                   <Image
-                    src="/images/paper-plane.svg" // путь к твоей иконке
+                    src="/images/paper-plane.svg" 
                     alt="Телефон"
                     width={20}
                     height={20}
@@ -195,7 +195,7 @@ export default function HeroSection() {
             >
                <div className="relative w-5 h-5">
                   <Image
-                    src="/images/square-check.svg" // путь к твоей иконке
+                    src="/images/square-check.svg"
                     alt="Телефон"
                     width={20}
                     height={20}
