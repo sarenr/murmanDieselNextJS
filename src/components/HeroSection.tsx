@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { FormData } from "@/types";
 import { ChangeEvent, FormEvent, useState } from "react";
 
@@ -135,15 +135,31 @@ export default function HeroSection() {
                          md:mb-6"
             >
                <button 
-                className="px-4 py-2 text-white bg-primary hover:bg-primary/90 rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg"
-                onClick={() => window.location.href = "tel:+79113001755"}
-              >
-                +7 911 300-17-55
+                className="flex items-center gap-3 px-4 py-2 text-white bg-primary hover:bg-primary/90 rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg"
+                onClick={() => window.location.href = "tel:+79113001755"}>
+                <div className="relative w-5 h-5">
+                  <Image
+                    src="/images/phone-icon.svg" // путь к твоей иконке
+                    alt="Телефон"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              
+                <span>+7 911 300-17-55</span>
               </button>
               <button 
-                className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg"
+                className="flex items-center gap-3 px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg"
                 onClick={() => setIsCallbackFormOpen(true)}
               >
+                <div className="relative w-5 h-5">
+                  <Image
+                    src="/images/paper-plane.svg" // путь к твоей иконке
+                    alt="Телефон"
+                    width={20}
+                    height={20}
+                  />
+                </div>
                 Обратный звонок
               </button>
               <p className="text-white text-sm mt-2 sm:mt-0 sm:ml-4 drop-shadow-md">
@@ -174,9 +190,17 @@ export default function HeroSection() {
 
             {/* Кнопка CTA */}
             <button 
-              className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl"
+              className="flex items-center gap-3 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl"
               onClick={() => setIsFormOpen(true)}
             >
+               <div className="relative w-5 h-5">
+                  <Image
+                    src="/images/square-check.svg" // путь к твоей иконке
+                    alt="Телефон"
+                    width={20}
+                    height={20}
+                  />
+                </div>
               Оставить заявку
             </button>
           </div>

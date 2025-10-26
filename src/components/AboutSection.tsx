@@ -1,6 +1,7 @@
 "use client";
 
 import useAnimationAbout from "./AnimationAbout";
+import Image from "next/image";
 
 // Компонент карточки для About секции
 function AnimatedCard({
@@ -61,9 +62,10 @@ export default function AboutSection() {
                   xl:w-64 xl:h-64 
                   2xl:w-72 2xl:h-72 
                   flex items-center justify-center">
-    <img 
+    <Image
       src="/images/gear.jpg" 
-      alt="Оборудование" 
+      alt="Лучшее борудование" 
+      fill
       className="rounded-b-2xl w-full h-full object-cover"
     />
   </div>
@@ -83,7 +85,7 @@ export default function AboutSection() {
         <div className="flex flex-col md:flex-row items-start md:items-center h-full">
           {/* Контент */}
           <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
-            <h2 className=" lg:text-xl font-bold text-lg md:text-xl  text-white mb-2 md:mb-3">Качество</h2>
+            <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Качество</h2>
             <p className="text-white text-xs md:text-sm lg:text-xs">
               Мы отвечаем за качество выполненных работ и даём собственные гарантии
             </p>
@@ -99,9 +101,10 @@ export default function AboutSection() {
                   xl:w-300 xl:h-64 
                   2xl:w-300 2xl:h-72 
                   flex items-center justify-center">
-    <img 
+    <Image
       src="/images/like.jpg" 
-      alt="Оборудование" 
+      alt="Качество выполненных работ" 
+      fill
       className="rounded-2xl w-full h-full object-cover"
     />
     
@@ -134,9 +137,10 @@ export default function AboutSection() {
                           xl:w-300 xl:h-64 
                           2xl:w-300 2xl:h-72 
                           flex items-center justify-center">
-            <img 
+            <Image
               src="/images/person.jpg" 
-              alt="Оборудование" 
+              alt="Профессиональный персонал"
+              fill 
               className="rounded-2xl w-full h-full object-cover object-top"
             />
             
@@ -159,9 +163,10 @@ export default function AboutSection() {
                   xl:w-64 xl:h-64 
                   2xl:w-72 2xl:h-72 
                   flex items-center justify-center">
-    <img 
+    <Image 
       src="/images/number1.jpg" 
-      alt="Оборудование" 
+      alt="Мы лучшие" 
+      fill
       className="rounded-b-2xl w-full h-full object-cover"
     />
   </div>
@@ -188,9 +193,10 @@ export default function AboutSection() {
                   xl:w-64 xl:h-64 
                   2xl:w-72 2xl:h-72 
                   flex items-center justify-center">
-    <img 
+    <Image
       src="/images/speed.jpg" 
-      alt="Оборудование" 
+      alt="Скорость наше преймущество" 
+      fill
       className="rounded-b-2xl w-full h-full object-cover"
     />
   </div>
@@ -207,8 +213,8 @@ export default function AboutSection() {
          <div className="group relative h-full min-h-[200px] md:min-h-[300px] rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] bg-blue-700 overflow-hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center h-full">
           {/* Контент */}
-          <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
-            <h2 className=" lg:text-xl font-bold text-lg md:text-xl  text-white mb-2 md:mb-3">Клиенты</h2>
+           <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
+            <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Клиенты</h2>
             <p className="text-white text-xs md:text-sm lg:text-xs">
               Самая лучшая награда для нас — это положительные отзывы клиентов
             </p>
@@ -224,9 +230,10 @@ export default function AboutSection() {
                   xl:w-300 xl:h-64 
                   2xl:w-300 2xl:h-72 
                   flex items-center justify-center">
-    <img 
+    <Image
       src="/images/happy.jpg" 
-      alt="Оборудование" 
+      alt="Клиенты это наша награда" 
+      fill
       className="rounded-2xl w-full h-full object-cover"
     />
     
