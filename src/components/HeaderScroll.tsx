@@ -42,9 +42,9 @@ export default function HeaderScroll() {
             <Image
               src={logoSrc} // Используем динамический src
               alt="Мурман-Дизель"
-              width={150}
+              width={160}
               height={150}
-              className="w-40 h-10 object-cover object-center transition-all duration-300" // Добавляем плавность
+              className="w-45 h-10 object-cover object-center transition-all duration-300" // Добавляем плавность
             />
           </div>
 
