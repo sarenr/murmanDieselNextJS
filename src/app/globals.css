@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #007bff;
+  --primary: #1500b3;
 }
 html {
   scroll-behavior: smooth;
@@ -20,7 +20,7 @@ html {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: #0ea5e9; /* Более светлый синий для темной темы */
+    --primary: #0b08c2; /* Более светлый синий для темной темы */
   }
 }
 

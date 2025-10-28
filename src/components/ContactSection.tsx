@@ -5,7 +5,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 
 export default function ContactSection() {
-  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -23,7 +22,6 @@ export default function ContactSection() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log("Форма отправлена:", formData);
-    setIsFormOpen(false);
     setFormData({ name: "", phone: "", car: "" });
   };
 
@@ -55,7 +53,7 @@ export default function ContactSection() {
   };
   return (
     <>
-         {/* Дублированная форма в начале секции */}
+         {/* форма в начале секции */}
           <div className="bg-gradient-to-l from-blue-950 via-[#0a0a0a] to-blue-950 rounded-none sm:rounded-none p-6 sm:p-8 lg:p-12 text-center relative">
     <div className="text-center mb-8">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -158,15 +156,15 @@ export default function ContactSection() {
   </div>
   
       {/* Секция с контактами */}
-      <div className="mt-0 bg-primary text-background relative">
+      <div className="mt-0 bg-primary text-background relative overflow-hidden">
         {/* Источник света сверху по центру - адаптивный */}
-        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 
+        <div className="absolute -top-40 left-1/2 transform -translate-x-1/2 
                         w-200 h-100 
                         md:w-300 md:h-150 
                         lg:w-400 lg:h-200 
                         xl:w-500 xl:h-250 
-                        2xl:w-600 2xl:h-300 
-                        bg-gradient-to-b from-white/60 to-transparent rounded-full blur-3xl z-0 overflow-hidden"></div>
+                        2xl:w-300 2xl:h-300 
+                        bg-gradient-to-b from-white/60 to-transparent rounded-full blur-3xl z-0 "></div>
 
         {/* Оглавление */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 
@@ -469,19 +467,6 @@ export default function ContactSection() {
               </div>
             </div>
           </div>
-
-          {/* Вопросы? - кликабельная карточка */}
-          <div
-            className="rounded-xl p-4 sm:p-6 lg:p-8 xl:p-10 border-2 border-gray-700 cursor-pointer transition-transform duration-300 hover:scale-105 bg-primary/10 hover:bg-primary/80"
-            onClick={() => setIsFormOpen(true)}
-          >
-            <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-background mb-2 lg:mb-3">
-              Есть вопросы?
-            </h3>
-            <p className="text-background text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-              Звоните нам мы поможем!
-            </p>
-          </div>
         </div>
          {/* YandexMap */}
                 <div className="w-100 h-80 
@@ -501,126 +486,6 @@ export default function ContactSection() {
                   ></iframe>
                 </div>
       </div>
-      
-      {/* Модальное окно с формой */}
-      {isFormOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-black text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div className="max-w-7xl mx-auto">
-                <div className="bg-gradient-to-l from-blue-950 via-black to-blue-950 rounded-xl sm:rounded-2xl p-6 sm:p-8 
-                lg:p-12 text-center relative mb-8 sm:mb-12 lg:mb-16">
-                    {/* Кнопка закрытия */}
-                <button
-                  onClick={() => setIsFormOpen(false)}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
-                  aria-label="Закрыть окно"
-                >
-                  ×
-                </button>
-      <div className="text-center mb-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-          Узнать стоимость ремонта за 5 минут
-        </h1>
-        <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-          Оставьте заявку прямо сейчас, мы свяжемся с Вами и сообщим
-          стоимость ремонта!
-        </p>
-      </div>
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-6 max-w-2xl mx-auto"
-      >
-        {/* Имя */}
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-          >
-            Ваше имя
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-            placeholder="Введите ваше имя"
-            required
-          />
-        </div>
-
-        {/* Телефон */}
-        <div>
-          <label
-            htmlFor="phone"
-            className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-          >
-            Контактный телефон
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handlePhoneChange}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-            placeholder="+7 (___)-___-__-__"
-            required
-          />
-        </div>
-
-        {/* Автомобиль */}
-        <div>
-          <label
-            htmlFor="car"
-            className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-          >
-            Марка автомобиля и год выпуска
-          </label>
-          <input
-            type="text"
-            id="car"
-            name="car"
-            value={formData.car}
-            onChange={handleInputChange}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-            placeholder="Например: Toyota Camry 2018"
-            required
-          />
-        </div>
-
-        {/* Чекбокс согласия */}
-        <div className="flex items-start space-x-3">
-          <input
-            type="checkbox"
-            id="privacy"
-            className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-            required
-          />
-          <label
-            htmlFor="privacy"
-            className="text-gray-300 text-sm text-left"
-          >
-            Я даю согласие на обработку персональных данных и
-            соглашаюсь с условиями политики конфиденциальности.
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-prinary-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
-        >
-          Отправить заявку
-        </button>
-      </form>
-    </div>
-  
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

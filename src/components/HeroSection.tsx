@@ -192,15 +192,7 @@ export default function HeroSection() {
             <button 
               className="flex items-center gap-3 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl"
               onClick={() => setIsFormOpen(true)}
-            >
-               <div className="relative w-5 h-5">
-                  <Image
-                    src="/images/square-check.svg"
-                    alt="Телефон"
-                    width={20}
-                    height={20}
-                  />
-                </div>
+            > 
               Оставить заявку
             </button>
           </div>
