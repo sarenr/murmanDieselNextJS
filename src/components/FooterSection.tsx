@@ -10,8 +10,8 @@ export default function FooterSection() {
                     {/* Компания */}
                     <div className="overflow-x-auto">
                     
-                    <div className="text-left flex flex-row">
-                       <div className="relative w-30 h-15"> 
+                    {/* <div className="text-left flex flex-row"> */}
+                       <div className="relative w-40 h-25"> 
                                 <Image
                                     src="/images/logo-blue.svg"
                                     alt="Logo"
@@ -20,8 +20,8 @@ export default function FooterSection() {
                           
                         
                         </div>
-                        <h3 className="flex items-end text-lg sm:text-xs font-bold mb-4">ООО &quot;Мурман - Дизель&quot;</h3>
-                        </div>
+                        <h3 className="flex items-end text-lg sm:text-xm font-bold mb-4">ООО &quot;Мурман - Дизель&quot;</h3>
+                        {/* </div> */}
                         <p className="text-foreground/70 text-sm sm:text-base leading-relaxed mb-4">
                             Мы делаем качественный ремонт Дизельных форсунок
                         </p>
@@ -43,7 +43,6 @@ export default function FooterSection() {
                             </div>
                             </a>
                         </div>
-                        <p className="pl-1 text-xs text-foreground/50 mt-2">Мы в VK</p>
                     </div>
 
                     {/* Навигация */}

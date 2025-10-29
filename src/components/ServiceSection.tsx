@@ -49,7 +49,7 @@ export default function ServiceSection() {
     openFormWithService,
     closeForm,
     handleInputChange,
-    handleFileChange,
+    // handleFileChange,
     handlePhoneChange,
     handleSubmit,
   } = useFormModal();
@@ -346,7 +346,7 @@ export default function ServiceSection() {
                     />
                   </div>
 
-                  {/* Файл */}
+                  {/* Файл
                   <div>
                     <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
                       Прикрепить файл
@@ -356,17 +356,10 @@ export default function ServiceSection() {
                       onChange={handleFileChange}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
                     />
-                  </div>
+                  </div> */}
 
                   {/* Кнопки */}
                   <div className="flex gap-4 pt-4">
-                    <button
-                      type="button"
-                      onClick={closeForm}
-                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
-                    >
-                      Отмена
-                    </button>
                     <button
                       type="submit"
                       className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
