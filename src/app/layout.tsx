@@ -6,6 +6,8 @@ import "./globals.css";
 import CookieConsent from '@/components/CookieConsent';
 import { useState, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import 'react-phone-number-input/style.css';
+import './globals.css'; 
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],

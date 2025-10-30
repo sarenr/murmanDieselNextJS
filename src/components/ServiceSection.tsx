@@ -1,8 +1,19 @@
 "use client";
-import { useFormModal } from '@/components/useFormModal';
+
+import { useFormModal } from "@/components/useFormModal";
 import Image from "next/image";
 import { ReactNode } from "react";
 import animationCard from "./AnimationCard";
+import 'react-phone-number-input/style.css';
+
+const serviceOptions = [
+  "Ремонт дизельных форсунок",
+  "Профессиональный ремонт любых форсунок",
+  "Кодирование форсунок - присвоение ремонтных кодов",
+  "Диагностика форсунок",
+  "Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем",
+  "Ремонт турбин в Мурманске",
+];
 
 interface ServiceCardProps {
   delay: string;
@@ -11,7 +22,7 @@ interface ServiceCardProps {
   onOpenForm: (service: string) => void;
 }
 
-function ServiceCard({ delay, children, bgImage, onOpenForm }: ServiceCardProps) {
+function ServiceCard({ delay, children, bgImage }: ServiceCardProps) {
   const [ref, isInView] = animationCard();
   return (
     <div
@@ -22,22 +33,14 @@ function ServiceCard({ delay, children, bgImage, onOpenForm }: ServiceCardProps)
         }`}
       style={{ transitionDelay: isInView ? delay : "0s" }}
     >
-      {/* Фоновая картинка внизу */}
+      {/* Фоновая картинка */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src={bgImage}
-          alt="Фоновое изображение"
-          fill
-          className="object-cover"
-        />
-        {/* Затемнение фона для читаемости */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <Image src={bgImage} alt="Фоновое изображение" fill className="object-cover" />
+        <div className="absolute inset-0 bg-black/50" />
       </div>
 
-      {/* Контент поверх фона */}
-      <div className="relative z-10 flex flex-col flex-1 p-6 text-white">
-        {children}
-      </div>
+      {/* Контент */}
+      <div className="relative z-10 flex flex-col flex-1 p-6 text-white">{children}</div>
     </div>
   );
 }
@@ -46,12 +49,13 @@ export default function ServiceSection() {
   const {
     isFormOpen,
     formData,
+    errors,
     openFormWithService,
-    closeForm,
     handleInputChange,
-    // handleFileChange,
-    handlePhoneChange,
     handleSubmit,
+    closeForm,
+    setPhone,
+    handlePhonePaste,
   } = useFormModal();
 
   const handleOpenForm = (serviceName: string) => {
@@ -74,13 +78,9 @@ export default function ServiceSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* 1 */}
-          <ServiceCard 
-            delay="0.1s" 
-            bgImage="/images/card1.jpg"
-            onOpenForm={handleOpenForm}
-          >
+          <ServiceCard delay="0.1s" bgImage="/images/card1.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Ремонт дизельных форсунок 
+              Ремонт дизельных форсунок
             </h3>
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
@@ -97,8 +97,8 @@ export default function ServiceSection() {
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-white">от 14000 ₽</span>
               </div>
-              <button 
-                onClick={() => handleOpenForm("Ремонт дизельных форсунок")} 
+              <button
+                onClick={() => handleOpenForm("Ремонт дизельных форсунок")}
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
                 Оставить заявку
@@ -107,13 +107,9 @@ export default function ServiceSection() {
           </ServiceCard>
 
           {/* 2 */}
-          <ServiceCard 
-            delay="0.1s" 
-            bgImage="/images/card2.jpg"
-            onOpenForm={handleOpenForm}
-          >
+          <ServiceCard delay="0.1s" bgImage="/images/card2.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Профессиональный ремонт любых форсунок 
+              Профессиональный ремонт любых форсунок
             </h3>
             <div className="flex flex-wrap">
               <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
@@ -124,7 +120,7 @@ export default function ServiceSection() {
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-white">от 4000 ₽</span>
               </div>
-              <button 
+              <button
                 onClick={() => handleOpenForm("Профессиональный ремонт любых форсунок")}
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
@@ -134,11 +130,7 @@ export default function ServiceSection() {
           </ServiceCard>
 
           {/* 3 */}
-          <ServiceCard 
-            delay="0.1s" 
-            bgImage="/images/card3.jpg"
-            onOpenForm={handleOpenForm}
-          >
+          <ServiceCard delay="0.1s" bgImage="/images/card3.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Кодирование форсунок - присвоение ремонтных кодов
             </h3>
@@ -154,11 +146,11 @@ export default function ServiceSection() {
               </span>
             </div>
             <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                {/* Цена может быть добавлена позже */}
-              </div>
-              <button 
-                onClick={() => handleOpenForm("Кодирование форсунок - присвоение ремонтных кодов")}
+              <div className="flex items-center justify-between">{/* цена опционально */}</div>
+              <button
+                onClick={() =>
+                  handleOpenForm("Кодирование форсунок - присвоение ремонтных кодов")
+                }
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
                 Оставить заявку
@@ -167,14 +159,8 @@ export default function ServiceSection() {
           </ServiceCard>
 
           {/* 4 */}
-          <ServiceCard 
-            delay="0.1s" 
-            bgImage="/images/card4.jpg"
-            onOpenForm={handleOpenForm}
-          >
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
-              Диагностика форсунок
-            </h3>
+          <ServiceCard delay="0.1s" bgImage="/images/card4.jpg" onOpenForm={handleOpenForm}>
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">Диагностика форсунок</h3>
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
                 Bosch
@@ -193,9 +179,9 @@ export default function ServiceSection() {
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
               </div>
-              <button 
+              <button
                 onClick={() => handleOpenForm("Диагностика форсунок")}
-                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blур-sm border border-white/30"
               >
                 Оставить заявку
               </button>
@@ -203,11 +189,7 @@ export default function ServiceSection() {
           </ServiceCard>
 
           {/* 5 */}
-          <ServiceCard 
-            delay="0.1s" 
-            bgImage="/images/card5.jpg"
-            onOpenForm={handleOpenForm}
-          >
+          <ServiceCard delay="0.1s" bgImage="/images/card5.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем
             </h3>
@@ -223,8 +205,12 @@ export default function ServiceSection() {
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
               </div>
-              <button 
-                onClick={() => handleOpenForm("Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем")}
+              <button
+                onClick={() =>
+                  handleOpenForm(
+                    "Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем"
+                  )
+                }
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
                 Оставить заявку
@@ -233,11 +219,7 @@ export default function ServiceSection() {
           </ServiceCard>
 
           {/* 6 */}
-          <ServiceCard 
-            delay="0.1s" 
-            bgImage="/images/card6.jpg"
-            onOpenForm={handleOpenForm}
-          >
+          <ServiceCard delay="0.1s" bgImage="/images/card6.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Ремонт турбин в Мурманске
             </h3>
@@ -245,7 +227,7 @@ export default function ServiceSection() {
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
               </div>
-              <button 
+              <button
                 onClick={() => handleOpenForm("Ремонт турбин в Мурманске")}
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
               >
@@ -256,14 +238,13 @@ export default function ServiceSection() {
         </div>
       </div>
 
-      {/* Модальное окно с формой */}
+      {/* Модалка с формой */}
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-black text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl">
             <div className="max-w-7xl mx-auto">
               <div className="bg-gradient-to-l from-blue-950 via-black to-blue-950 rounded-xl p-6 sm:p-8 lg:p-12 relative">
-                
-                {/* Кнопка закрытия */}
+                {/* Закрыть */}
                 <button
                   onClick={closeForm}
                   className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
@@ -272,17 +253,34 @@ export default function ServiceSection() {
                   ×
                 </button>
 
-                {/* Заголовок с выбранной услугой */}
+                {/* Заголовок */}
                 <div className="text-center mb-8">
                   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
                     {formData.service || "ПРОФЕССИОНАЛЬНЫЙ РЕМОНТ ЛЮБЫХ ФОРСУНОК COMMON RAIL"}
                   </h1>
-                  
                 </div>
 
                 {/* Форма */}
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
-                  
+                  {/* Услуга */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Услуга
+                    </label>
+                    <select
+                      name="service"
+                      value={formData.service || serviceOptions[0]}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    >
+                      {serviceOptions.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   {/* Имя */}
                   <div>
                     <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
@@ -315,20 +313,33 @@ export default function ServiceSection() {
                     />
                   </div>
 
-                  {/* Телефон */}
+                  {/* Телефон — react-phone-number-input */}
                   <div>
                     <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
-                      Контактный телефон
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handlePhoneChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                      placeholder="+7 (___)-___-__-__"
-                      required
-                    />
+                        Контактный телефон
+                        <input
+                          name="phone"
+                          value={formData.phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          onPaste={handlePhonePaste}
+                          placeholder="+7 (___)-__-___-___"
+                          autoComplete="tel"
+                          inputMode="numeric"   // цифровая клавиатура на мобиле
+                          maxLength={12}        // "+7" + 10 цифр
+                          pattern={"^\\+7\\d{10}$"} // нативная проверка браузера
+                          required
+                          aria-invalid={!!errors.phone}
+                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg
+                           text-white placeholder-gray-400 focus:outline-none
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                             transition-colors"
+                        />
+                      </label>
+                      {errors.phone && <p className="error">{errors.phone}</p>}
+
+                    {errors?.phone && (
+                      <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                    )}
                   </div>
 
                   {/* Комментарий */}
@@ -345,18 +356,6 @@ export default function ServiceSection() {
                       placeholder="Добавьте комментарии"
                     />
                   </div>
-
-                  {/* Файл
-                  <div>
-                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
-                      Прикрепить файл
-                    </label>
-                    <input
-                      type="file"
-                      onChange={handleFileChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
-                    />
-                  </div> */}
 
                   {/* Кнопки */}
                   <div className="flex gap-4 pt-4">

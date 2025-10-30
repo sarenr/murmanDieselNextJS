@@ -1,82 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { ChangeEvent, FormEvent,useEffect, useState } from "react";
-import { FormData } from "@/types";
+import { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { useFormModal } from "@/components/useFormModal";
 
 export default function HeaderScroll() {
-  const [isTransparent, setIsTransparent] = useState<boolean>(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [logoSrc, setLogoSrc] = useState<string>("/images/logo.svg"); 
-const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-  const [isCallbackFormOpen, setIsCallbackFormOpen] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    phone: "",
-    car: "",
-  });
-  const [callbackFormData, setCallbackFormData] = useState({
-    name: "",
-    phone: "",
-    message: "",
-    privacy: false,
-  });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleCallbackInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setCallbackFormData((prev) => ({
-        ...prev,
-        [name]: checked,
-      }));
-    } else {
-      setCallbackFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("Форма отправлена:", formData);
-    setIsFormOpen(false);
-    setFormData({ name: "", phone: "", car: "" });
-  };
-   const formatPhone = (value: string): string => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length === 0) return "+7 (";
-    if (numbers.length <= 1) return `+7 (${numbers}`;
-    if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
-    if (numbers.length <= 7)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
-    if (numbers.length <= 9)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(
-        4,
-        7
-      )}-${numbers.slice(7, 9)}`;
-    return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(
-      7,
-      9
-    )}-${numbers.slice(9, 11)}`;
-  };
-   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const formattedPhone = formatPhone(value);
-    setFormData((prev) => ({
-      ...prev,
-      phone: formattedPhone,
-    }));
-  };
+  // ====== Логика хедера (как была): прозрачность, логотип, мобильное меню
+  const [isTransparent, setIsTransparent] = useState(true);
+  const [logoSrc, setLogoSrc] = useState("/images/logo.svg");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,204 +16,172 @@ const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
       setIsTransparent(transparent);
       setLogoSrc(transparent ? "/images/logo.svg" : "/images/logo-blue.svg");
     };
-
+    handleScroll(); // инициализация
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobile = () => setIsMobileMenuOpen((v) => !v);
+  const closeMobile = () => setIsMobileMenuOpen(false);
 
-  const handleNavLinkClick = () => {
-    setIsMobileMenuOpen(false);
-  };
+  // ====== Хук формы (единая логика на проект)
+  const {
+    isFormOpen,
+    formData,
+    errors,
+    openFormWithService,
+    closeForm,
+    handleInputChange,
+    handleSubmit,
+    setPhone,
+    handlePhonePaste,
+  } = useFormModal();
 
- return (
+  // Нажатие кнопки в шапке: открываем общую модалку, проставив «источник»
+  const openHeaderForm = () => openFormWithService("Заявка из шапки");
+
+  return (
     <>
+      {/* ====== Header / Navbar */}
       <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isTransparent
-          ? "bg-transparent shadow-none"
-          : "bg-black/15 backdrop-blur-md shadow-lg"
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-        <div className="flex items-center justify-between">
-          {/* Логотип - теперь с динамическим src */}
-          <div className="flex items-center p-0 mt-0">
-            <Image
-              src={logoSrc} // Используем динамический src
-              alt="Мурман-Дизель"
-              width={160}
-              height={150}
-              className="w-45 h-10 object-cover object-center transition-all duration-300" // Добавляем плавность
-            />
-          </div>
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isTransparent ? "bg-transparent shadow-none" : "bg-black/15 backdrop-blur-md shadow-lg"
+        }`}
+      >
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div className="flex items-center justify-between">
+            {/* Логотип */}
+            <div className="flex items-center">
+              <Image
+                src={logoSrc}
+                alt="Мурман-Дизель"
+                width={160}
+                height={150}
+                className="w-45 h-10 object-cover object-center transition-all duration-300"
+                priority
+              />
+            </div>
 
-          {/* Десктопное меню */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
-            <a
-              href="#main"
-              className={`${
-                isTransparent ? "text-white/90" : "text-white"
-              } hover:text-primary transition-colors text-sm lg:text-base`}
-            >
-              Главная
-            </a>
-            <a
-              href="#service"
-              className={`${
-                isTransparent ? "text-white/90" : "text-white"
-              } hover:text-primary transition-colors text-sm lg:text-base`}
-            >
-              Услуги
-            </a>
-            <a
-              href="#contact"
-              className={`${
-                isTransparent ? "text-white/90" : "text-white"
-              } hover:text-primary transition-colors text-sm lg:text-base`}
-            >
-              Контакты
-            </a>
-            <a
-              href="#about"
-              className={`${
-                isTransparent ? "text-white/90" : "text-white"
-              } hover:text-primary transition-colors text-sm lg:text-base`}
-            >
-              Фото
-            </a>
-            <a
-              href="#reviews"
-              className={`${
-                isTransparent ? "text-white/90" : "text-white"
-              } hover:text-primary transition-colors text-sm lg:text-base`}
-            >
-              Отзывы
-            </a>
-
-            <button
-              className={`font-bold cursor-pointer px-3 py-2 lg:px-4 lg:py-2 rounded-3xl transition-colors text-sm lg:text-base ${
-                isTransparent
-                  ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
-                  : "bg-primary hover:bg-primary/90 text-white"
-              }`}
-              onClick={() => setIsFormOpen(true)}
-              
-            >
-              Оставить заявку
-            </button>
-          </div>
-
-          {/* Мобильное меню кнопка */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={handleMobileMenuToggle}
-            aria-label="Открыть меню"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
-
-        {/* Мобильное меню */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-black/90 backdrop-blur-md rounded-lg p-4">
-            <div className="flex flex-col space-y-3">
+            {/* Десктопное меню */}
+            <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
               <a
-                href="#hero"
-                className={`${
-                  isTransparent ? "text-white/70" : "text-white/80"
-                } hover:text-primary transition-colors py-2`}
-                onClick={handleNavLinkClick}
+                href="#main"
+                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Главная
               </a>
               <a
-                href="#services"
-                className={`${
-                  isTransparent ? "text-white/70" : "text-white/80"
-                } hover:text-primary transition-colors py-2`}
-                onClick={handleNavLinkClick}
+                href="#service"
+                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Услуги
               </a>
               <a
-                href="#contacts"
-                className={`${
-                  isTransparent ? "text-white/70" : "text-white/80"
-                } hover:text-primary transition-colors py-2`}
-                onClick={handleNavLinkClick}
+                href="#contact"
+                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Контакты
               </a>
               <a
-                href="#gallery"
-                className={`${
-                  isTransparent ? "text-white/70" : "text-white/80"
-                } hover:text-primary transition-colors py-2`}
-                onClick={handleNavLinkClick}
+                href="#about"
+                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Фото
               </a>
               <a
-                href="#articles"
-                className={`${
-                  isTransparent ? "text-white/70" : "text-white/80"
-                } hover:text-primary transition-colors py-2`}
-                onClick={handleNavLinkClick}
-              >
-                Статьи
-              </a>
-              <a
                 href="#reviews"
-                className={`${
-                  isTransparent ? "text-white/70" : "text-white/80"
-                } hover:text-primary transition-colors py-2`}
-                onClick={handleNavLinkClick}
+                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Отзывы
               </a>
               <button
-                className={`font-bold cursor-pointer px-4 py-3 rounded-lg transition-colors mt-2 ${
+                className={`font-bold cursor-pointer px-3 py-2 lg:px-4 lg:py-2 rounded-3xl transition-colors text-sm lg:text-base ${
                   isTransparent
                     ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
                     : "bg-primary hover:bg-primary/90 text-white"
                 }`}
-                 onClick={() => setIsFormOpen(true)}
+                onClick={openHeaderForm}
               >
                 Оставить заявку
               </button>
             </div>
-          </div>
-        )}
-      </nav>
-    </header>
 
-      {/* Модальное окно с формой - ПЕРЕМЕЩЕНО ВНУТРЬ RETURN */}
+            {/* Мобильная кнопка */}
+            <button
+              className="md:hidden text-white p-2"
+              onClick={toggleMobile}
+              aria-label="Открыть меню"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Мобильное меню */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 bg-black/90 backdrop-blur-md rounded-lg p-4">
+              <div className="flex flex-col space-y-3">
+                <a
+                  href="#hero"
+                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
+                  onClick={closeMobile}
+                >
+                  Главная
+                </a>
+                <a
+                  href="#services"
+                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
+                  onClick={closeMobile}
+                >
+                  Услуги
+                </a>
+                <a
+                  href="#contacts"
+                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
+                  onClick={closeMobile}
+                >
+                  Контакты
+                </a>
+                <a
+                  href="#gallery"
+                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
+                  onClick={closeMobile}
+                >
+                  Фото
+                </a>
+                <a
+                  href="#reviews"
+                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
+                  onClick={closeMobile}
+                >
+                  Отзывы
+                </a>
+                <button
+                  className={`font-bold cursor-pointer px-4 py-3 rounded-lg transition-colors mt-2 ${
+                    isTransparent
+                      ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
+                      : "bg-primary hover:bg-primary/90 text-white"
+                  }`}
+                  onClick={() => {
+                    openHeaderForm();
+                    closeMobile();
+                  }}
+                >
+                  Оставить заявку
+                </button>
+              </div>
+            </div>
+          )}
+        </nav>
+      </header>
+
+      {/* ====== Модалка формы: полностью на useFormModal */}
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-black text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -289,7 +189,7 @@ const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
               <div className="bg-gradient-to-l from-blue-950 via-black to-blue-950 rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-12 text-center relative">
                 {/* Кнопка закрытия */}
                 <button
-                  onClick={() => setIsFormOpen(false)}
+                  onClick={closeForm}
                   className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
                   aria-label="Закрыть окно"
                 >
@@ -330,24 +230,26 @@ const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
                     />
                   </div>
 
-                  {/* Телефон */}
+                   {/* Телефон — с нормализацией и защитой paste */}
                   <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-                    >
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
                       Контактный телефон
                     </label>
                     <input
-                      type="tel"
-                      id="phone"
                       name="phone"
                       value={formData.phone}
-                      onChange={handlePhoneChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                      placeholder="+7 (___)-___-__-__"
+                      onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
+                      onPaste={handlePhonePaste}                  // чистим вставки
+                      placeholder="+7 (___)-__-___-___"
+                      autoComplete="tel"
+                      inputMode="numeric"
+                      maxLength={12}                 // "+7" + 10 цифр
+                      pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
+                      aria-invalid={!!errors.phone}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                     />
+                    {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone}</p>}
                   </div>
 
                   {/* Автомобиль */}

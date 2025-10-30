@@ -1,16 +1,54 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from "react";
+import { z } from "zod";
 
-interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  comment: string;
-  file: File | null;
-  service: string;
+
+/** ============================
+ * 1) Валидация через Zod
+ * ============================ **/
+const formSchema = z.object({
+  name: z.string().min(2, "Имя слишком короткое"),
+  email: z.string().email("Введите корректный e-mail"),
+  // строго E.164 для РФ: +7 и 10 цифр
+  phone: z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +79991234567"),
+  comment: z.string().max(1000, "Слишком длинный комментарий").optional().or(z.literal("")),
+  file: z.instanceof(File).nullable().optional(),
+  service: z.string().min(1, "Выберите услугу"),
+
+
+   car: z.string().max(100).optional().or(z.literal("")),
+});
+
+export type FormData = z.infer<typeof formSchema>;
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+/** ============================
+ * 2) Нормализация телефона
+ * - убираем всё, кроме цифр
+ * - 8XXXXXXXXXX -> +7XXXXXXXXXX
+ * - ограничиваем 10 цифрами после +7
+ * - допускаем очистку до пустой строки
+ * ============================ **/
+function normalizePhone(raw: string) {
+  if (!raw || raw.trim() === "") return "";
+
+  // берём только цифры
+  let d = raw.replace(/\D/g, "");
+
+  // если начинается с 8 — считаем это РФ и меняем на 7
+  if (d.startsWith("8")) d = "7" + d.slice(1);
+
+  // если начинается с 7 — убираем её и оставляем 10 локальных цифр
+  if (d.startsWith("7")) d = d.slice(1);
+
+  // ограничиваем 10 цифрами и собираем формат +7XXXXXXXXXX
+  return "+7" + d.slice(0, 10);
 }
 
+/** ============================
+ * 3) Хук
+ * ============================ **/
 export const useFormModal = () => {
-  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -18,93 +56,129 @@ export const useFormModal = () => {
     comment: "",
     file: null,
     service: "",
+    car: "", 
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  /** Универсальный onChange с веткой для phone:
+   *  - все поля как раньше
+   *  - для телефона — нормализация
+   */
+  const handleInputChange = <
+    T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >(e: ChangeEvent<T>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    if (name === "phone") {
+      setPhone(value); // используем спец-setter (см. ниже)
+      return;
+    }
+
+    setFormData((p) => ({ ...p, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
+  /** Файл */
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setFormData((prev) => ({
-      ...prev,
-      file,
-    }));
+    setFormData((prev) => ({ ...prev, file }));
+    setErrors((prev) => ({ ...prev, file: undefined }));
   };
 
-  const formatPhone = (value: string): string => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length === 0) return "+7 (";
-    if (numbers.length <= 1) return `+7 (${numbers}`;
-    if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
-    if (numbers.length <= 7)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
-    if (numbers.length <= 9)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(
-        4,
-        7
-      )}-${numbers.slice(7, 9)}`;
-    return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(
-      7,
-      9
-    )}-${numbers.slice(9, 11)}`;
+  /** Спец-setter для телефона:
+   *  - нормализуем
+   *  - чистим ошибку поля
+   */
+  const setPhone = (value?: string) => {
+    const normalized = normalizePhone(value ?? "");
+    setFormData((p) => ({ ...p, phone: normalized }));
+    setErrors((prev) => ({ ...prev, phone: undefined }));
   };
 
-  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const formattedPhone = formatPhone(value);
-    setFormData((prev) => ({
-      ...prev,
-      phone: formattedPhone,
-    }));
-  };
-
-  const handleSubmit = (e: FormEvent) => {
+  /** Сабмит с валидацией Zod */
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Форма отправлена:", formData);
+    setIsSubmitting(true);
+    setErrors({});
+
+    const result = formSchema.safeParse(formData);
+    if (!result.success) {
+      const flat = result.error.flatten().fieldErrors;
+      const fieldErrors: FormErrors = {};
+      (Object.keys(flat) as (keyof FormData)[]).forEach((k) => {
+        const msg = flat[k]?.[0];
+        if (msg) fieldErrors[k] = msg;
+      });
+      setErrors(fieldErrors);
+      setIsSubmitting(false);
+      return;
+    }
+
+    const payload = { ...result.data };
+    console.log("Форма отправлена:", payload);
+
+    // сброс
+    setIsSubmitting(false);
     setIsFormOpen(false);
-    setFormData({ 
-      name: "", 
-      email: "", 
-      phone: "", 
-      comment: "", 
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      comment: "",
       file: null,
-      service: "" 
+      service: "",
+      car: "",
     });
   };
 
+  /** Управление модалкой */
   const openFormWithService = (service: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      service,
-    }));
+    setFormData((prev) => ({ ...prev, service }));
+    setErrors({});
     setIsFormOpen(true);
   };
 
   const closeForm = () => setIsFormOpen(false);
-  
-  const resetForm = () => setFormData({ 
-    name: "", 
-    email: "", 
-    phone: "", 
-    comment: "", 
-    file: null,
-    service: "" 
-  });
+
+  const resetForm = () =>
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      comment: "",
+      file: null,
+      service: "",
+      car: "",
+    });
+
+  /** Доп: обработчик paste для телефона
+   *  чтобы длинные/грязные вставки тоже чистились
+   */
+  const handlePhonePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData("text");
+    setPhone(text);
+  };
 
   return {
+    // state
     isFormOpen,
     formData,
+    errors,
+    isSubmitting,
+
+    // controls
     openFormWithService,
     closeForm,
     resetForm,
+
+    // handlers
     handleInputChange,
     handleFileChange,
-    handlePhoneChange,
     handleSubmit,
+    setPhone,
+    handlePhonePaste,
   };
 };
