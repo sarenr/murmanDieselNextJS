@@ -1,96 +1,28 @@
 "use client";
+import { useFormModal } from "@/components/useFormModal";
 import Image from "next/image";
-import { FormData } from "@/types";
-import { ChangeEvent, FormEvent, useState } from "react";
+
+
 
 export default function HeroSection() {
-  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-  const [isCallbackFormOpen, setIsCallbackFormOpen] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    phone: "",
-    car: "",
-  });
-  const [callbackFormData, setCallbackFormData] = useState({
-    name: "",
-    phone: "",
-    message: "",
-    privacy: false,
-  });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleCallbackInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setCallbackFormData((prev) => ({
-        ...prev,
-        [name]: checked,
-      }));
-    } else {
-      setCallbackFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("Форма отправлена:", formData);
-    setIsFormOpen(false);
-    setFormData({ name: "", phone: "", car: "" });
-  };
-
-  const handleCallbackSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("Форма обратного звонка отправлена:", callbackFormData);
-    setIsCallbackFormOpen(false);
-    setCallbackFormData({ name: "", phone: "", message: "", privacy: false });
-  };
-
-  const formatPhone = (value: string): string => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length === 0) return "+7 (";
-    if (numbers.length <= 1) return `+7 (${numbers}`;
-    if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
-    if (numbers.length <= 7)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
-    if (numbers.length <= 9)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(
-        4,
-        7
-      )}-${numbers.slice(7, 9)}`;
-    return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(
-      7,
-      9
-    )}-${numbers.slice(9, 11)}`;
-  };
-
-  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const formattedPhone = formatPhone(value);
-    setFormData((prev) => ({
-      ...prev,
-      phone: formattedPhone,
-    }));
-  };
-
-  const handleCallbackPhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const formattedPhone = formatPhone(value);
-    setCallbackFormData((prev) => ({
-      ...prev,
-      phone: formattedPhone,
-    }));
-  };
+   const {
+      isFormOpen,
+      formData,
+      errors,
+      openFormWithService,
+      closeForm,
+      handleInputChange,
+      handleSubmit,
+      setPhone,
+      handlePhonePaste,
+      handleSubmitCallback,
+      openCallbackForm,
+      isCallbackOpen
+    } = useFormModal();
+  
+    // Нажатие кнопки в шапке: открываем общую модалку, проставив «источник»
+    const openHeroForm = () => openFormWithService("Заявка из шапки");
+    const openCBForm = () =>  openCallbackForm("Заявка из шапки");
 
   return (
     <>
@@ -150,7 +82,9 @@ export default function HeroSection() {
               </button>
               <button 
                 className="flex items-center gap-3 px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-3xl transition-colors text-sm whitespace-nowrap drop-shadow-lg"
-                onClick={() => setIsCallbackFormOpen(true)}
+                onClick={() => {
+                    openCBForm();
+                  }}
               >
                 <div className="relative w-5 h-5">
                   <Image
@@ -191,7 +125,10 @@ export default function HeroSection() {
             {/* Кнопка CTA */}
             <button 
               className="flex items-center gap-3 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-3xl transition-colors text-sm md:text-base drop-shadow-xl"
-              onClick={() => setIsFormOpen(true)}
+              onClick={() => {
+                    openHeroForm();
+                    
+                  }}
             > 
               Оставить заявку
             </button>
@@ -200,14 +137,15 @@ export default function HeroSection() {
       </div>
 
       {/* Форма основной заявки */}
+      
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-black text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <div className="max-w-7xl mx-auto">
               <div className="bg-gradient-to-l from-blue-950 via-black to-blue-950 rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-12 text-center relative">
                 {/* Кнопка закрытия */}
-                <button
-                  onClick={() => setIsFormOpen(false)}
+               <button
+                  onClick={closeForm}
                   className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
                   aria-label="Закрыть окно"
                 >
@@ -229,7 +167,7 @@ export default function HeroSection() {
                   className="space-y-6 max-w-2xl mx-auto"
                 >
                   {/* Имя */}
-                  <div>
+                   <div>
                     <label
                       htmlFor="name"
                       className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
@@ -247,25 +185,26 @@ export default function HeroSection() {
                       required
                     />
                   </div>
-
-                  {/* Телефон */}
+                  {/* Телефон — с нормализацией и защитой paste */}
                   <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-                    >
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
                       Контактный телефон
                     </label>
                     <input
-                      type="tel"
-                      id="phone"
                       name="phone"
                       value={formData.phone}
-                      onChange={handlePhoneChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                      placeholder="+7 (___)-___-__-__"
+                      onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
+                      onPaste={handlePhonePaste}                  // чистим вставки
+                      placeholder="+7 (___)-__-___-___"
+                      autoComplete="tel"
+                      inputMode="numeric"
+                      maxLength={12}                 // "+7" + 10 цифр
+                      pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
+                      aria-invalid={!!errors.phone}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                     />
+                    {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone}</p>}
                   </div>
 
                   {/* Автомобиль */}
@@ -288,7 +227,7 @@ export default function HeroSection() {
                     />
                   </div>
 
-                  {/* Чекбокс согласия */}
+                {/* Чекбокс согласия */}
                   <div className="flex items-start space-x-3">
                     <input
                       type="checkbox"
@@ -319,18 +258,18 @@ export default function HeroSection() {
       )}
 
       {/* Форма обратного звонка */}
-      {isCallbackFormOpen && (
+      { isCallbackOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-black text-white w-full max-w-md max-h-[90vh] overflow-y-auto rounded-xl">
             <div className="bg-gradient-to-l from-blue-950 via-black to-blue-950 rounded-xl p-6 sm:p-8 relative">
               {/* Кнопка закрытия */}
               <button
-                onClick={() => setIsCallbackFormOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
-                aria-label="Закрыть окно"
-              >
-                ×
-              </button>
+                  onClick={closeForm}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full"
+                  aria-label="Закрыть окно"
+                >
+                  ×
+                </button>
 
               {/* Заголовок */}
               <div className="text-center mb-6">
@@ -342,38 +281,47 @@ export default function HeroSection() {
                 </p>
               </div>
 
-              <form onSubmit={handleCallbackSubmit} className="space-y-4">
+              <form onSubmit={handleSubmitCallback} className="space-y-4">
                 {/* Имя */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2 text-left">
-                    Ваше имя
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={callbackFormData.name}
-                    onChange={handleCallbackInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                    placeholder="Введите ваше имя"
-                    required
-                  />
-                </div>
-
-                {/* Телефон */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2 text-left">
-                    Контактный телефон
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={callbackFormData.phone}
-                    onChange={handleCallbackPhoneChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                    placeholder="+7 (___)-___-__-__"
-                    required
-                  />
-                </div>
+                   <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
+                    >
+                      Ваше имя
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      placeholder="Введите ваше имя"
+                      required
+                    />
+                  </div>
+                 {/* Телефон — с нормализацией и защитой paste */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Контактный телефон
+                    </label>
+                    <input
+                      name="phone"
+                      value={formData.phone}
+                      onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
+                      onPaste={handlePhonePaste}                  // чистим вставки
+                      placeholder="+7 (___)-__-___-___"
+                      autoComplete="tel"
+                      inputMode="numeric"
+                      maxLength={12}                 // "+7" + 10 цифр
+                      pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
+                      required
+                      aria-invalid={!!errors.phone}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                    />
+                    {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone}</p>}
+                  </div>
 
                 {/* Сообщение */}
                 <div>
@@ -382,8 +330,8 @@ export default function HeroSection() {
                   </label>
                   <textarea
                     name="message"
-                    value={callbackFormData.message}
-                    onChange={handleCallbackInputChange}
+                    value={formData.message}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
                     placeholder="Ваше сообщение (необязательно)"
                     rows={3}
@@ -392,46 +340,32 @@ export default function HeroSection() {
 
                 {/* Чекбокс согласия */}
                 <div className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    name="privacy"
-                    checked={callbackFormData.privacy}
-                    onChange={handleCallbackInputChange}
-                    className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-                    required
-                  />
-                  <label className="text-gray-300 text-xs text-left">
-                    Политика конфиденциальности
-                  </label>
-                </div>
+                    <input
+                      type="checkbox"
+                      id="privacy"
+                      className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
+                      required
+                    />
+                    <label
+                      htmlFor="privacy"
+                      className="text-gray-300 text-sm text-left"
+                    >
+                      Я даю согласие на обработку персональных данных и
+                      соглашаюсь с условиями политики конфиденциальности.
+                    </label>
+                  </div>
 
                 {/* Кнопки */}
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsCallbackFormOpen(false)}
-                    className="flex-1 px-4 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
-                  >
-                    Отмена
-                  </button>
-                  <button
+                <button
                     type="submit"
-                    className="flex-1 px-4 py-3 bg-green-700 hover:bg-green-600 text-white rounded-lg transition-colors"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
-                    Отправить
+                    Отправить заявку
                   </button>
-                </div>
-              </form>
-
-              {/* Footer с информацией о cookies */}
-              <div className="mt-6 pt-4 border-t border-gray-700">
-                <p className="text-gray-400 text-xs text-center">
-                  Для повышения удобства сайта мы используем cookies. Оставаясь на сайте, вы соглашаетесь с понятием их применения.
-                </p>
+                </form>
               </div>
             </div>
-          </div>
-        </div>
+            </div>
       )}
     </>
   );

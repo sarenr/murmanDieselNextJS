@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { useEffect, useState, } from "react";
 import { useFormModal } from "@/components/useFormModal";
 
 export default function HeaderScroll() {
