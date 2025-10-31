@@ -280,7 +280,6 @@ export default function HeroSection() {
                   Оставьте свои данные и мы вам перезвоним
                 </p>
               </div>
-
               <form onSubmit={handleSubmitCallback} className="space-y-4">
                 {/* Имя */}
                    <div>

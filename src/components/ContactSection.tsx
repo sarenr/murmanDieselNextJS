@@ -6,54 +6,24 @@ import { Map } from 'lucide-react';
 import { Clock3 } from 'lucide-react';
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { AtSign } from 'lucide-react';
-
+import { useFormModal } from "@/components/useFormModal";
+import { ReactNode } from "react";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    phone: "",
-    car: "",
-  });
+  const {
+    isFormOpen,
+    formData,
+    errors,
+    openFormWithService,
+    handleInputChange,
+    handleSubmit,
+    closeForm,
+    setPhone,
+    handlePhonePaste,
+  } = useFormModal();
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("Форма отправлена:", formData);
-    setFormData({ name: "", phone: "", car: "" });
-  };
-
-  const formatPhone = (value: string): string => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length === 0) return "+7 (";
-    if (numbers.length <= 1) return `+7 (${numbers}`;
-    if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
-    if (numbers.length <= 7)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
-    if (numbers.length <= 9)
-      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(
-        4,
-        7
-      )}-${numbers.slice(7, 9)}`;
-    return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(
-      7,
-      9
-    )}-${numbers.slice(9, 11)}`;
-  };
-
-  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const formattedPhone = formatPhone(value);
-    setFormData((prev) => ({
-      ...prev,
-      phone: formattedPhone,
-    }));
+    const handleOpenForm = (serviceName: string) => {
+    openFormWithService(serviceName);
   };
   return (
     <>
@@ -85,8 +55,8 @@ export default function ContactSection() {
           type="text"
           id="name"
           name="name"
-          value={formData.name}
-          onChange={handleInputChange}
+           value={formData.name}
+           onChange={handleInputChange}
           className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
           placeholder="Введите ваше имя"
           required
@@ -100,37 +70,46 @@ export default function ContactSection() {
           className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
         >
           Контактный телефон
-        </label>
+        
         <input
-          type="tel"
-          id="phone"
           name="phone"
-          value={formData.phone}
-          onChange={handlePhoneChange}
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-          placeholder="+7 (___)-___-__-__"
-          required
+                          value={formData.phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          onPaste={handlePhonePaste}
+                          placeholder="+7 (___)-__-___-___"
+                          autoComplete="tel"
+                          inputMode="numeric"   // цифровая клавиатура на мобиле
+                          maxLength={12}        // "+7" + 10 цифр
+                          pattern={"^\\+7\\d{10}$"} // нативная проверка браузера
+                          required
+                          aria-invalid={!!errors.phone}
+                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg
+                           text-white placeholder-gray-400 focus:outline-none
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                             transition-colors"
         />
+        {errors.phone && <p className="error">{errors.phone}</p>}
+        </label>
       </div>
 
       {/* Автомобиль */}
       <div>
         <label
-          htmlFor="car"
-          className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-        >
-          Марка автомобиля и год выпуска
-        </label>
-        <input
-          type="text"
-          id="car"
-          name="car"
-          value={formData.car}
-          onChange={handleInputChange}
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-          placeholder="Например: Toyota Camry 2018"
-          required
-        />
+                      htmlFor="car"
+                      className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
+                    >
+                      Марка автомобиля и год выпуска
+                    </label>
+                    <input
+                      type="text"
+                      id="car"
+                      name="car"
+                      value={formData.car}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      placeholder="Например: Toyota Camry 2018"
+                      required
+                    />
       </div>
 
       {/* Чекбокс согласия */}
@@ -149,13 +128,14 @@ export default function ContactSection() {
           соглашаюсь с условиями политики конфиденциальности.
         </label>
       </div>
-
-      <button
-        type="submit"
-        className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
-      >
-        Отправить заявку
-      </button>
+        <div className="flex gap-4 pt-4">
+                     <button
+                      type="submit"
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
+                    >
+                      Отправить
+                    </button>
+          </div>
     </form>
   </div>
   

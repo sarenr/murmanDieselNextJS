@@ -5,6 +5,7 @@ import FooterSection from "@/components/FooterSection";
 import HeaderScroll from "@/components/HeaderScroll";
 import HeroSection from "@/components/HeroSection";
 import ServiceSection from "@/components/ServiceSection";
+import CardCarouselSection from "@/components/CardCarousel";
 
 export default function Home() {
   return (
@@ -20,6 +21,9 @@ export default function Home() {
       </section>
       <section id="about">
         <AboutSection />
+      </section>
+        <section id="photo">
+        <CardCarouselSection />
       </section>
       <section id="contact">
         <ContactSection />

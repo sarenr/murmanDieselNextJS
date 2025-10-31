@@ -83,7 +83,7 @@ export default function HeaderScroll() {
                 Контакты
               </a>
               <a
-                href="#about"
+                href="#photo"
                 className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Фото
@@ -149,7 +149,7 @@ export default function HeaderScroll() {
                   Контакты
                 </a>
                 <a
-                  href="#gallery"
+                  href="#photo"
                   className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
                   onClick={closeMobile}
                 >

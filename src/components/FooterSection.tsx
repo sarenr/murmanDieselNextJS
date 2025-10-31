@@ -65,6 +65,11 @@ export default function FooterSection() {
                                 </a>
                             </li>
                             <li>
+                                <a href="#photo" className="hover:text-foreground transition-colors text-sm sm:text-base block py-1">
+                                    Фото
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#contact" className="hover:text-foreground transition-colors text-sm sm:text-base block py-1">
                                     Контакты
                                 </a>
