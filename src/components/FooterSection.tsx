@@ -133,7 +133,7 @@ export default function FooterSection() {
                         </Link>
                         <span className="text-foreground/40 hidden sm:inline">|</span>
                         <Link
-                            href="/cookies"
+                            href="/cookie"
                             className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
                         >
                             Политика использования Cookies

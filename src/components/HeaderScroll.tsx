@@ -48,10 +48,10 @@ export default function HeaderScroll() {
           isTransparent ? "bg-transparent shadow-none" : "bg-black/15 backdrop-blur-md shadow-lg"
         }`}
       >
-        <nav className="max-w-7xl py-2
-                         lg:ml-12 
-                        xl:ml-48   
-                        2xl:ml-48   ">
+        <nav className="max-w-8xl py-2
+                         lg:mx-12 
+                        xl:mx-48   
+                        2xl:mx-48  ">
           <div className="flex items-center justify-between">
             {/* Логотип */}
             <div className="flex items-center">
