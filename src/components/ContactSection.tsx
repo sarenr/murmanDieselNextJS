@@ -29,7 +29,7 @@ export default function ContactSection() {
     <>
          {/* форма в начале секции */}
           <div className="bg-gradient-to-l from-blue-950 via-[#0a0a0a] to-blue-950 rounded-none sm:rounded-none p-6 sm:p-8 lg:p-12 text-center relative">
-    <div className="text-center mb-8">
+    <div className="pt-20 mtext-center mb-8">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
         Узнать стоимость ремонта за 5 минут
       </h1>
@@ -128,7 +128,7 @@ export default function ContactSection() {
           соглашаюсь с условиями политики конфиденциальности.
         </label>
       </div>
-        <div className="flex gap-4 pt-4">
+        <div className="flex gap-4 pt-4 pb-20">
                      <button
                       type="submit"
                       className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
@@ -140,13 +140,13 @@ export default function ContactSection() {
   </div>
   
       {/* Секция с контактами */}
-      <div className=" bg-blue-600 text-background relative overflow-hidden">
+      <div className=" bg-blue-600 text-white relative overflow-hidden">
         {/* Источник света сверху по центру - адаптивный */}
         <div className="absolute -top-150 left-1/2 transform -translate-x-1/2 
-                        w-200 h-100 
-                        md:w-300 md:h-150 
-                        lg:w-400 lg:h-200 
-                        xl:w-500 xl:h-250 
+                        w-100 h-100 
+                        md:w-100 md:h-150 
+                        lg:w-100 lg:h-200 
+                        xl:w-150 xl:h-250 
                         2xl:w-150 2xl:h-300
                        bg-gradient-to-b from-white/90 via-white/20 to-transparent rounded-full blur-3xl z-0 "></div>
 
@@ -156,7 +156,7 @@ export default function ContactSection() {
           
 
           
-          <div className=" text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20">
+          <div className="pt-10  text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20  mx-5">
             <h1 className="text-2xl 
                             sm:text-4xl
                             md:text-4xl
@@ -177,7 +177,7 @@ export default function ContactSection() {
           </div>
 
           {/* Таблица контактов - адаптивная сетка */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 mb-8 lg:mb-12 xl:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 mb-8 lg:mb-12 xl:mb-16 mx-5">
             
             {/* Время */}
             <div className="w-full h-100 
@@ -216,7 +216,7 @@ export default function ContactSection() {
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2">
                   10:00-18:00
                 </p>
                 <p className="text-lg 
@@ -232,7 +232,7 @@ export default function ContactSection() {
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2">
                   10:00-17:00
                 </p>
               </div>
@@ -250,7 +250,7 @@ export default function ContactSection() {
                 xl:w-50 xl:h-50  
                 2xl:w-100 2xl:h-100 
                 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
-                <Clock3 className="w-full h-full object-contain text-white/80" strokeWidth={1.0} />
+                <Clock3 className="w-full h-full object-contain text-white/80" strokeWidth={0.5} />
               </div>
               </div>
             </div>
@@ -292,7 +292,7 @@ export default function ContactSection() {
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2">
                   +7(953)302-30-22
                 </p>  
                 <p className="text-lg 
@@ -309,7 +309,7 @@ export default function ContactSection() {
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2">
                   @TelegrammAcount
                 </p>
               </div>
@@ -327,7 +327,7 @@ export default function ContactSection() {
                 xl:w-50 xl:h-50  
                 2xl:w-100 2xl:h-100 
                 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
-                <SquareArrowOutUpRight className="w-full h-full object-contain text-white/80" strokeWidth={1.0} />
+                <SquareArrowOutUpRight className="w-full h-full object-contain text-white/80" strokeWidth={0.5} />
               </div>
               </div>
             </div>
@@ -361,7 +361,7 @@ export default function ContactSection() {
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2">
                   murmandiesel@ya.ru
                 </p>
               </div>
@@ -379,7 +379,7 @@ export default function ContactSection() {
                 xl:w-50 xl:h-50  
                 2xl:w-100 2xl:h-100 
                 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
-                <AtSign className="w-full h-full object-contain text-white/80" strokeWidth={1.0} />
+                <AtSign className="w-full h-full object-contain text-white/80" strokeWidth={0.5} />
               </div>
               </div>
             </div>
@@ -413,7 +413,7 @@ export default function ContactSection() {
                               md:text-xl  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2">
                    г. Мурманск, Кооперативная 4/4
                 </p>
               </div>
@@ -431,7 +431,7 @@ export default function ContactSection() {
                 xl:w-50 xl:h-50  
                 2xl:w-100 2xl:h-100 
                 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
-                <Map className="w-full h-full object-contain text-white/80" strokeWidth={1.0} />
+                <Map className="w-full h-full object-contain text-white/80" strokeWidth={0.5} />
               </div>
               </div>
             

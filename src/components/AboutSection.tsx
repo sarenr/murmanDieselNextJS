@@ -72,8 +72,11 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
-                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black mb-1 pt-5 md:pt-15">
+              <div className="mt-16 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
+                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black
+                mb-1 
+                pt-0 
+                md:pt-15">
                   Оборудование
                 </h2>
                 <p className="text-black text-xs md:text-sm lg:text-xs">
@@ -188,8 +191,11 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center sm:pb-5">
-                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black mb-1 pt-5 md:pt-15">
+              <div className="mt-13 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center sm:pb-5">
+                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black 
+                mb-1 
+                pt-0  
+                md:pt-15">
                   Мы №1
                 </h2>
                 <p className="text-black text-xs md:text-sm lg:text-xs">Наши клиенты нас рекомендуют!</p>
@@ -224,8 +230,11 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center sm:pb-5">
-                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black mb-1 pt-5 md:pt-15">
+              <div className="mt-14 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center sm:pb-5">
+                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black 
+                mb-1 
+                pt-0
+                md:pt-15">
                   Скорость
                 </h2>
                 <p className="text-black text-xs md:text-sm lg:text-xs ">
