@@ -161,14 +161,14 @@ export default function CardCarouselSection() {
             })}
           </div>
 
-          {/* индикаторы — всегда видны, не перекрываются карточкой */}
+          {/* индикаторы */}
           <div className="mt-2 flex justify-center gap-2">
             {cards.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setIndex(i)}
                 className={`w-3 h-3 rounded-full transition ${
-                  i === index ? "bg-orange-500 scale-110" : "bg-gray-600"
+                  i === index ? "bg-primary scale-110" : "bg-gray-600"
                 }`}
                 aria-label={`Слайд ${i + 1}`}
               />
