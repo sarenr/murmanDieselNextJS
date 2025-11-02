@@ -56,6 +56,7 @@ export default function ServiceSection() {
     closeForm,
     setPhone,
     handlePhonePaste,
+    isSubmitting
   } = useFormModal();
 
   const handleOpenForm = (serviceName: string) => {
@@ -360,11 +361,12 @@ export default function ServiceSection() {
                   {/* Кнопки */}
                   <div className="flex gap-4 pt-4">
                     <button
-                      type="submit"
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
-                    >
-                      Отправить
-                    </button>
+                  type="submit"
+                  disabled={isSubmitting}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+                  >
+                    {isSubmitting ? "Отправка..." : "Отправить заявку"}
+                  </button>
                   </div>
                 </form>
               </div>

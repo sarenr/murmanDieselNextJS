@@ -4,13 +4,14 @@ import { z } from "zod";
 /** ========= 1) Схемы валидации под два сценария ========= */
 const mainSchema = z.object({
   name: z.string().min(2, "Имя слишком короткое"),
-  email: z.string().email("Введите корректный e-mail"),
+  // email: z.string().email("Введите корректный e-mail"),
   phone: z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +79991234567"),
   comment: z.string().max(1000, "Слишком длинный комментарий").optional().or(z.literal("")),
   file: z.instanceof(File).nullable().optional(),
   service: z.string().min(1, "Выберите услугу"),
   car: z.string().max(100).optional().or(z.literal("")),
   message: z.string().max(100).optional().or(z.literal("")),
+  email: z.string().max(100).optional().or(z.literal("")),
 });
 
 const callbackSchema = z.object({
@@ -62,7 +63,6 @@ export const useFormModal = () => {
     car: "",
     message: "",
   });
-
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -94,32 +94,68 @@ export const useFormModal = () => {
   };
 
   /** Общая функция сабмита с переданной схемой */
-  const submitWithSchema = async (
-    e: FormEvent,
-    schema: typeof mainSchema | typeof callbackSchema
-  ) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setErrors({});
 
-    const result = schema.safeParse(formData);
-    if (!result.success) {
-      const flat = result.error.flatten().fieldErrors;
-      const fieldErrors: FormErrors = {};
-      (Object.keys(flat) as (keyof FormData)[]).forEach((k) => {
-        const msg = flat[k]?.[0];
-        if (msg) fieldErrors[k] = msg;
+const submitWithSchema = async (
+  e: FormEvent,
+  schema: typeof mainSchema | typeof callbackSchema
+) => {
+  e.preventDefault();
+
+  setIsSubmitting(true);
+  setErrors({});
+
+  // 1) Zod-валидация
+  const parsed = schema.safeParse(formData);
+  if (!parsed.success) {
+    const flat = parsed.error.flatten().fieldErrors;
+    const fieldErrors: FormErrors = {};
+    (Object.keys(flat) as (keyof FormData)[]).forEach((k) => {
+      const msg = flat[k]?.[0];
+      if (msg) fieldErrors[k] = msg;
+    });
+    setErrors(fieldErrors);
+    setIsSubmitting(false);
+    return;
+  }
+
+  //  отправка
+  const dataToSend = { ...parsed.data, modalKind }; 
+
+  try {
+    let res: Response;
+
+    // 3) Если есть файл — отправляем multipart/form-data
+    if (dataToSend.file) {
+      const fd = new FormData();
+      Object.entries(dataToSend).forEach(([key, value]) => {
+        if (key === "file") return;
+        fd.append(key, String(value ?? ""));
       });
-      setErrors(fieldErrors);
-      setIsSubmitting(false);
-      return;
+      fd.append("file", dataToSend.file, dataToSend.file.name);
+
+      res = await fetch("/api/telegram", {
+        method: "POST",
+        body: fd, // Content-Type не ставим вручную — браузер добавит boundary сам
+      });
+    } else {
+      // 4) Без файла — обычный JSON
+      res = await fetch("/api/telegram", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend),
+      });
     }
 
-    const payload = { ...result.data, modalKind }; // знаем откуда пришла заявка
-    console.log("Форма отправлена:", payload);
+    const text = await res.text(); // полезно для отладки
+    if (!res.ok) {
+      // покажем понятную ошибку
+      throw new Error(`/api/telegram ${res.status}: ${text}`);
+    }
 
-    // сброс
-    setIsSubmitting(false);
+    // 5) Успех — можно показать тост/уведомление
+    console.log("Отправлено в Telegram:", text);
+
+    // 6) Сброс формы и закрытие модалки
     setModalKind(null);
     setFormData({
       name: "",
@@ -131,7 +167,13 @@ export const useFormModal = () => {
       car: "",
       message: "",
     });
-  };
+  } catch (err) {
+    console.error("Ошибка отправки в Telegram:", err);
+    // сюда можно добавить toast/alert
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   /** ДВА обработчика сабмита под разные кнопки */
   const handleSubmit = (e: FormEvent) => submitWithSchema(e, mainSchema);

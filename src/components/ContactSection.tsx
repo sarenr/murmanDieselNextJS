@@ -11,13 +11,13 @@ import { ReactNode } from "react";
 
 export default function ContactSection() {
   const {
-    isFormOpen,
+    handleSubmitCallback,
     formData,
     errors,
     openFormWithService,
     handleInputChange,
     handleSubmit,
-    closeForm,
+    isSubmitting,
     setPhone,
     handlePhonePaste,
   } = useFormModal();
@@ -40,7 +40,7 @@ export default function ContactSection() {
     </div>
 
     <form
-      onSubmit={handleSubmit}
+    onSubmit={handleSubmitCallback}  noValidate
       className="space-y-6 max-w-2xl mx-auto"
     >
       {/* Имя */}
@@ -130,11 +130,12 @@ export default function ContactSection() {
       </div>
         <div className="flex gap-4 pt-4 pb-20">
                      <button
-                      type="submit"
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
-                    >
-                      Отправить
-                    </button>
+                  type="submit"
+                  disabled={isSubmitting}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+                  >
+                    {isSubmitting ? "Отправка..." : "Отправить заявку"}
+                  </button>
           </div>
     </form>
   </div>

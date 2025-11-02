@@ -35,8 +35,8 @@ export default function HeaderScroll() {
     handleSubmit,
     setPhone,
     handlePhonePaste,
+    isSubmitting 
   } = useFormModal();
-
   // Нажатие кнопки в шапке: открываем общую модалку, проставив «источник»
   const openHeaderForm = () => openFormWithService("Заявка из шапки");
 
@@ -210,7 +210,8 @@ export default function HeaderScroll() {
                 </div>
 
                 <form
-                  onSubmit={handleSubmit}
+                
+                  onSubmit={handleSubmit} 
                   className="space-y-6 max-w-2xl mx-auto"
                 >
                   {/* Имя */}
@@ -293,10 +294,11 @@ export default function HeaderScroll() {
                   </div>
 
                   <button
-                    type="submit"
+                  type="submit"
+                  disabled={isSubmitting}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
-                    Отправить заявку
+                    {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>
                 </form>
               </div>
