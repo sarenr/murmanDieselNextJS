@@ -67,9 +67,9 @@ export default function ServiceSection() {
     <div className="py-16 bg-gradient-to-b from-gray-50 to-white relative">
       {/* Заголовок */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
           Наши услуги
-        </h1>
+        </h2>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Полный комплекс оказываемых нами услуг по ремонту и обслуживанию дизельных двигателей
         </p>
@@ -256,9 +256,9 @@ export default function ServiceSection() {
 
                 {/* Заголовок */}
                 <div className="text-center mb-8">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
                     {formData.service || "ПРОФЕССИОНАЛЬНЫЙ РЕМОНТ ЛЮБЫХ ФОРСУНОК COMMON RAIL"}
-                  </h1>
+                  </h2>
                 </div>
 
                 {/* Форма */}

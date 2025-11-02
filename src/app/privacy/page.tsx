@@ -1,3 +1,10 @@
+export const metadata = {
+  title: "Политика конфиденциальности — MurmanDiesel",
+  description:
+    "Политика конфиденциальности MurmanDiesel — как мы обрабатываем и защищаем персональные данные пользователей.",
+  alternates: { canonical: "/privacy" },
+};
+
 export default function PrivacyPage() {
   return (
     <main className="max-w-4xl mx-auto px-4 py-16 text-black">

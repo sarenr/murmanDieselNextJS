@@ -89,11 +89,11 @@ export default function FooterSection() {
                         <h4 className="text-base sm:text-lg font-bold mb-4">Связь</h4>
                         <div className="space-y-3 text-foreground/70">
                             <div>
-                                <p className="font-medium text-sm sm:text-base">+7 (911) 3001755</p>
+                                <a href="tel:+79113001755" className="font-medium text-sm sm:text-base">+7 (911) 3001755</a>
                                 <p className="text-xs sm:text-sm text-foreground/50">Телефон для связи</p>
                             </div>
                             <div>
-                                <p className="font-medium text-sm sm:text-base">+79533023022</p>
+                                <a href="https://wa.me/79533023022" target="_blank" rel="noopener noreferrer" className="font-medium text-sm sm:text-base">+79533023022</a>
                                 <p className="text-xs sm:text-sm text-foreground/50">WhatsApp/Viber</p>
                             </div>
                             <div>

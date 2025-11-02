@@ -154,9 +154,9 @@ export default function HeroSection() {
                 </button>
 
                 <div className="text-center mb-8">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
                     Узнать стоимость ремонта за 5 минут
-                  </h1>
+                  </h2>
                   <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
                     Оставьте заявку прямо сейчас, мы свяжемся с Вами и сообщим
                     стоимость ремонта!

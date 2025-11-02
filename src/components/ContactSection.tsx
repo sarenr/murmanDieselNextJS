@@ -30,9 +30,9 @@ export default function ContactSection() {
          {/* форма в начале секции */}
           <div className="bg-gradient-to-l from-blue-950 via-[#0a0a0a] to-blue-950 rounded-none sm:rounded-none p-6 sm:p-8 lg:p-12 text-center relative">
     <div className="pt-20 mtext-center mb-8">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
         Узнать стоимость ремонта за 5 минут
-      </h1>
+      </h2>
       <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
         Оставьте заявку прямо сейчас, мы свяжемся с Вами и сообщим
         стоимость ремонта!
@@ -158,7 +158,7 @@ export default function ContactSection() {
 
           
           <div className="pt-10  text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20  mx-5">
-            <h1 className="text-2xl 
+            <h2 className="text-2xl 
                             sm:text-4xl
                             md:text-4xl
                             lg:text-3xl 
@@ -166,7 +166,7 @@ export default function ContactSection() {
                             2xl:text-5xl 
                             font-bold mb-4">
               Контакты
-            </h1>
+            </h2>
             <p className="text-lg 
                           sm:text-2xl
                           md:text-sx  
@@ -197,13 +197,13 @@ export default function ContactSection() {
                   bg-white/35 rounded-full blur-[80px] z-0"></div>
                               
               <div className="w-full text-center">
-                <h1 className="text-xl sm:text-3xl 
+                <h3 className="text-xl sm:text-3xl 
                                        md:text-3xl 
                                        lg:text-xl 
                                        xl:text-2xl 
                                        2xl:text-2xl font-bold mb-4 lg:mb-6">
                   Рабочие часы
-                </h1>
+                </h3>
                 <p className="text-lg 
                               sm:text-xm
                               md:text-xm  
@@ -238,7 +238,7 @@ export default function ContactSection() {
                 </p>
               </div>
 
-              <div className="absolute inset-0 flex justify-center items-center top-70
+              <div className="absolute inset-0 flex justify-center items-center top-70 pointer-events-none
                                                                                 sm:top-90
                                                                                 md:top-90 
                                                                                 lg:top-80 
@@ -273,13 +273,13 @@ export default function ContactSection() {
                   bg-white/35 rounded-full blur-[80px] z-0"></div>
               
               <div className="w-full text-center">
-                <h1 className="text-xl sm:text-3xl 
+                <h3 className="text-xl sm:text-3xl 
                                        md:text-3xl 
                                        lg:text-xl 
                                        xl:text-2xl 
                                        2xl:text-2xl font-bold mb-4 lg:mb-6">
                   Мессенджеры
-                </h1>
+                </h3>
                 <p className="text-lg 
                               sm:text-xm
                               md:text-xm  
@@ -288,14 +288,19 @@ export default function ContactSection() {
                               2xl:text-xm font-bold mb-1 lg:mb-2">
                   WhatsApp 
                 </p>
-                <p className="text-lg 
+                <a
+                  href="https://wa.me/79533023022"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-20 text-lg 
                               sm:text-xm
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm  mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2"
+                >
                   +7(953)302-30-22
-                </p>  
+                </a>
                 <p className="text-lg 
                               sm:text-xm
                               md:text-xm  
@@ -305,17 +310,22 @@ export default function ContactSection() {
                   Telegramm
                 </p>
                  
-                <p className="text-lg 
+                <a
+                  href="https://t.me/TelegrammAcount"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-20 text-lg 
                               sm:text-xm
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm  mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2"
+                >
                   @TelegrammAcount
-                </p>
+                </a>
               </div>
 
-               <div className="absolute inset-0 flex justify-center items-center top-70
+               <div className="absolute inset-0 flex justify-center items-center top-70 pointer-events-none
                                                                                 sm:top-90
                                                                                 md:top-90 
                                                                                 lg:top-80 
@@ -350,24 +360,27 @@ export default function ContactSection() {
                   bg-white/35 rounded-full blur-[80px] z-0"></div>
               
               <div className="w-full text-center">
-                <h1 className="text-xl sm:text-3xl 
-                                       md:text-3xl 
-                                       lg:text-xl 
-                                       xl:text-2xl 
-                                       2xl:text-2xl font-bold mb-4 lg:mb-6">
-                       Почта
-                </h1>
-                 <p className="text-lg 
+      <h3 className="text-xl sm:text-3xl 
+              md:text-3xl 
+              lg:text-xl 
+              xl:text-2xl 
+              2xl:text-2xl font-bold mb-4 lg:mb-6">
+        Почта
+      </h3>
+                 <a
+                  href="mailto:murmandiesel@ya.ru"
+                  className="relative z-20 text-lg 
                               sm:text-xm
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm  mb-1 lg:mb-2">
+                              2xl:text-xm  mb-1 lg:mb-2"
+                >
                   murmandiesel@ya.ru
-                </p>
+                </a>
               </div>
 
-              <div className="absolute inset-0 flex justify-center items-center top-70
+               <div className="absolute inset-0 flex justify-center items-center top-70 pointer-events-none
                                                                                 sm:top-90
                                                                                 md:top-90 
                                                                                 lg:top-80 
@@ -402,13 +415,13 @@ export default function ContactSection() {
                   bg-white/35 rounded-full blur-[80px] z-0"></div>
               
               <div className="w-full text-center">
-                <h1 className="text-xl sm:text-3xl 
+                <h3 className="text-xl sm:text-3xl 
                                        md:text-3xl 
                                        lg:text-xl 
                                        xl:text-2xl 
                                        2xl:text-2xl font-bold mb-4 lg:mb-6">
                   Адресс
-                </h1>
+                </h3>
                 <p className="text-lg 
                               sm:text-xm
                               md:text-xl  
@@ -419,7 +432,7 @@ export default function ContactSection() {
                 </p>
               </div>
 
-               <div className="absolute inset-0 flex justify-center items-center top-70
+               <div className="absolute inset-0 flex justify-center items-center top-70 pointer-events-none
                                                                                 sm:top-90
                                                                                 md:top-90 
                                                                                 lg:top-80 

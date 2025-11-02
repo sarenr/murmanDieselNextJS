@@ -1,0 +1,26 @@
+// app/sitemap.ts
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+  return [
+    {
+      url: "https://murmandiesel.ru/",
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: "https://murmandiesel.ru/privacy",
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+    {
+      url: "https://murmandiesel.ru/cookie",
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+  ];
+}

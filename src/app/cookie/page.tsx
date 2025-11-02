@@ -1,3 +1,10 @@
+export const metadata = {
+  title: "Политика использования Cookies — MurmanDiesel",
+  description:
+    "Информация о использовании файлов cookie на сайте MurmanDiesel и как управлять настройками cookie.",
+  alternates: { canonical: "/cookie" },
+};
+
 export default function CookiePage() {
   return (
     <main className="max-w-4xl mx-auto px-4 py-16 text-black">

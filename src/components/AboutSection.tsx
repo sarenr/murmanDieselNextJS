@@ -36,9 +36,9 @@ export default function AboutSection() {
     <div className="flex flex-col items-center justify-center bg-gray-950 text-white relative py-16 sm:py-20 lg:py-24">
       {/* Заголовок */}
       <div className="text-foreground text-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl text-white sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4">
+        <h2 className="text-2xl text-white sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4">
           Почему выбирают нас?
-        </h1>
+        </h2>
       </div>
 
       {/* Bento Grid */}
