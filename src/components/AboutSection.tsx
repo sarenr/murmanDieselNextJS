@@ -73,13 +73,17 @@ export default function AboutSection() {
 
               {/* Контент */}
               <div className="mt-16 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
-                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black
+                <h2 className="text-lg 
+                md:text-xm 
+                lg:text-xl 
+                
+                font-bold md:mb-1 text-black
                 mb-1 
                 pt-0 
                 md:pt-15">
                   Оборудование
                 </h2>
-                <p className="text-black text-xs md:text-sm lg:text-xs">
+                <p className="text-black text-xs md:text-sm lg:text-xm">
                   При выполнении работ мы используем самое качественное оборудование
                 </p>
               </div>
@@ -93,7 +97,7 @@ export default function AboutSection() {
                 {/* Контент */}
                 <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
                   <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Качество</h2>
-                  <p className="text-white text-xs md:text-sm lg:text-xs">
+                  <p className="text-white text-xs md:text-sm lg:text-xm">
                     Мы отвечаем за качество выполненных работ и даём собственные гарантии
                   </p>
                 </div>
@@ -132,7 +136,7 @@ export default function AboutSection() {
                 {/* Контент */}
                 <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
                   <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Персонал</h2>
-                  <p className="text-white text-xs md:text-sm lg:text-xs">
+                  <p className="text-white text-xs md:text-sm lg:text-xm">
                     Профессиональная подготовка в официальном центре Common Rail
                   </p>
                 </div>
@@ -198,7 +202,7 @@ export default function AboutSection() {
                 md:pt-15">
                   Мы №1
                 </h2>
-                <p className="text-black text-xs md:text-sm lg:text-xs">Наши клиенты нас рекомендуют!</p>
+                <p className="text-black text-xs md:text-sm lg:text-xm">Наши клиенты нас рекомендуют!</p>
               </div>
             </div>
           </AnimatedCard>
@@ -237,7 +241,7 @@ export default function AboutSection() {
                 md:pt-15">
                   Скорость
                 </h2>
-                <p className="text-black text-xs md:text-sm lg:text-xs ">
+                <p className="text-black text-xs md:text-sm lg:text-xm ">
                   Выполняем работы по ремонту в самые кратчайшие сроки
                 </p>
               </div>

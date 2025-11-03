@@ -49,6 +49,9 @@ export default function HeaderScroll() {
         }`}
       >
         <nav className="max-w-8xl py-2
+                        mx-5 
+                        sm:mx-5 
+                        md:mx-5
                          lg:mx-12 
                         xl:mx-48   
                         2xl:mx-48  ">
@@ -60,7 +63,7 @@ export default function HeaderScroll() {
                 alt="Мурман-Дизель"
                 width={160}
                 height={150}
-                className="w-45 h-10 object-cover object-center transition-all duration-300"
+                className="w-50 h-12 object-cover object-center transition-all duration-300"
                 priority
               />
             </div>
@@ -79,23 +82,17 @@ export default function HeaderScroll() {
               >
                 Услуги
               </a>
-              <a
-                href="#contact"
-                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
-              >
-                Контакты
-              </a>
-              <a
+               <a
                 href="#photo"
                 className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Фото
               </a>
               <a
-                href="#reviews"
+                href="#contact"
                 className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
-                Отзывы
+                Контакты
               </a>
               <button
                 className={`font-bold cursor-pointer px-3 py-2 lg:px-4 lg:py-2 rounded-3xl transition-colors text-sm lg:text-base ${
@@ -131,25 +128,18 @@ export default function HeaderScroll() {
             <div className="md:hidden mt-4 bg-black/90 backdrop-blur-md rounded-lg p-4">
               <div className="flex flex-col space-y-3">
                 <a
-                  href="#hero"
+                  href="#main"
                   className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
                   onClick={closeMobile}
                 >
                   Главная
                 </a>
                 <a
-                  href="#services"
+                  href="#service"
                   className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
                   onClick={closeMobile}
                 >
                   Услуги
-                </a>
-                <a
-                  href="#contacts"
-                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
-                  onClick={closeMobile}
-                >
-                  Контакты
                 </a>
                 <a
                   href="#photo"
@@ -159,16 +149,16 @@ export default function HeaderScroll() {
                   Фото
                 </a>
                 <a
-                  href="#reviews"
-                  className={`${isTransparent ? "text-white/70" : "text-white/80"} hover:text-primary transition-colors py-2`}
+                  href="#contact"
+                  className={`${isTransparent ? "text-white/90" : "text-white/80"} hover:text-primary transition-colors py-2`}
                   onClick={closeMobile}
                 >
-                  Отзывы
-                </a>
+                  Контакты
+                </a>               
                 <button
                   className={`font-bold cursor-pointer px-4 py-3 rounded-lg transition-colors mt-2 ${
                     isTransparent
-                      ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
+                      ? "bg-primary hover:bg-primay/80 text-white backdrop-blur-sm"
                       : "bg-primary hover:bg-primary/90 text-white"
                   }`}
                   onClick={() => {
@@ -244,7 +234,7 @@ export default function HeaderScroll() {
                       value={formData.phone}
                       onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
                       onPaste={handlePhonePaste}                  // чистим вставки
-                      placeholder="+7 (___)-__-___-___"
+                      placeholder="+7ХХХХХХХХ"
                       autoComplete="tel"
                       inputMode="numeric"
                       maxLength={12}                 // "+7" + 10 цифр
@@ -276,27 +266,11 @@ export default function HeaderScroll() {
                     />
                   </div>
 
-                  {/* Чекбокс согласия */}
-                  <div className="flex items-start space-x-3">
-                    <input
-                      type="checkbox"
-                      id="privacy"
-                      className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-                      required
-                    />
-                    <label
-                      htmlFor="privacy"
-                      className="text-gray-300 text-sm text-left"
-                    >
-                      Я даю согласие на обработку персональных данных и
-                      соглашаюсь с условиями политики конфиденциальности.
-                    </label>
-                  </div>
 
                   <button
                   type="submit"
                   disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
                     {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>

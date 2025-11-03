@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Card = { id: number; title: string; text: string; image: string };
@@ -46,180 +45,189 @@ export default function CardCarouselSection() {
   const next = () => setIndex((p) => (p + 1) % len);
   const prev = () => setIndex((p) => (p - 1 + len) % len);
 
-  // брейкпоинт lg (Tailwind lg = 1024px)
-  const [isLG, setIsLG] = useState(false);
-  useEffect(() => {
-    const check = () => setIsLG(window.innerWidth >= 1024);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  // всегда рендерим prev/current/next (для анимации), но управляем видимостью
-  const visibleTriplet = useMemo(() => {
-    if (len === 0) return [] as number[];
-    const prevI = (index - 1 + len) % len;
-    const nextI = (index + 1) % len;
-    return [prevI, index, nextI];
-  }, [index, len]);
-
-  const neighborOffset = (i: number) => {
-    if (i === index) return 0;
-    const prevI = (index - 1 + len) % len;
-    const nextI = (index + 1) % len;
-    if (i === nextI) return 1;
-    if (i === prevI) return -1;
-    return 99;
-  };
-
-  /** измеряем активную карточку → размеры контейнера, шаги */
-  const activeRef = useRef<HTMLDivElement | null>(null);
-  const [containerW, setContainerW] = useState<number>(Math.min(CARD_MAX_W, 800));
-  const [containerH, setContainerH] = useState<number>(560);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchMoved = useRef(false);
+  const pointerActive = useRef(false);
+  const pointerStartX = useRef<number | null>(null);
+  const pointerStartY = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!activeRef.current) return;
-    const el = activeRef.current;
-
-    const measure = () => {
-      const rect = el.getBoundingClientRect();
-      const w = Math.min(rect.width, window.innerWidth * 0.95);
-
-      // мини-десктопам даём бОльшую минимальную высоту, чтобы не наезжать на соседей
-      const vw = window.innerWidth;
-      const baseMinH = vw <= 1280 ? 720 : 560;
-      const finalH = Math.max(rect.height, baseMinH);
-
-      setContainerW(w);
-      setContainerH(finalH);
-    };
-
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    measure();
-    const onResize = () => measure();
-    window.addEventListener("resize", onResize);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", onResize);
-    };
+    const el = cardRefs.current[index];
+    if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }, [index]);
+
+  useEffect(() => {
+    const sc = scrollRef.current;
+    if (!sc) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (pointerActive.current) return; 
+      if (e.touches.length !== 1) return;
+      touchMoved.current = false;
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (pointerActive.current) return;
+      if (touchStartX.current == null) return;
+      const dx = e.touches[0].clientX - touchStartX.current;
+      const dy = e.touches[0].clientY - (touchStartY.current ?? 0);
+      if (Math.abs(dx) > 10) touchMoved.current = true;
+      if (Math.abs(dx) > Math.abs(dy) * 1.2) {
+        e.preventDefault();
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (pointerActive.current) return;
+      if (!touchMoved.current || touchStartX.current == null) {
+        touchStartX.current = null;
+        touchStartY.current = null;
+        return;
+      }
+      const lastTouch = e.changedTouches[0];
+      const dx = lastTouch.clientX - (touchStartX.current ?? 0);
+      const abs = Math.abs(dx);
+      const threshold = 50; // px
+      if (abs > threshold) {
+        if (dx < 0) next();
+        else prev();
+      }
+      touchStartX.current = null;
+      touchStartY.current = null;
+      touchMoved.current = false;
+    };
+
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.isPrimary === false) return;
+      pointerActive.current = true;
+      pointerStartX.current = e.clientX;
+      pointerStartY.current = e.clientY;
+      try {
+        (e.target as Element).setPointerCapture?.(e.pointerId);
+      } catch (err) {
+
+      }
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!pointerActive.current || pointerStartX.current == null) return;
+      const dx = e.clientX - (pointerStartX.current ?? 0);
+      const dy = e.clientY - (pointerStartY.current ?? 0);
+      if (Math.abs(dx) > Math.abs(dy) * 1.2) {
+        e.preventDefault();
+      }
+    };
+
+    const onPointerUp = (e: PointerEvent) => {
+      if (!pointerActive.current || pointerStartX.current == null) {
+        pointerActive.current = false;
+        pointerStartX.current = null;
+        pointerStartY.current = null;
+        return;
+      }
+      const dx = e.clientX - (pointerStartX.current ?? 0);
+      const abs = Math.abs(dx);
+      const threshold = 50; // px, similar to touch
+      if (abs > threshold) {
+        if (dx < 0) next();
+        else prev();
+      }
+      pointerActive.current = false;
+      try {
+        (e.target as Element).releasePointerCapture?.(e.pointerId);
+      } catch (err) {
+
+      }
+      pointerStartX.current = null;
+      pointerStartY.current = null;
+    };
+
+  sc.addEventListener("touchstart", onTouchStart, { passive: true });
+  sc.addEventListener("touchmove", onTouchMove, { passive: false });
+  sc.addEventListener("touchend", onTouchEnd);
+  sc.addEventListener("pointerdown", onPointerDown as EventListener);
+  sc.addEventListener("pointermove", onPointerMove as EventListener, { passive: false });
+  sc.addEventListener("pointerup", onPointerUp as EventListener);
+
+    return () => {
+      sc.removeEventListener("touchstart", onTouchStart);
+      sc.removeEventListener("touchmove", onTouchMove);
+      sc.removeEventListener("touchend", onTouchEnd);
+      sc.removeEventListener("pointerdown", onPointerDown as EventListener);
+      sc.removeEventListener("pointermove", onPointerMove as EventListener);
+      sc.removeEventListener("pointerup", onPointerUp as EventListener);
+    };
+  }, [next, prev]);
 
   const hasSlides = len > 0;
   const current = hasSlides ? cards[index] : null;
 
-  // шаг сдвига: на LG соседние торчат наполовину, на <LG полностью за кадром
-  const shiftX = (w: number, o: -1 | 0 | 1) => {
-    if (o === 0) return 0;
-    return isLG ? Math.round(o * (w / 2)) : Math.round(o * w);
-  };
-
   return (
-    <section className="w-full bg-gradient-to-b from-gray-900 to-black py-10 sm:py-14">
+    <section className="w-full bg-linear-to-b from-gray-900 to-black py-10 sm:py-14">
       <div className="w-full flex flex-col items-center">
         {/* стрелки — относительно контейнера */}
-        <div className="relative" style={{ width: containerW }}>
-          <button
-            onClick={prev}
-            disabled={!hasSlides}
-            className="absolute -left-0 xl:-left-10 top-1/2 -translate-y-1/2 z-30
-                       bg-primary text-white rounded-full p-4 sm:p-5 shadow-lg
-                       opacity-20 hover:opacity-90 focus:opacity-90 transition
-                       disabled:opacity-30 disabled:cursor-not-allowed"
-            aria-label="Назад"
-          >
-            <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10" />
-          </button>
-          <button
-            onClick={next}
-            disabled={!hasSlides}
-            className="absolute -right-0 xl:-right-10 top-1/2 -translate-y-1/2 z-30
-                       bg-primary text-white rounded-full p-4 sm:p-5 shadow-lg
-                       opacity-20 hover:opacity-90 focus:opacity-90 transition
-                       disabled:opacity-30 disabled:cursor-not-allowed"
-            aria-label="Вперёд"
-          >
-            <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10" />
-          </button>
+        <div className="relative w-full max-w-[1100px] mx-auto">
+          {/* Внешние стрелки удалены — используем встроенные стрелки внутри карточки */}
 
           {/* заголовок той же ширины, что контейнер */}
-          <h2
-            className="mx-auto text-3xl sm:text-4xl font-bold text-white text-center mb-6 sm:mb-8"
-            style={{ width: containerW }}
-          >
+          <h2 className="mx-auto text-3xl sm:text-4xl font-bold text-white text-center mb-6 sm:mb-8 max-w-[900px]">
             {current?.title ?? "—"}
           </h2>
 
-          {/* viewport: обрезаем всё лишнее по рамкам активной карточки */}
+          {/* горизонтальный скролл с snap */}
           <div
-            className="relative overflow-hidden select-none"
-            style={{ width: containerW, height: containerH, contain: "layout paint" }}
+            ref={scrollRef}
+            className="relative overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory flex gap-6 px-4 no-scrollbar"
           >
-            {hasSlides &&
-              visibleTriplet.map((i) => {
-                const o = neighborOffset(i) as -1 | 0 | 1;
-                const isActive = o === 0;
-                const x = shiftX(containerW, o);
+            {cards.map((c, i) => (
+              <div
+                key={c.id}
+                ref={(el) => { cardRefs.current[i] = el; }}
+                className={`snap-center shrink-0 w-[min(95vw,1100px)] bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative group`}
+                aria-hidden={i !== index}
+              >
+                {/* кнопки внутри карточки, по центру вертикально, видимы на hover */}
+                <button
+                  onClick={prev}
+                  aria-label="Назад"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 bg-primary/30 hover:bg-primary text-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={next}
+                  aria-label="Вперёд"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 bg-primary/30 hover:bg-primary text-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
 
-                // На <LG: соседи существуют (для анимации), но НЕвидимы;
-                // На LG+: соседи видны наполовину.
-                const hiddenOnSM = !isLG && !isActive;
-
-                return (
-                  <motion.div
-                    key={cards[i].id}
-                    ref={isActive ? activeRef : null}
-                    className="absolute left-1/2 top-0 -translate-x-1/2
-                               bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden"
-                    style={{
-                      width: "min(95vw, 1100px)",
-                      zIndex: isActive ? 10 : 5,
-                      opacity: hiddenOnSM ? 0 : isActive ? 1 : 0.65,  // скрываем соседей на <LG
-                      pointerEvents: hiddenOnSM ? "none" : "auto",     // и клики
-                    }}
-                    animate={{ x, scale: isActive ? 1 : isLG ? 0.92 : 1 }}
-                    initial={false}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    onDragEnd={(_, info) => {
-                      if (info.offset.x > 100) prev();
-                      else if (info.offset.x < -100) next();
-                    }}
-                    aria-hidden={hiddenOnSM}
-                  >
-                    {/* [фото | текст] 50/50 */}
-                    <div className="grid grid-cols-1 md:grid-cols-2">
-                      <div className="relative w-full min-h-[260px] md:min-h-[420px]">
-                        <Image
-                          src={cards[i].image}
-                          alt={cards[i].title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          priority
-                        />
-                      </div>
-                      <div className="p-8 lg:p-10 bg-gradient-to-b from-gray-900/85 to-black/90 text-white
-                        w-full
-                        max-h-[280px]          /* < sm: ниже порог и включаем скролл */
-                        sm:max-h-[420px]
-                        lg:max-h-[520px]
-                        overflow-y-auto pr-2"
-                        style={{ WebkitOverflowScrolling: "touch" }}>
-                        <div className="w-full max-h-[420px] sm:max-h-[460px] lg:max-h-[520px] overflow-y-auto pr-2">
-                          <h3 className="text-2xl md:text-3xl font-semibold mb-4">
-                            {cards[i].title}
-                          </h3>
-                          <p className="text-base md:text-lg leading-relaxed text-gray-200 whitespace-pre-line">
-                            {cards[i].text}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="relative w-full min-h-[260px] md:min-h-[420px]">
+                    <Image
+                      src={c.image}
+                      alt={c.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                    />
+                  </div>
+                  <div className="p-8 lg:p-10 bg-gray-900 text-white w-full">
+                    <h3 className="text-2xl md:text-3xl font-semibold mb-4">{c.title}</h3>
+                    <p className="text-base md:text-lg leading-relaxed text-gray-200 whitespace-pre-line">
+                      {c.text}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

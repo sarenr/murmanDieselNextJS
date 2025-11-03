@@ -196,7 +196,7 @@ export default function HeroSection() {
                       value={formData.phone}
                       onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
                       onPaste={handlePhonePaste}                  // чистим вставки
-                      placeholder="+7 (___)-__-___-___"
+                      placeholder="+7ХХХХХХХХХХ"
                       autoComplete="tel"
                       inputMode="numeric"
                       maxLength={12}                 // "+7" + 10 цифр
@@ -227,24 +227,6 @@ export default function HeroSection() {
                       required
                     />
                   </div>
-
-                {/* Чекбокс согласия */}
-                  <div className="flex items-start space-x-3">
-                    <input
-                      type="checkbox"
-                      id="privacy"
-                      className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-                      required
-                    />
-                    <label
-                      htmlFor="privacy"
-                      className="text-gray-300 text-sm text-left"
-                    >
-                      Я даю согласие на обработку персональных данных и
-                      соглашаюсь с условиями политики конфиденциальности.
-                    </label>
-                  </div>
-
                   <button
                     type="submit"
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
@@ -311,7 +293,7 @@ export default function HeroSection() {
                       value={formData.phone}
                       onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
                       onPaste={handlePhonePaste}                  // чистим вставки
-                      placeholder="+7 (___)-__-___-___"
+                      placeholder="+7ХХХХХХХХХХ"
                       autoComplete="tel"
                       inputMode="numeric"
                       maxLength={12}                 // "+7" + 10 цифр
@@ -337,23 +319,6 @@ export default function HeroSection() {
                     rows={3}
                   />
                 </div>
-
-                {/* Чекбокс согласия */}
-                <div className="flex items-start space-x-3">
-                    <input
-                      type="checkbox"
-                      id="privacy"
-                      className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-                      required
-                    />
-                    <label
-                      htmlFor="privacy"
-                      className="text-gray-300 text-sm text-left"
-                    >
-                      Я даю согласие на обработку персональных данных и
-                      соглашаюсь с условиями политики конфиденциальности.
-                    </label>
-                  </div>
 
                 {/* Кнопки */}
                 <button

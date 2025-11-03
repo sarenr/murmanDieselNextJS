@@ -28,7 +28,7 @@ export default function ContactSection() {
   return (
     <>
          {/* форма в начале секции */}
-          <div className="bg-gradient-to-l from-blue-950 via-[#0a0a0a] to-blue-950 rounded-none sm:rounded-none p-6 sm:p-8 lg:p-12 text-center relative">
+          <div className="bg-gradient-to-b from-blue-950 via-[#0a0a0a] to-blue-950 rounded-none sm:rounded-none p-6 sm:p-8 lg:p-12 text-center relative">
     <div className="pt-20 mtext-center mb-8">
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
         Узнать стоимость ремонта за 5 минут
@@ -76,7 +76,7 @@ export default function ContactSection() {
                           value={formData.phone}
                           onChange={(e) => setPhone(e.target.value)}
                           onPaste={handlePhonePaste}
-                          placeholder="+7 (___)-__-___-___"
+                          placeholder="+7ХХХХХХХХХХ"
                           autoComplete="tel"
                           inputMode="numeric"   // цифровая клавиатура на мобиле
                           maxLength={12}        // "+7" + 10 цифр
@@ -112,27 +112,11 @@ export default function ContactSection() {
                     />
       </div>
 
-      {/* Чекбокс согласия */}
-      <div className="flex items-start space-x-3">
-        <input
-          type="checkbox"
-          id="privacy"
-          className="mt-1 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
-          required
-        />
-        <label
-          htmlFor="privacy"
-          className="text-gray-300 text-sm text-left"
-        >
-          Я даю согласие на обработку персональных данных и
-          соглашаюсь с условиями политики конфиденциальности.
-        </label>
-      </div>
         <div className="flex gap-4 pt-4 pb-20">
                      <button
                   type="submit"
                   disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
                     {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>
@@ -285,21 +269,18 @@ export default function ContactSection() {
                               md:text-xm  
                               lg:text-sm 
                               xl:text-xm 
-                              2xl:text-xm font-bold mb-1 lg:mb-2">
+                              2xl:text-xm font-bold mb-1 lg:mb-1">
                   WhatsApp 
                 </p>
                 <a
                   href="https://wa.me/79533023022"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-20 text-lg 
-                              sm:text-xm
-                              md:text-xm  
-                              lg:text-sm 
-                              xl:text-xm 
-                              2xl:text-xm  mb-1 lg:mb-2"
+                  className="relative z-20 mb-1 lg:mb-2 inline-block"
                 >
-                  +7(953)302-30-22
+                  <p className="text-lg sm:text-xm md:text-xm lg:text-sm xl:text-xm 2xl:text-xm">
+                    +7(953)302-30-22
+                  </p>
                 </a>
                 <p className="text-lg 
                               sm:text-xm
@@ -314,14 +295,11 @@ export default function ContactSection() {
                   href="https://t.me/TelegrammAcount"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-20 text-lg 
-                              sm:text-xm
-                              md:text-xm  
-                              lg:text-sm 
-                              xl:text-xm 
-                              2xl:text-xm  mb-1 lg:mb-2"
+                  className="relative z-20 mb-1 lg:mb-2 inline-block"
                 >
-                  @TelegrammAcount
+                  <p className="text-lg sm:text-xm md:text-xm lg:text-sm xl:text-xm 2xl:text-xm">
+                    @TelegrammAcount
+                  </p>
                 </a>
               </div>
 
@@ -369,14 +347,11 @@ export default function ContactSection() {
       </h3>
                  <a
                   href="mailto:murmandiesel@ya.ru"
-                  className="relative z-20 text-lg 
-                              sm:text-xm
-                              md:text-xm  
-                              lg:text-sm 
-                              xl:text-xm 
-                              2xl:text-xm  mb-1 lg:mb-2"
+                  className="relative z-20 mb-1 lg:mb-2 inline-block"
                 >
-                  murmandiesel@ya.ru
+                  <p className="text-lg sm:text-xm md:text-xm lg:text-sm xl:text-xm 2xl:text-xm">
+                    murmandiesel@ya.ru
+                  </p>
                 </a>
               </div>
 
@@ -420,7 +395,7 @@ export default function ContactSection() {
                                        lg:text-xl 
                                        xl:text-2xl 
                                        2xl:text-2xl font-bold mb-4 lg:mb-6">
-                  Адресс
+                  Адрес
                 </h3>
                 <p className="text-lg 
                               sm:text-xm

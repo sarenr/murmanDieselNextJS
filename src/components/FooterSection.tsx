@@ -22,11 +22,10 @@ export default function FooterSection() {
                                         alt="Мурман-Дизель"
                                         width={160}
                                         height={150}
-                                        className="w-45 h-10 object-cover object-center transition-all duration-300"
+                                        className="w-50 h-12 object-cover object-center transition-all duration-300"
                                         priority
                                       />
-                                    </div>
-                        
+                                    </div>                     
                         <h3 className="flex items-end text-lg sm:text-xm font-bold mb-4">ООО &quot;Мурман - Дизель&quot;</h3>
                         {/* </div> */}
                         <p className="text-foreground/70 text-sm sm:text-base leading-relaxed mb-4">

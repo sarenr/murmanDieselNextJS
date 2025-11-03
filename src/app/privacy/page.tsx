@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Политика конфиденциальности — MurmanDiesel",
   description:
@@ -7,10 +9,18 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-16 text-black">
-      <h1 className="text-3xl font-bold mb-6 text-black">
+    <main className="max-w-4xl mx-auto px-4 py-16">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">
         Политика конфиденциальности
-      </h1>
+        </h1>
+        <Link
+          href="/"
+          className="ml-4 inline-block px-3 py-2 rounded bg-gray-200 dark:bg-gray-800 text-sm font-medium"
+        >
+          Вернуться на главную
+        </Link>
+      </div>
       <p className="mb-4">
         Настоящая Политика конфиденциальности определяет порядок обработки и
         защиты персональных данных пользователей сайта ООО «Мурман-Дизель».
