@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientShell from "./ClientShell";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -17,6 +18,23 @@ export const metadata: Metadata = {
   },
   description:
     "Профессиональный ремонт и диагностика дизельных форсунок Bosch, Delphi и Denso в Мурманске. Оригинальные детали, стенд, кодировка, гарантия.",
+     keywords: [
+    "ремонт форсунок мурманск",
+    "диагностика дизельных форсунок",
+    "ремонт топливной системы дизеля",
+    "MurmanDiesel",
+    "Common Rail",
+    "форсунки Bosch ремонт",
+    "форсунки Delphi ремонт",
+    "Ремонт дизельных двигателей",
+    "ремонт форсунок Denso",
+    "ремонт дизельной техники мурманск",
+    "форсунки мурманск",
+    "ремонт топливных форсунок мурманск",
+    "автосервис дизель мурманск",
+    "ремонт турбин дизельных двигателей",
+    "форсунки ремонт гарантия",
+  ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -28,7 +46,7 @@ export const metadata: Metadata = {
       "Диагностика на стенде, ремонт форсунок Bosch/Delphi/Denso. Сроки от 1 дня. Гарантия.",
     images: [
       {
-        url: "/og/murmandiesel-og.jpg",
+        url: "images/og/murmandiesel-og.jpg",
         width: 1200,
         height: 630,
         alt: "MurmanDiesel — ремонт дизельных форсунок в Мурманске",
@@ -49,13 +67,20 @@ export const metadata: Metadata = {
     "max-snippet": -1,
     "max-video-preview": -1,
   },
-  icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
+  icons: { icon: "/favicon.ico", apple: "/favicon.ico" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
       <body className={`${inter.variable} antialiased`}>
+          <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: { background: "#111", color: "#fff" },
+          }}
+        />
         <ClientShell>{children}</ClientShell>
       </body>
     </html>

@@ -62,7 +62,13 @@ export default function ServiceSection() {
   const handleOpenForm = (serviceName: string) => {
     openFormWithService(serviceName);
   };
-
+  const inputClass = (name: keyof typeof formData) =>
+  `w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg 
+  text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 
+  focus:ring-1 focus:ring-blue-500 transition-colors"
+   ${errors[name]
+     ? "border-red-500 ring-red-500 focus:border-red-500 focus:ring-red-500"
+     : "border-gray-600 focus:border-blue-500 focus:ring-blue-500"}`;
   return (
     <div className="py-16 bg-gradient-to-b from-gray-50 to-white relative">
       {/* Заголовок */}
@@ -292,10 +298,12 @@ export default function ServiceSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                     className={inputClass("name")}
                       placeholder="Введите ваше имя"
                       required
                     />
+                      {errors.name && (<p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                    )}
                   </div>
 
                   {/* Email */}
@@ -308,10 +316,11 @@ export default function ServiceSection() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                     className={inputClass("email")}
                       placeholder="Введите ваш email"
                       required
                     />
+                    {errors.name && (<p className="mt-1 text-sm text-red-400">{errors.email}</p>)}
                   </div>
 
                   {/* Телефон — react-phone-number-input */}
@@ -330,16 +339,10 @@ export default function ServiceSection() {
                           pattern={"^\\+7\\d{10}$"} // нативная проверка браузера
                           required
                           aria-invalid={!!errors.phone}
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg
-                           text-white placeholder-gray-400 focus:outline-none
-                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
-                             transition-colors"
+                         className={inputClass("phone")}
                         />
                       </label>
-                      {errors.phone && <p className="error">{errors.phone}</p>}
-
-                    {errors?.phone && (
-                      <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                  {errors.name && (<p className="mt-1 text-sm text-red-400">{errors.phone}</p>
                     )}
                   </div>
 

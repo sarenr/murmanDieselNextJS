@@ -12,11 +12,11 @@ export default function Home() {
   const orgLd = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    "@id": "https://murmandiesel.ru/#organization",
+    "@id": "https://murmandiesel.ru/#murman-diesel",
     "name": "MurmanDiesel",
     "url": "https://murmandiesel.ru/",
-    "image": "https://murmandiesel.ru/og/murmandiesel-og.jpg",
-    "telephone": "+7-XXX-XXX-XX-XX",
+    "image": "https://murmandiesel.ru/images/og/murmandiesel-og.jpg",
+    "telephone": "+7-911-300-17-55",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Мурманск",
@@ -25,8 +25,8 @@ export default function Home() {
     },
     "areaServed": "Мурманск",
     "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "16:00" }
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "10:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "17:00" }
     ],
     "priceRange": "₽₽",
     "description": "Диагностика и ремонт дизельных форсунок Bosch, Delphi, Denso в Мурманске. Стенд, калибровка, кодировка. Гарантия."
@@ -35,16 +35,16 @@ export default function Home() {
   const siteLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://murmandiesel.ru/#website",
+    "@id": "https://murmandiesel.ru#murman-diesel",
     "url": "https://murmandiesel.ru/",
     "name": "MurmanDiesel",
     "inLanguage": "ru-RU",
-    "publisher": { "@id": "https://murmandiesel.ru/#organization" },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://murmandiesel.ru/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "publisher": { "@id": "https://murmandiesel.ru/#murman-diesel" },
+    // "potentialAction": {
+    //   "@type": "SearchAction",
+    //   "target": "https://murmandiesel.ru/search/?text={search_term_string}",
+    //   "query-input": "required name=search_term_string"
+    // }
   };
 
   const breadcrumbsLd = {
@@ -95,10 +95,25 @@ export default function Home() {
       <FooterSection />
 
       {/* JSON-LD */}
-      <Script id="ld-org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
-      <Script id="ld-website" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }} />
-      <Script id="ld-breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsLd) }} />
-      <Script id="ld-services" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesLd) }} />
+      <Script id="ld-org" 
+      type="application/ld+json" 
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd).replace(/</g, '\\u003c') }} />
+
+
+      <Script id="ld-website"
+       type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd).replace(/</g, '\\u003c') }} />
+
+
+      <Script 
+      id="ld-breadcrumbs" 
+      type="application/ld+json" 
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsLd).replace(/</g, '\\u003c') }} />
+
+
+      <Script id="ld-services"
+       type="application/ld+json" 
+       dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesLd).replace(/</g, '\\u003c') }} />
     </div>
   );
 }

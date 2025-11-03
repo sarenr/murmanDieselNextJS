@@ -20,11 +20,17 @@ export default function HeroSection() {
       isCallbackOpen,
       isSubmitting
     } = useFormModal();
-  
+ 
     // Нажатие кнопки в шапке: открываем общую модалку, проставив «источник»
     const openHeroForm = () => openFormWithService("Заявка из шапки");
     const openCBForm = () =>  openCallbackForm("Заявка из шапки");
-
+ const inputClass = (name: keyof typeof formData) =>
+  `w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg 
+  text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 
+  focus:ring-1 focus:ring-blue-500 transition-colors"
+   ${errors[name]
+     ? "border-red-500 ring-red-500 focus:border-red-500 focus:ring-red-500"
+     : "border-gray-600 focus:border-blue-500 focus:ring-blue-500"}`;
   return (
     <>
       <div className="relative h-screen">
@@ -181,10 +187,13 @@ export default function HeroSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className={inputClass("name")}
                       placeholder="Введите ваше имя"
                       required
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                    )}
                   </div>
                   {/* Телефон — с нормализацией и защитой paste */}
                   <div>
@@ -203,9 +212,11 @@ export default function HeroSection() {
                       pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
                       aria-invalid={!!errors.phone}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                     className={inputClass("phone")}
                     />
-                    {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone}</p>}
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                    )}
                   </div>
 
                   {/* Автомобиль */}
@@ -278,10 +289,13 @@ export default function HeroSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                     className={inputClass("name")}
                       placeholder="Введите ваше имя"
                       required
                     />
+                     {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                    )}
                   </div>
                  {/* Телефон — с нормализацией и защитой paste */}
                   <div>
@@ -300,9 +314,9 @@ export default function HeroSection() {
                       pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
                       aria-invalid={!!errors.phone}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className={inputClass("phone")}
                     />
-                    {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone}</p>}
+                    <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
                   </div>
 
                 {/* Сообщение */}

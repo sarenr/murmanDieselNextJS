@@ -1,29 +1,34 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { z } from "zod";
+import toast from "react-hot-toast";
 
 /** ========= 1) Схемы валидации под два сценария ========= */
 const mainSchema = z.object({
-  name: z.string().min(2, "Имя слишком короткое"),
+  name: z.string()
+  .min(2, "Имя должно содержать минимум 2 буквы!")
+  .regex(/^[А-Яа-яA-Za-zЁё\s'-]+$/, "Имя не должно содержать цифры или спецсимволы!"),
   // email: z.string().email("Введите корректный e-mail"),
   phone: z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +79991234567"),
+  email: z.email({ message: "Введите корректный email" }).optional().or(z.literal("")),
   comment: z.string().max(1000, "Слишком длинный комментарий").optional().or(z.literal("")),
-  file: z.instanceof(File).nullable().optional(),
+  // file: z.instanceof(File).nullable().optional(),
   service: z.string().min(1, "Выберите услугу"),
   car: z.string().max(100).optional().or(z.literal("")),
   message: z.string().max(100).optional().or(z.literal("")),
-  email: z.string().max(100).optional().or(z.literal("")),
 });
 
 const callbackSchema = z.object({
-  name: z.string().min(2, "Имя слишком короткое"),
+  name: z.string()
+  .min(2, "Имя должно содержать минимум 2 буквы")
+  .regex(/^[А-Яа-яA-Za-zЁё\s'-]+$/, "Имя не должно содержать цифры или спецсимволы"),
   phone: z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +79991234567"),
   // Остальные поля по желанию сценария — опциональные:
-  email: z.string().email().optional().or(z.literal("")),
+  email: z.email({ message: "Введите корректный email" }).optional().or(z.literal("")),
   comment: z.string().max(1000).optional().or(z.literal("")),
   service: z.string().optional().or(z.literal("")),
   car: z.string().max(100).optional().or(z.literal("")),
   message: z.string().max(100).optional().or(z.literal("")),
-  file: z.instanceof(File).nullable().optional(),
+  // file: z.instanceof(File).nullable().optional(),
 });
 
 // Тип данных берём по полной схеме
@@ -58,7 +63,7 @@ export const useFormModal = () => {
     email: "",
     phone: "",
     comment: "",
-    file: null,
+    // file: null,
     service: "",
     car: "",
     message: "",
@@ -80,11 +85,11 @@ export const useFormModal = () => {
   };
 
   /** Файл */
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData((prev) => ({ ...prev, file }));
-    setErrors((prev) => ({ ...prev, file: undefined }));
-  };
+  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0] || null;
+  //   setFormData((prev) => ({ ...prev, file }));
+  //   setErrors((prev) => ({ ...prev, file: undefined }));
+  // };
 
   /** Телефон */
   const setPhone = (value?: string) => {
@@ -104,65 +109,48 @@ const submitWithSchema = async (
   setIsSubmitting(true);
   setErrors({});
 
-  // 1) Zod-валидация
-  const parsed = schema.safeParse(formData);
-  if (!parsed.success) {
-    const flat = parsed.error.flatten().fieldErrors;
-    const fieldErrors: FormErrors = {};
-    (Object.keys(flat) as (keyof FormData)[]).forEach((k) => {
-      const msg = flat[k]?.[0];
-      if (msg) fieldErrors[k] = msg;
-    });
-    setErrors(fieldErrors);
-    setIsSubmitting(false);
-    return;
+  //  Zod-валидация
+const parsed = schema.safeParse(formData);
+if (!parsed.success) {
+  const fieldErrors: FormErrors = {};
+  for (const issue of parsed.error.issues) {
+    const key = issue.path[0];
+    if (typeof key !== "string") continue;
+    if (!(key in formData)) continue; 
+    if (!fieldErrors[key as keyof FormData]) {
+      fieldErrors[key as keyof FormData] = issue.message;
+    }
   }
+  setErrors(fieldErrors);
+  setIsSubmitting(false);
+  return;
+}
 
   //  отправка
   const dataToSend = { ...parsed.data, modalKind }; 
+ try {
+  const res = await fetch("/api/telegram", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dataToSend),
+  });
 
-  try {
-    let res: Response;
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`/api/telegram ${res.status}: ${text}`);
+  }
 
-    // 3) Если есть файл — отправляем multipart/form-data
-    if (dataToSend.file) {
-      const fd = new FormData();
-      Object.entries(dataToSend).forEach(([key, value]) => {
-        if (key === "file") return;
-        fd.append(key, String(value ?? ""));
-      });
-      fd.append("file", dataToSend.file, dataToSend.file.name);
+  console.log("Отправлено в Telegram:", text);
+  toast.success("Заявка успешно отправлена!"); 
 
-      res = await fetch("/api/telegram", {
-        method: "POST",
-        body: fd, // Content-Type не ставим вручную — браузер добавит boundary сам
-      });
-    } else {
-      // 4) Без файла — обычный JSON
-      res = await fetch("/api/telegram", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dataToSend),
-      });
-    }
-
-    const text = await res.text(); // полезно для отладки
-    if (!res.ok) {
-      // покажем понятную ошибку
-      throw new Error(`/api/telegram ${res.status}: ${text}`);
-    }
-
-    // 5) Успех — можно показать тост/уведомление
-    console.log("Отправлено в Telegram:", text);
-
-    // 6) Сброс формы и закрытие модалки
+    // Сброс формы и закрытие модалки
     setModalKind(null);
     setFormData({
       name: "",
       email: "",
       phone: "",
       comment: "",
-      file: null,
+      // file: null,
       service: "",
       car: "",
       message: "",
@@ -201,7 +189,7 @@ const submitWithSchema = async (
       email: "",
       phone: "",
       comment: "",
-      file: null,
+      // file: null,
       service: "",
       car: "",
       message: "",
@@ -233,7 +221,7 @@ const submitWithSchema = async (
 
     // хендлеры ввода/сабмита
     handleInputChange,
-    handleFileChange,
+    // handleFileChange,
     handleSubmit,
     handleSubmitCallback,
     setPhone,
