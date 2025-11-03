@@ -39,8 +39,8 @@ function ServiceCard({ delay, children, bgImage }: ServiceCardProps) {
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
-      {/* Контент: увеличиваем padding на больших экранах чтобы выровнять отступы */}
-      <div className="relative z-10 flex flex-col flex-1 p-4 sm:p-6 md:p-8 lg:p-10 text-white">{children}</div>
+      {/* Контент */}
+      <div className="relative z-10 flex flex-col flex-1 p-6 text-white">{children}</div>
     </div>
   );
 }
@@ -80,7 +80,7 @@ export default function ServiceSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* 1 */}
           <ServiceCard delay="0.1s" bgImage="/images/card1.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 leading-tight text-white">
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Ремонт дизельных форсунок
             </h3>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -96,7 +96,7 @@ export default function ServiceSection() {
             </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xl md:text-2xl font-bold text-white">от 14000 ₽</span>
+                <span className="text-2xl font-bold text-white">от 14000 ₽</span>
               </div>
               <button
                 onClick={() => handleOpenForm("Ремонт дизельных форсунок")}
@@ -109,7 +109,7 @@ export default function ServiceSection() {
 
           {/* 2 */}
           <ServiceCard delay="0.1s" bgImage="/images/card2.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 leading-tight text-white">
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Профессиональный ремонт любых форсунок
             </h3>
             <div className="flex flex-wrap">
@@ -119,7 +119,7 @@ export default function ServiceSection() {
             </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xl md:text-2xl font-bold text-white">от 4000 ₽</span>
+                <span className="text-2xl font-bold text-white">от 4000 ₽</span>
               </div>
               <button
                 onClick={() => handleOpenForm("Профессиональный ремонт любых форсунок")}
@@ -132,7 +132,7 @@ export default function ServiceSection() {
 
           {/* 3 */}
           <ServiceCard delay="0.1s" bgImage="/images/card3.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 leading-tight text-white">
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Кодирование форсунок - присвоение ремонтных кодов
             </h3>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -161,7 +161,7 @@ export default function ServiceSection() {
 
           {/* 4 */}
           <ServiceCard delay="0.1s" bgImage="/images/card4.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 leading-tight text-white">Диагностика форсунок</h3>
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">Диагностика форсунок</h3>
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
                 Bosch
@@ -178,7 +178,7 @@ export default function ServiceSection() {
             </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xl md:text-2xl font-semibold text-white/90">от 800 ₽</span>
+                <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
               </div>
               <button
                 onClick={() => handleOpenForm("Диагностика форсунок")}
@@ -191,7 +191,7 @@ export default function ServiceSection() {
 
           {/* 5 */}
           <ServiceCard delay="0.1s" bgImage="/images/card5.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 leading-tight text-white">
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Диагностика и ремонт дизельных форсунок, обучение впрыска топливных систем
             </h3>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -204,7 +204,7 @@ export default function ServiceSection() {
             </div>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xl md:text-2xl font-semibold text-white/90">от 2000 ₽</span>
+                <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
               </div>
               <button
                 onClick={() =>
@@ -221,12 +221,12 @@ export default function ServiceSection() {
 
           {/* 6 */}
           <ServiceCard delay="0.1s" bgImage="/images/card6.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-3 leading-tight text-white">
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Ремонт турбин в Мурманске
             </h3>
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xl md:text-2xl font-semibold text-white/90">от 2000 ₽</span>
+                <span className="text-2xl font-semibold text-white/90">от 2000 ₽</span>
               </div>
               <button
                 onClick={() => handleOpenForm("Ремонт турбин в Мурманске")}

@@ -276,11 +276,14 @@ export default function ContactSection() {
                   href="https://wa.me/79533023022"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-20 mb-1 lg:mb-2 inline-block"
+                  className="relative z-20 block text-lg 
+                              sm:text-xm
+                              md:text-xm  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm  mb-1 lg:mb-2"
                 >
-                  <p className="text-lg sm:text-xm md:text-xm lg:text-sm xl:text-xm 2xl:text-xm">
-                    +7(953)302-30-22
-                  </p>
+                  +7(953)302-30-22
                 </a>
                 <p className="text-lg 
                               sm:text-xm
@@ -295,11 +298,14 @@ export default function ContactSection() {
                   href="https://t.me/TelegrammAcount"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-20 mb-1 lg:mb-2 inline-block"
+                  className="relative z-20 block text-lg 
+                              sm:text-xm
+                              md:text-xm  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm  mb-1 lg:mb-2"
                 >
-                  <p className="text-lg sm:text-xm md:text-xm lg:text-sm xl:text-xm 2xl:text-xm">
-                    @TelegrammAcount
-                  </p>
+                  @TelegrammAcount
                 </a>
               </div>
 
@@ -347,11 +353,14 @@ export default function ContactSection() {
       </h3>
                  <a
                   href="mailto:murmandiesel@ya.ru"
-                  className="relative z-20 mb-1 lg:mb-2 inline-block"
+                  className="relative z-20 block text-lg 
+                              sm:text-xm
+                              md:text-xm  
+                              lg:text-sm 
+                              xl:text-xm 
+                              2xl:text-xm  mb-1 lg:mb-2"
                 >
-                  <p className="text-lg sm:text-xm md:text-xm lg:text-sm xl:text-xm 2xl:text-xm">
-                    murmandiesel@ya.ru
-                  </p>
+                  murmandiesel@ya.ru
                 </a>
               </div>
 

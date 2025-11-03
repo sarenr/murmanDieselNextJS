@@ -9,18 +9,11 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-16">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">
+    <main className="max-w-4xl mx-auto px-4 py-16 text-foreground">
+      <h1 className="text-3xl font-bold mb-6 text-foreground">
         Политика конфиденциальности
-        </h1>
-        <Link
-          href="/"
-          className="ml-4 inline-block px-3 py-2 rounded bg-gray-200 dark:bg-gray-800 text-sm font-medium"
-        >
-          Вернуться на главную
-        </Link>
-      </div>
+      </h1>
+      {/* content paragraphs */}
       <p className="mb-4">
         Настоящая Политика конфиденциальности определяет порядок обработки и
         защиты персональных данных пользователей сайта ООО «Мурман-Дизель».
@@ -37,6 +30,16 @@ export default function PrivacyPage() {
       <p>
         Используя сайт, пользователь подтверждает согласие с данной Политикой.
       </p>
+
+      <div className="mt-8">
+        <Link
+          href="/"
+          aria-label="Вернуться на главную"
+          className="inline-flex items-center gap-2 border border-foreground text-foreground px-4 py-2 rounded-md hover:bg-foreground/10 transition-colors"
+        >
+          ← На главную
+        </Link>
+      </div>
     </main>
   );
 }

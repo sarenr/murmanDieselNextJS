@@ -45,125 +45,17 @@ export default function CardCarouselSection() {
   const next = () => setIndex((p) => (p + 1) % len);
   const prev = () => setIndex((p) => (p - 1 + len) % len);
 
+  // простой CSS-снэп; используем скроллIntoView при смене индекса
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
-  const touchMoved = useRef(false);
-  const pointerActive = useRef(false);
-  const pointerStartX = useRef<number | null>(null);
-  const pointerStartY = useRef<number | null>(null);
+  // rely on native browser scrolling (touch/trackpad) and CSS scroll-snap for drag/swipe
 
   useEffect(() => {
     const el = cardRefs.current[index];
     if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }, [index]);
-
-  useEffect(() => {
-    const sc = scrollRef.current;
-    if (!sc) return;
-
-    const onTouchStart = (e: TouchEvent) => {
-      if (pointerActive.current) return; 
-      if (e.touches.length !== 1) return;
-      touchMoved.current = false;
-      touchStartX.current = e.touches[0].clientX;
-      touchStartY.current = e.touches[0].clientY;
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (pointerActive.current) return;
-      if (touchStartX.current == null) return;
-      const dx = e.touches[0].clientX - touchStartX.current;
-      const dy = e.touches[0].clientY - (touchStartY.current ?? 0);
-      if (Math.abs(dx) > 10) touchMoved.current = true;
-      if (Math.abs(dx) > Math.abs(dy) * 1.2) {
-        e.preventDefault();
-      }
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (pointerActive.current) return;
-      if (!touchMoved.current || touchStartX.current == null) {
-        touchStartX.current = null;
-        touchStartY.current = null;
-        return;
-      }
-      const lastTouch = e.changedTouches[0];
-      const dx = lastTouch.clientX - (touchStartX.current ?? 0);
-      const abs = Math.abs(dx);
-      const threshold = 50; // px
-      if (abs > threshold) {
-        if (dx < 0) next();
-        else prev();
-      }
-      touchStartX.current = null;
-      touchStartY.current = null;
-      touchMoved.current = false;
-    };
-
-    const onPointerDown = (e: PointerEvent) => {
-      if (e.isPrimary === false) return;
-      pointerActive.current = true;
-      pointerStartX.current = e.clientX;
-      pointerStartY.current = e.clientY;
-      try {
-        (e.target as Element).setPointerCapture?.(e.pointerId);
-      } catch (err) {
-
-      }
-    };
-
-    const onPointerMove = (e: PointerEvent) => {
-      if (!pointerActive.current || pointerStartX.current == null) return;
-      const dx = e.clientX - (pointerStartX.current ?? 0);
-      const dy = e.clientY - (pointerStartY.current ?? 0);
-      if (Math.abs(dx) > Math.abs(dy) * 1.2) {
-        e.preventDefault();
-      }
-    };
-
-    const onPointerUp = (e: PointerEvent) => {
-      if (!pointerActive.current || pointerStartX.current == null) {
-        pointerActive.current = false;
-        pointerStartX.current = null;
-        pointerStartY.current = null;
-        return;
-      }
-      const dx = e.clientX - (pointerStartX.current ?? 0);
-      const abs = Math.abs(dx);
-      const threshold = 50; // px, similar to touch
-      if (abs > threshold) {
-        if (dx < 0) next();
-        else prev();
-      }
-      pointerActive.current = false;
-      try {
-        (e.target as Element).releasePointerCapture?.(e.pointerId);
-      } catch (err) {
-
-      }
-      pointerStartX.current = null;
-      pointerStartY.current = null;
-    };
-
-  sc.addEventListener("touchstart", onTouchStart, { passive: true });
-  sc.addEventListener("touchmove", onTouchMove, { passive: false });
-  sc.addEventListener("touchend", onTouchEnd);
-  sc.addEventListener("pointerdown", onPointerDown as EventListener);
-  sc.addEventListener("pointermove", onPointerMove as EventListener, { passive: false });
-  sc.addEventListener("pointerup", onPointerUp as EventListener);
-
-    return () => {
-      sc.removeEventListener("touchstart", onTouchStart);
-      sc.removeEventListener("touchmove", onTouchMove);
-      sc.removeEventListener("touchend", onTouchEnd);
-      sc.removeEventListener("pointerdown", onPointerDown as EventListener);
-      sc.removeEventListener("pointermove", onPointerMove as EventListener);
-      sc.removeEventListener("pointerup", onPointerUp as EventListener);
-    };
-  }, [next, prev]);
+  // rely on native browser scrolling (touch/trackpad) and CSS scroll-snap for drag/swipe
 
   const hasSlides = len > 0;
   const current = hasSlides ? cards[index] : null;

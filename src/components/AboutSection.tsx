@@ -72,18 +72,14 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-16 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
-                <h2 className="text-lg 
-                md:text-xm 
-                lg:text-xl 
-                
-                font-bold md:mb-1 text-black
-                mb-1 
+              <div className="mt-17 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
+                <h2 className="text-2xs md:text-xm lg:text-xl font-bold md:mb-1 text-black
+                sm:mb-0 
                 pt-0 
                 md:pt-15">
                   Оборудование
                 </h2>
-                <p className="text-black text-xs md:text-sm lg:text-xm">
+                <p className="text-black text-xs md:text-sm lg:text-xs ">
                   При выполнении работ мы используем самое качественное оборудование
                 </p>
               </div>
@@ -95,9 +91,9 @@ export default function AboutSection() {
             <div className="group relative h-full min-h-[200px] md:min-h-[300px] rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] bg-primary overflow-hidden">
               <div className="flex flex-col md:flex-row items-start md:items-center h-full">
                 {/* Контент */}
-                <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
-                  <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Качество</h2>
-                  <p className="text-white text-xs md:text-sm lg:text-xm">
+                <div className="pb-3 h-full w-full flex flex-col items-start justify-start">
+                  <h2 className="text-2xs md:text-xl font-bold text-white  md:mb-1 sm:mb-0 ">Качество</h2>
+                  <p className="text-white text-xs md:text-sm lg:text-xs">
                     Мы отвечаем за качество выполненных работ и даём собственные гарантии
                   </p>
                 </div>
@@ -134,9 +130,9 @@ export default function AboutSection() {
             <div className="group relative h-full min-h-[200px] md:min-h-[300px] rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] overflow-hidden bg-primary">
               <div className="flex flex-col md:flex-row items-start md:items-center h-full">
                 {/* Контент */}
-                <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
-                  <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Персонал</h2>
-                  <p className="text-white text-xs md:text-sm lg:text-xm">
+                 <div className="pb-3 h-full w-full flex flex-col items-start justify-start">
+                  <h2 className="text-2xs md:text-xl font-bold text-white  md:mb-1 sm:mb-0 ">Персонал</h2>
+                  <p className="text-white text-xs md:text-sm lg:text-xs">
                     Профессиональная подготовка в официальном центре Common Rail
                   </p>
                 </div>
@@ -195,14 +191,14 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-13 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center sm:pb-5">
-                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black 
-                mb-1 
-                pt-0  
+              <div className="mt-17 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
+                <h2 className="text-2xs md:text-xm lg:text-xl font-bold md:mb-1 text-black
+                sm:mb-0 
+                pt-0 
                 md:pt-15">
                   Мы №1
                 </h2>
-                <p className="text-black text-xs md:text-sm lg:text-xm">Наши клиенты нас рекомендуют!</p>
+                <p className="text-black text-xs md:text-sm lg:text-xs ">Наши клиенты нас рекомендуют!</p>
               </div>
             </div>
           </AnimatedCard>
@@ -234,14 +230,14 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-14 sm:mt-16 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center sm:pb-5">
-                <h2 className="text-lg md:text-xm lg:text-xl font-bold md:mb-1 text-black 
-                mb-1 
-                pt-0
+               <div className="mt-17 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
+                 <h2 className="text-2xs md:text-xm lg:text-xl font-bold md:mb-1 text-black
+                sm:mb-0 
+                pt-0 
                 md:pt-15">
                   Скорость
                 </h2>
-                <p className="text-black text-xs md:text-sm lg:text-xm ">
+                <p className="text-black text-xs md:text-sm lg:text-xs ">
                   Выполняем работы по ремонту в самые кратчайшие сроки
                 </p>
               </div>
@@ -252,8 +248,8 @@ export default function AboutSection() {
             <div className="group relative h-full min-h-[200px] md:min-h-[300px] rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] bg-primary overflow-hidden">
               <div className="flex flex-col md:flex-row items-start md:items-center h-full">
                 {/* Контент */}
-                <div className="mt-0 p-1 h-full w-full flex flex-col items-start justify-start">
-                  <h2 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-1">Клиенты</h2>
+               <div className="pb-3 h-full w-full flex flex-col items-start justify-start">
+                  <h2 className="text-2xs md:text-xl font-bold text-white  md:mb-1 sm:mb-0 ">Клиенты</h2>
                   <p className="text-white text-xs md:text-sm lg:text-xs">
                     Самая лучшая награда для нас — это положительные отзывы клиентов
                   </p>

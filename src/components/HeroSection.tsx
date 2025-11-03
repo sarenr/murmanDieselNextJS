@@ -229,7 +229,7 @@ export default function HeroSection() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
                     Отправить заявку
                   </button>
@@ -324,7 +324,7 @@ export default function HeroSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
                     {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>

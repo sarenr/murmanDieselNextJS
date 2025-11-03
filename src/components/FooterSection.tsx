@@ -26,7 +26,7 @@ export default function FooterSection() {
                                         priority
                                       />
                                     </div>                     
-                        <h3 className="flex items-end text-lg sm:text-xm font-bold mb-4">ООО &quot;Мурман - Дизель&quot;</h3>
+                        
                         {/* </div> */}
                         <p className="text-foreground/70 text-sm sm:text-base leading-relaxed mb-4">
                             Мы делаем качественный ремонт Дизельных форсунок
@@ -88,18 +88,20 @@ export default function FooterSection() {
                         <h4 className="text-base sm:text-lg font-bold mb-4">Связь</h4>
                         <div className="space-y-3 text-foreground/70">
                             <div>
-                                <a href="tel:+79113001755" className="font-medium text-sm sm:text-base">+7 (911) 3001755</a>
+                                <a href="tel:+79113001755" className="font-medium text-sm sm:text-base
+                                 hover:text-foreground hover:underline">+7 (911) 3001755</a>
                                 <p className="text-xs sm:text-sm text-foreground/50">Телефон для связи</p>
                             </div>
                             <div>
-                                <a href="https://wa.me/79533023022" target="_blank" rel="noopener noreferrer" className="font-medium text-sm sm:text-base">+79533023022</a>
+                                <a href="https://wa.me/79533023022"
+                                 target="_blank" rel="noopener noreferrer"
+                                  className="font-medium text-sm sm:text-base hover:text-foreground hover:underline">+79533023022</a>
                                 <p className="text-xs sm:text-sm text-foreground/50">WhatsApp/Viber</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm sm:text-base leading-tight">
                                     ПН-ПТ 09:00 – 18:00<br />
                                     СБ 10:00 - 17:00<br />
-                                    ВС: Выходной
                                 </p>
                                 <p className="text-xs sm:text-sm text-foreground/50 mt-1">Время работы</p>
                             </div>
