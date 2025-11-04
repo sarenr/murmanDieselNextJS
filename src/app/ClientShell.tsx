@@ -59,7 +59,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       />
       <noscript>
         <div>
-          <img src="https://mc.yandex.ru/watch/104725408" style={{ position: "absolute", left: "-9999px" }} alt="" />
+          <Image src="https://mc.yandex.ru/watch/104725408" style={{ position: "absolute", left: "-9999px" }} alt="" />
         </div>
       </noscript>
     </>

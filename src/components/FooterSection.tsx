@@ -121,7 +121,7 @@ export default function FooterSection() {
                         
                         {/* Левая часть */}
                         <p className="text-foreground/50">
-                        {currentYear} &copy; ООО "Мурман-Дизель" — Все права защищены
+                        {currentYear} &copy; ООО &quotМурман-Дизель&quot — Все права защищены
                         </p>
 
                         {/* Правая часть */}
