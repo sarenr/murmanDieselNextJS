@@ -5,7 +5,7 @@ import FooterSection from "@/components/FooterSection";
 import HeaderScroll from "@/components/HeaderScroll";
 import HeroSection from "@/components/HeroSection";
 import ServiceSection from "@/components/ServiceSection";
-import CardCarouselSection from "@/components/CardCarousel";
+import CardCarouselSlick from  "@/components/CardCarousel";
 import Script from "next/script";
 
 export default function Home() {
@@ -85,10 +85,10 @@ export default function Home() {
       </section>
 
       <section id="photo">
-        <CardCarouselSection />
+        <CardCarouselSlick />
       </section>
 
-      <section id="contact">
+      <section>
         <ContactSection />
       </section>
 

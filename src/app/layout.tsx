@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientShell from "./ClientShell";
 import { Toaster } from "react-hot-toast";
+import  ScrollToTop  from "../components/ScrollTop";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -70,10 +73,11 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico", apple: "/favicon.ico" },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) { 
   return (
     <html lang="ru">
       <body className={`${inter.variable} antialiased`}>
+          <ScrollToTop />
           <Toaster
           position="top-right"
           toastOptions={{
@@ -81,7 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             style: { background: "#111", color: "#fff" },
           }}
         />
-        <ClientShell>{children}</ClientShell>
+        <ClientShell>
+          {children}
+          </ClientShell>
       </body>
     </html>
   );

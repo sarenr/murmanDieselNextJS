@@ -11,12 +11,11 @@ import { ReactNode } from "react";
 
 export default function ContactSection() {
   const {
-    handleSubmitCallback,
     formData,
     errors,
     openFormWithService,
     handleInputChange,
-    handleSubmit,
+    handleSubmitApplication,
     isSubmitting,
     setPhone,
     handlePhonePaste,
@@ -25,6 +24,13 @@ export default function ContactSection() {
     const handleOpenForm = (serviceName: string) => {
     openFormWithService(serviceName);
   };
+  const inputClass = (name: keyof typeof formData) =>
+  `w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg 
+  text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 
+  focus:ring-1 focus:ring-blue-500 transition-colors"
+   ${errors[name]
+     ? "border-red-500 ring-red-500 focus:border-red-500 focus:ring-red-500"
+     : "border-gray-600 focus:border-blue-500 focus:ring-blue-500"}`;
   return (
     <>
          {/* форма в начале секции */}
@@ -40,61 +46,59 @@ export default function ContactSection() {
     </div>
 
     <form
-    onSubmit={handleSubmitCallback}  noValidate
-      className="space-y-6 max-w-2xl mx-auto"
-    >
-      {/* Имя */}
-      <div>
-        <label
-          htmlFor="name"
-          className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-        >
-          Ваше имя
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-           value={formData.name}
-           onChange={handleInputChange}
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-          placeholder="Введите ваше имя"
-          required
-        />
-      </div>
+                  noValidate
+                  onSubmit={handleSubmitApplication} 
+                  className="space-y-6 max-w-2xl mx-auto pb-20"
+                >
+                  {/* Имя */}
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
+                    >
+                      Ваше имя
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={inputClass("name")}
+                      placeholder="Введите ваше имя"
+                      required
+                    />
+                     {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                    )}
+                  </div>
 
-      {/* Телефон */}
-      <div>
-        <label
-          htmlFor="phone"
-          className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
-        >
-          Контактный телефон
-        
-        <input
-          name="phone"
-                          value={formData.phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          onPaste={handlePhonePaste}
-                          placeholder="+7ХХХХХХХХХХ"
-                          autoComplete="tel"
-                          inputMode="numeric"   // цифровая клавиатура на мобиле
-                          maxLength={12}        // "+7" + 10 цифр
-                          pattern={"^\\+7\\d{10}$"} // нативная проверка браузера
-                          required
-                          aria-invalid={!!errors.phone}
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg
-                           text-white placeholder-gray-400 focus:outline-none
-                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
-                             transition-colors"
-        />
-        {errors.phone && <p className="error">{errors.phone}</p>}
-        </label>
-      </div>
+                   {/* Телефон — с нормализацией и защитой paste */}
+                  <div>
+                    <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
+                      Контактный телефон
+                    </label>
+                    <input
+                      name="phone"
+                      value={formData.phone}
+                      onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
+                      onPaste={handlePhonePaste}                  // чистим вставки
+                      placeholder="+7ХХХХХХХХ"
+                      autoComplete="tel"
+                      inputMode="numeric"
+                      maxLength={12}                 // "+7" + 10 цифр
+                      // pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
+                      required
+                      aria-invalid={!!errors.phone}
+                      className={inputClass("phone")}                    />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                    )}
+                  </div>
 
-      {/* Автомобиль */}
-      <div>
-        <label
+                  {/* Автомобиль */}
+                  <div>
+                    <label
                       htmlFor="car"
                       className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
                     >
@@ -106,22 +110,24 @@ export default function ContactSection() {
                       name="car"
                       value={formData.car}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className={inputClass("car")} 
                       placeholder="Например: Toyota Camry 2018"
                       required
                     />
-      </div>
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.car}</p>
+                    )}
+                  </div>
 
-        <div className="flex gap-4 pt-4 pb-20">
-                     <button
+
+                  <button
                   type="submit"
                   disabled={isSubmitting}
                     className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
                     {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>
-          </div>
-    </form>
+                </form>
   </div>
   
       {/* Секция с контактами */}
@@ -136,7 +142,7 @@ export default function ContactSection() {
                        bg-gradient-to-b from-white/90 via-white/20 to-transparent rounded-full blur-3xl z-0 "></div>
 
         {/* Оглавление */}
-        <div className="max-w-7xl mx-auto  sm:px-6 lg:px-8 
+        <div id="contact" className="max-w-7xl mx-auto  sm:px-6 lg:px-8 
                         py-2 sm:py-4 md:py-10 lg:py-6 xl:py-7 2xl:py-10 relative z-10">
           
 

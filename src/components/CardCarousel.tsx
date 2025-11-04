@@ -1,143 +1,185 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+
+import Slider from "react-slick";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-type Card = { id: number; title: string; text: string; image: string };
+type Slide = {
+  title: string;
+  text: string;
+  img: string;
+  imgAlt: string;
+};
 
-const cards: Card[] = [
+const slides: Slide[] = [
   {
-    id: 1,
-    title: "Ремонт форсунок",
+    title: "Диагностика и ремонт дизельных двигателей",
     text:
-      "Ремонт дизельных форсунок сложный и ответственный процесс. Еще совсем недавно владельцам транспорта с дизельными моторами приходилось в случае выхода из строя форсунок менять их на новые, что само по себе обходится довольно дорого. Для того, чтобы осуществить ремонт топливных форсунок необходимо провести диагностические мероприятия и выявить характер неисправности. Для этих задач в нашем сервисе используются дорогостоящие диагностические стенды и инновационные технологии.",
-    image: "/images/example1.jpg",
+      "Ремонт дизельных форсунок — сложный и ответственный процесс. Еще недавно владельцам транспорта с дизельными моторами приходилось в случае выхода из строя форсунок менять их на новые, что обходилось дорого. Для ремонта требуется точная диагностика и выявление характера неисправности, для чего используются инновационные технологии и стенды.",
+    img: "/images/example1.jpg",
+    imgAlt: "Диагностика дизельного двигателя",
   },
   {
-    id: 2,
     title: "Наши специалисты лучшие",
     text:
-      "Квалифицированный ремонт форсунок обеспечивает надежную и экономичную работу дизельных агрегатов на долгие годы. Форсунки после ремонта в нашем сервисе гарантированно прослужат столько же, а в некоторых случаях даже и дольше, чем новые. При этом стоимость новых комплектующих значительно превосходит затраты на ремонт форсунок. Возможности нашей компании позволяют быстро и качественно выполнить: Проверка форсунок Denso, Siemens; Ремонт форсунок Bosch, Delphi, Cummins.",
-    image: "/images/example2.jpg",
+      "Квалифицированный ремонт форсунок обеспечивает надежную и экономичную работу дизельных агрегатов на долгие годы. После ремонта в нашем сервисе форсунки служат не хуже новых. Мы выполняем проверку Denso, Siemens и ремонт Bosch, Delphi, Cummins.",
+    img: "/images/example2.jpg",
+    imgAlt: "Наши специалисты лучшие",
   },
   {
-    id: 3,
     title: "Диагностика форсунок",
     text:
-      "Диагностика на стендах позволяет точно установить характер неисправности и составить алгоритм восстановления. Ремонт может включать мультипликатор, размерную цепь, распылитель и настройку на компьютерном стенде.",
-    image: "/images/example3.jpg",
+      "Диагностика на стендах позволяет точно определить неисправность и составить план восстановления. Ремонт включает замену распылителя, регулировку мультипликатора и настройку на компьютерном стенде.",
+    img: "/images/example3.jpg",
+    imgAlt: "Диагностика форсунок",
   },
   {
-    id: 4,
     title: "Мы востребованы",
     text:
-      "Ремонт дизельных форсунок в Мурманске — одна из наиболее востребованных услуг. Специалисты, оборудование, гарантия на работы. Специализация — Common Rail, Bosch и другие популярные системы.",
-    image: "/images/example4.jpg",
+      "Ремонт дизельных форсунок в Мурманске — одна из самых востребованных услуг. Мы предлагаем гарантию на работы, оригинальные запчасти и квалифицированных специалистов по системам Common Rail, Bosch и другим.",
+    img: "/images/example4.jpg",
+    imgAlt: "Мы востребованы",
   },
 ];
 
-const CARD_MAX_W = 1100;
+// === Кастомные стрелки (только на десктопах) ===
+function NextArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      aria-label="Следующий слайд"
+      className="hidden lg:flex absolute right-[-2.5rem] top-1/2 -translate-y-1/2 z-10
+                 p-2 rounded-full bg-primary/40 hover:bg-primary transition-all backdrop-blur-sm text-white"
+    >
+      <ChevronRight className="w-8 h-8 md:w-9 md:h-9" />
+    </button>
+  );
+}
 
-export default function CardCarouselSection() {
-  const [index, setIndex] = useState(0);
-  const len = cards.length;
+function PrevArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      aria-label="Предыдущий слайд"
+      className="hidden lg:flex absolute left-[-2.5rem] top-1/2 -translate-y-1/2 z-10
+                 p-2 rounded-full bg-primary/40 hover:bg-primary transition-all backdrop-blur-sm text-white"
+    >
+      <ChevronLeft className="w-8 h-8 md:w-9 md:h-9" />
+    </button>
+  );
+}
 
-  const next = () => setIndex((p) => (p + 1) % len);
-  const prev = () => setIndex((p) => (p - 1 + len) % len);
-
-  // простой CSS-снэп; используем скроллIntoView при смене индекса
-  const scrollRef = useRef<HTMLDivElement | null>(null);
+export default function CardCarouselSlick() {
+  const [active, setActive] = useState(0);
+  const [fixedHeight, setFixedHeight] = useState<number | null>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  // rely on native browser scrolling (touch/trackpad) and CSS scroll-snap for drag/swipe
-
+  // === высота карточек (только на десктопах) ===
   useEffect(() => {
-    const el = cardRefs.current[index];
-    if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  }, [index]);
-  // rely on native browser scrolling (touch/trackpad) and CSS scroll-snap for drag/swipe
+    const calcHeight = () => {
+      const isDesktop = window.innerWidth >= 1024; // lg breakpoint
+      if (!isDesktop) {
+        setFixedHeight(null);
+        return;
+      }
 
-  const hasSlides = len > 0;
-  const current = hasSlides ? cards[index] : null;
+      const heights = cardRefs.current.map((el) => el?.offsetHeight || 0);
+      const max = Math.max(...heights);
+      if (max > 0) setFixedHeight(max);
+    };
+
+    calcHeight();
+    window.addEventListener("resize", calcHeight);
+    return () => window.removeEventListener("resize", calcHeight);
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 700,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: false,
+    autoplay: false,
+    arrows: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    beforeChange: (_: number, next: number) => setActive(next),
+    appendDots: (dots: React.ReactNode) => (
+      <ul className="flex justify-center gap-2 mt-6">{dots}</ul>
+    ),
+    customPaging: (i: number) => (
+      <div
+        className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
+          i === active
+            ? "bg-primary scale-125 shadow-md"
+            : "bg-gray-500/80 hover:bg-gray-400"
+        }`}
+      />
+    ),
+  };
+
+  const current = slides[active];
 
   return (
-    <section className="w-full bg-linear-to-b from-gray-900 to-black py-10 sm:py-14">
-      <div className="w-full flex flex-col items-center">
-        {/* стрелки — относительно контейнера */}
-        <div className="relative w-full max-w-[1100px] mx-auto">
-          {/* Внешние стрелки удалены — используем встроенные стрелки внутри карточки */}
+    <section className="w-full  bg-gradient-to-b from-gray-900 to-black py-12 text-white overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 relative">
+        {/* Динамический заголовок */}
+        <h2
+          className="text-center font-bold mb-10 
+          text-sm sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
+          leading-tight sm:leading-snug md:leading-snug"
+        >
+          {current.title}
+        </h2>
 
-          {/* заголовок той же ширины, что контейнер */}
-          <h2 className="mx-auto text-3xl sm:text-4xl font-bold text-white text-center mb-6 sm:mb-8 max-w-[900px]">
-            {current?.title ?? "—"}
-          </h2>
-
-          {/* горизонтальный скролл с snap */}
-          <div
-            ref={scrollRef}
-            className="relative overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory flex gap-6 px-4 no-scrollbar"
-          >
-            {cards.map((c, i) => (
+        <Slider {...settings}>
+          {slides.map((slide, index) => (
+            <div key={index}>
               <div
-                key={c.id}
-                ref={(el) => { cardRefs.current[i] = el; }}
-                className={`snap-center shrink-0 w-[min(95vw,1100px)] bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative group`}
-                aria-hidden={i !== index}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                className="relative h-200 grid grid-cols-1 md:grid-cols-2 items-stretch
+                  bg-slate-900 rounded-2xl overflow-hidden ring-1 ring-white/10 
+                  transition-all duration-700 ease-in-out transform px-1"
+                style={{
+                  height:
+                    fixedHeight && window.innerWidth >= 1024
+                      ? `${fixedHeight}px`
+                      : "auto",
+                }}
               >
-                {/* кнопки внутри карточки, по центру вертикально, видимы на hover */}
-                <button
-                  onClick={prev}
-                  aria-label="Назад"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 bg-primary/30 hover:bg-primary text-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={next}
-                  aria-label="Вперёд"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 bg-primary/30 hover:bg-primary text-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
+                {/* Фото */}
+                <div className="relative w-full h-[260px] sm:h-[300px] md:h-[360px] lg:h-auto">
+                  <Image
+                    src={slide.img}
+                    alt={slide.imgAlt}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-in-out"
+                    sizes="(min-width:1024px) 50vw, 100vw"
+                  />
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2">
-                  <div className="relative w-full min-h-[260px] md:min-h-[420px]">
-                    <Image
-                      src={c.image}
-                      alt={c.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority
-                    />
-                  </div>
-                  <div className="p-8 lg:p-10 bg-gray-900 text-white w-full">
-                    <h3 className="text-2xl md:text-3xl font-semibold mb-4">{c.title}</h3>
-                    <p className="text-base md:text-lg leading-relaxed text-gray-200 whitespace-pre-line">
-                      {c.text}
-                    </p>
-                  </div>
+                {/* Текст */}
+                <div className="flex flex-col justify-center p-5 sm:p-7 md:p-8 lg:p-10 transition-all duration-700 ease-in-out">
+                  <p
+                    className="text-white/90 text-justify
+                    text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px]
+                    leading-relaxed sm:leading-7 md:leading-8"
+                  >
+                    {slide.text}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* индикаторы — сразу под контейнером */}
-        <div className="mt-6 sm:mt-8">
-          <div className="flex gap-3">
-            {cards.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIndex(i)}
-                className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
-                  i === index ? "bg-primary scale-125 shadow-md" : "bg-gray-600 opacity-80 hover:opacity-100"
-                }`}
-                aria-label={`Слайд ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
+            </div>
+          ))}
+        </Slider>
       </div>
     </section>
   );

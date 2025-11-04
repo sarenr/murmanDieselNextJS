@@ -268,7 +268,7 @@ export default function ServiceSection() {
                 </div>
 
                 {/* Форма */}
-                <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6 max-w-2xl mx-auto">
                   {/* Услуга */}
                   <div>
                     <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
@@ -357,7 +357,7 @@ export default function ServiceSection() {
                       onChange={handleInputChange}
                       rows={4}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                      placeholder="Добавьте комментарии"
+                      placeholder="Добавьте комментарии (не обязательно)"
                     />
                   </div>
 

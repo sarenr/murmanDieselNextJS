@@ -50,7 +50,7 @@ export default function AboutSection() {
             <div className="group relative h-full min-h-[200px] md:min-h-[300px] bg-white rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] overflow-hidden">
               <div
                 className="
-                  absolute -top-8 -left-100 
+                  absolute -top-10 -left-100 
                   md:-top-12 md:-left-1 
                   lg:-top-100 lg:-left-2 
                   xl:-top-20 xl:-left-2 
@@ -72,7 +72,7 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-              <div className="mt-17 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
+              <div className="mt-16 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
                 <h2 className="text-2xs md:text-xm lg:text-xl font-bold md:mb-1 text-black
                 sm:mb-0 
                 pt-0 
@@ -208,7 +208,7 @@ export default function AboutSection() {
             <div className="group relative h-full min-h-[200px] md:min-h-[300px] bg-white rounded-3xl p-4 md:p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] overflow-hidden">
               <div
                 className="
-                  absolute -top-8 -right-100 
+                  absolute -top-10 -right-100 
                   md:-top-12 md:-left-10 
                   lg:-top-10 lg:-left-1 
                   xl:-top-20 xl:-left-5 
@@ -230,7 +230,7 @@ export default function AboutSection() {
               </div>
 
               {/* Контент */}
-               <div className="mt-17 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
+               <div className="mt-16 sm:mt-18 md:mt-20 md:-ml-2 md:pl-0 h-full w-full flex flex-col items-start justify-center pb-3 sm:pb-7">
                  <h2 className="text-2xs md:text-xm lg:text-xl font-bold md:mb-1 text-black
                 sm:mb-0 
                 pt-0 

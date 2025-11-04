@@ -34,7 +34,7 @@ export default function CookiePage() {
 
       <div className="mt-8">
         <Link
-          href="/"
+           href="/"
           aria-label="Вернуться на главную"
           className="inline-flex items-center gap-2 border border-foreground text-foreground px-4 py-2 rounded-md hover:bg-foreground/10 transition-colors"
         >

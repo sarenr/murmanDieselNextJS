@@ -12,7 +12,7 @@ export default function HeroSection() {
       openFormWithService,
       closeForm,
       handleInputChange,
-      handleSubmit,
+      handleSubmitApplication,
       setPhone,
       handlePhonePaste,
       handleSubmitCallback,
@@ -170,11 +170,12 @@ export default function HeroSection() {
                 </div>
 
                 <form
-                  onSubmit={handleSubmit}
+                  noValidate
+                  onSubmit={handleSubmitApplication} 
                   className="space-y-6 max-w-2xl mx-auto"
                 >
                   {/* Имя */}
-                   <div>
+                  <div>
                     <label
                       htmlFor="name"
                       className="block text-white text-base sm:text-lg font-medium mb-2 text-left"
@@ -191,11 +192,12 @@ export default function HeroSection() {
                       placeholder="Введите ваше имя"
                       required
                     />
-                    {errors.name && (
+                     {errors.name && (
                       <p className="mt-1 text-sm text-red-400">{errors.name}</p>
                     )}
                   </div>
-                  {/* Телефон — с нормализацией и защитой paste */}
+
+                   {/* Телефон — с нормализацией и защитой paste */}
                   <div>
                     <label className="block text-white text-base sm:text-lg font-medium mb-2 text-left">
                       Контактный телефон
@@ -205,15 +207,14 @@ export default function HeroSection() {
                       value={formData.phone}
                       onChange={(e) => setPhone(e.target.value)} // нормализация → +7XXXXXXXXXX
                       onPaste={handlePhonePaste}                  // чистим вставки
-                      placeholder="+7ХХХХХХХХХХ"
+                      placeholder="+7ХХХХХХХХ"
                       autoComplete="tel"
                       inputMode="numeric"
                       maxLength={12}                 // "+7" + 10 цифр
-                      pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
+                      // pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
                       aria-invalid={!!errors.phone}
-                     className={inputClass("phone")}
-                    />
+                      className={inputClass("phone")}                    />
                     {errors.name && (
                       <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
                     )}
@@ -233,16 +234,22 @@ export default function HeroSection() {
                       name="car"
                       value={formData.car}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className={inputClass("car")} 
                       placeholder="Например: Toyota Camry 2018"
                       required
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.car}</p>
+                    )}
                   </div>
+
+
                   <button
-                    type="submit"
+                  type="submit"
+                  disabled={isSubmitting}
                     className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
                   >
-                    Отправить заявку
+                    {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>
                 </form>
               </div>
@@ -274,7 +281,7 @@ export default function HeroSection() {
                   Оставьте свои данные и мы вам перезвоним
                 </p>
               </div>
-              <form onSubmit={handleSubmitCallback} className="space-y-4">
+              <form onSubmit={handleSubmitCallback} noValidate className="space-y-4">
                 {/* Имя */}
                    <div>
                     <label
@@ -311,12 +318,14 @@ export default function HeroSection() {
                       autoComplete="tel"
                       inputMode="numeric"
                       maxLength={12}                 // "+7" + 10 цифр
-                      pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
+                      // pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
                       aria-invalid={!!errors.phone}
                       className={inputClass("phone")}
                     />
-                    <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                   {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                    )}
                   </div>
 
                 {/* Сообщение */}

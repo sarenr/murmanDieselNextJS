@@ -32,7 +32,7 @@ export default function HeaderScroll() {
     openFormWithService,
     closeForm,
     handleInputChange,
-    handleSubmit,
+    handleSubmitApplication,
     setPhone,
     handlePhonePaste,
     isSubmitting 
@@ -68,8 +68,8 @@ export default function HeaderScroll() {
                 src={logoSrc}
                 alt="Мурман-Дизель"
                 width={160}
-                height={150}
-                className="w-50 h-12 object-cover object-center transition-all duration-300"
+                height={160}
+                className="w-50 h-13  object-center transition-all duration-300"
                 priority
               />
             </div>
@@ -87,6 +87,12 @@ export default function HeaderScroll() {
                 className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
               >
                 Услуги
+              </a>
+              <a
+                href="#about"
+                className={`${isTransparent ? "text-white/90" : "text-white"} hover:text-primary transition-colors text-sm lg:text-base`}
+              >
+                О нас
               </a>
                <a
                 href="#photo"
@@ -206,8 +212,8 @@ export default function HeaderScroll() {
                 </div>
 
                 <form
-                
-                  onSubmit={handleSubmit} 
+                  noValidate
+                  onSubmit={handleSubmitApplication} 
                   className="space-y-6 max-w-2xl mx-auto"
                 >
                   {/* Имя */}
@@ -247,7 +253,7 @@ export default function HeaderScroll() {
                       autoComplete="tel"
                       inputMode="numeric"
                       maxLength={12}                 // "+7" + 10 цифр
-                      pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
+                      // pattern={"^\\+7\\d{10}$"}      // нативная проверка браузера
                       required
                       aria-invalid={!!errors.phone}
                       className={inputClass("phone")}                    />
@@ -270,10 +276,13 @@ export default function HeaderScroll() {
                       name="car"
                       value={formData.car}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className={inputClass("car")} 
                       placeholder="Например: Toyota Camry 2018"
                       required
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-400">{errors.car}</p>
+                    )}
                   </div>
 
 

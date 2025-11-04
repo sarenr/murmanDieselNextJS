@@ -22,7 +22,7 @@ export default function FooterSection() {
                                         alt="Мурман-Дизель"
                                         width={160}
                                         height={150}
-                                        className="w-50 h-12 object-cover object-center transition-all duration-300"
+                                        className="w-50 h-13  object-center transition-all duration-300"
                                         priority
                                       />
                                     </div>                     
@@ -121,7 +121,7 @@ export default function FooterSection() {
                         
                         {/* Левая часть */}
                         <p className="text-foreground/50">
-                        {currentYear} &copy; ООО &quotМурман-Дизель&quot — Все права защищены
+                        {currentYear} &copy; ООО &quot;Мурман-Дизель&quot; — Все права защищены
                         </p>
 
                         {/* Правая часть */}
