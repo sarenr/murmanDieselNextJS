@@ -4,8 +4,13 @@ import Slider from "react-slick";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
+
+interface ArrowProps {
+  onClick?: () => void;
+  currentSlide?: number;
+  slideCount?: number;
+}
 
 type Slide = {
   title: string;
@@ -45,9 +50,8 @@ const slides: Slide[] = [
   },
 ];
 
-// === Кастомные стрелки (только на десктопах) ===
-function NextArrow(props: any) {
-  const { onClick } = props;
+
+export function NextArrow({ onClick }: ArrowProps) {
   return (
     <button
       onClick={onClick}
@@ -60,8 +64,7 @@ function NextArrow(props: any) {
   );
 }
 
-function PrevArrow(props: any) {
-  const { onClick } = props;
+export function PrevArrow({ onClick }: ArrowProps) {
   return (
     <button
       onClick={onClick}
@@ -79,10 +82,10 @@ export default function CardCarouselSlick() {
   const [fixedHeight, setFixedHeight] = useState<number | null>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  // === высота карточек (только на десктопах) ===
+
   useEffect(() => {
     const calcHeight = () => {
-      const isDesktop = window.innerWidth >= 1024; // lg breakpoint
+      const isDesktop = window.innerWidth >= 1024;
       if (!isDesktop) {
         setFixedHeight(null);
         return;
@@ -123,9 +126,7 @@ export default function CardCarouselSlick() {
       />
     ),
   };
-
   const current = slides[active];
-
   return (
     <section className="w-full  bg-gradient-to-b from-gray-900 to-black py-12 text-white overflow-hidden">
       <div className="max-w-5xl mx-auto px-4 relative">

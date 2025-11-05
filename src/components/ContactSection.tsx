@@ -1,13 +1,12 @@
 "use client";
 
-import { FormData } from "@/types";
-import { ChangeEvent, FormEvent, useState } from "react";
+
 import { Map } from 'lucide-react';
 import { Clock3 } from 'lucide-react';
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { AtSign } from 'lucide-react';
 import { useFormModal } from "@/components/useFormModal";
-import { ReactNode } from "react";
+
 
 export default function ContactSection() {
   const {
@@ -20,10 +19,6 @@ export default function ContactSection() {
     setPhone,
     handlePhonePaste,
   } = useFormModal();
-
-    const handleOpenForm = (serviceName: string) => {
-    openFormWithService(serviceName);
-  };
   const inputClass = (name: keyof typeof formData) =>
   `w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg 
   text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 

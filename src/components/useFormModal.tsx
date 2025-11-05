@@ -3,19 +3,19 @@ import { z } from "zod";
 import toast from "react-hot-toast";
 
 /** ========= 1) Схемы валидации под два сценария ========= */
-const fullSchema = z.object({
-  name: z.string()
-  .min(2, "Имя должно содержать минимум 2 буквы!")
-  .regex(/^[А-Яа-яA-Za-zЁё\s'-]+$/, "Имя не должно содержать цифры или спецсимволы!"),
-  phone: z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +79991234567"),
-  email: z.email({ message: "Введите корректный email" }),
-  comment: z.string().max(1000, "Слишком длинный комментарий").optional().or(z.literal("")),
-  service: z.string().min(1, "Выберите услугу"),
-  car: z.string()
-  .min(2, "Пожалуйста, укажите марку и модель автомобиля")
-  .max(100),
-  message: z.string().max(100).optional().or(z.literal("")),
-});
+// const fullSchema = z.object({
+//   name: z.string()
+//   .min(2, "Имя должно содержать минимум 2 буквы!")
+//   .regex(/^[А-Яа-яA-Za-zЁё\s'-]+$/, "Имя не должно содержать цифры или спецсимволы!"),
+//   phone: z.string().regex(/^\+7\d{10}$/, "Телефон должен быть в формате +79991234567"),
+//   email: z.email({ message: "Введите корректный email" }),
+//   comment: z.string().max(1000, "Слишком длинный комментарий").optional().or(z.literal("")),
+//   service: z.string().min(1, "Выберите услугу"),
+//   car: z.string()
+//   .min(2, "Пожалуйста, укажите марку и модель автомобиля")
+//   .max(100),
+//   message: z.string().max(100).optional().or(z.literal("")),
+// });
 const mainSchema = z.object({
   name: z.string()
   .min(2, "Имя должно содержать минимум 2 буквы!")
@@ -27,6 +27,7 @@ const mainSchema = z.object({
   car: z.string()
   .min(2, "Пожалуйста, укажите марку и модель автомобиля")
   .max(100),
+  message: z.string().max(100).optional().or(z.literal("")),
 });
 const callbackSchema = z.object({
   name: z.string()
@@ -45,7 +46,7 @@ const  applicationSchema = z.object({
 });
 
 // Тип данных берём по полной схеме
-export type FormData = z.infer<typeof fullSchema>;
+export type FormData = z.infer<typeof mainSchema>;
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
 // Режим модалки
@@ -115,7 +116,7 @@ export const useFormModal = () => {
 
 const submitWithSchema = async (
   e: FormEvent,
-  schema: typeof fullSchema |typeof mainSchema | typeof callbackSchema | typeof applicationSchema
+  schema: typeof mainSchema | typeof callbackSchema | typeof applicationSchema
 ) => {
   e.preventDefault();
 
