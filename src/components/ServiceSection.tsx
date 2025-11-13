@@ -102,9 +102,7 @@ export default function ServiceSection() {
               </span>
             </div>
             <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
-              </div>
+             
               <button
                 onClick={() => handleOpenForm("Диагностика форсунок")}
                 className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blур-sm border border-white/30"
@@ -244,6 +242,32 @@ export default function ServiceSection() {
             </div>
           </ServiceCard>
         </div>
+
+
+
+        
+        {/* <div className="mt-40 mb-60 h-200" >
+          <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          Акция
+        </h2>
+        <h3 className=" mb-20 text-center text-3xl sm:text-4xl lg:text-3xl font-bold text-gray-900 mb-4">
+          Обращаясь к нам вы экономите до 70 % от стоиомости агрегата!
+        </h3>
+           <ServiceCard delay="0.1s" bgImage="/images/sale.jpg" onOpenForm={handleOpenForm}>
+            <h3 className="pt-20 flex items-center text-center text-6xl font-bold mb-3 leading-tight text-white">
+              Диагностика форсунок бесплатно!
+            </h3>
+            <div className="mt-auto space-y-4">
+              <button
+                onClick={() => handleOpenForm("Диагностика форсунок бесплатно")}
+                className="w-full h-20 font-bold sm:text-xm lg:text-2xl bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/30"
+              >
+                Подробнее
+              </button>
+            </div>
+          </ServiceCard>
+                    
+        </div> */}
       </div>
 
       {/* Модалка с формой */}
