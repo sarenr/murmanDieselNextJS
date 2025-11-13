@@ -90,12 +90,15 @@ export default function FooterSection() {
                             <div>
                                 <a href="tel:+79113001755" className="font-medium text-sm sm:text-base
                                  hover:text-foreground hover:underline">+7 (911) 3001755</a>
-                                <p className="text-xs sm:text-sm text-foreground/50">Телефон для связи</p>
+                                <p className="text-xs sm:text-sm text-foreground/50">Ремонт форсунок</p>
+                                <a href="tel:+79113001755" className="font-medium text-sm sm:text-base
+                                 hover:text-foreground hover:underline">+7 (911) 3001199</a>
+                                <p className="text-xs sm:text-sm text-foreground/50">Ремонт форсунок</p>
                             </div>
                             <div>
                                 <a href="https://wa.me/79533023022"
                                  target="_blank" rel="noopener noreferrer"
-                                  className="font-medium text-sm sm:text-base hover:text-foreground hover:underline">+79533023022</a>
+                                  className="font-medium text-sm sm:text-base hover:text-foreground hover:underline">+7 (911) 3001199</a>
                                 <p className="text-xs sm:text-sm text-foreground/50">WhatsApp/Viber</p>
                             </div>
                             <div>

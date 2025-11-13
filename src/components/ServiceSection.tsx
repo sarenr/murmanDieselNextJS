@@ -84,7 +84,36 @@ export default function ServiceSection() {
       {/* Сетка карточек */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* 1 */}
+           {/* 1 */}
+          <ServiceCard delay="0.1s" bgImage="/images/card4.jpg" onOpenForm={handleOpenForm}>
+            <h3 className="text-lg font-bold mb-3 leading-tight text-white">Бесплатная диагностика форсунок</h3>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Bosch
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Delphi
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Siemens
+              </span>
+              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
+                Denso
+              </span>
+            </div>
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
+              </div>
+              <button
+                onClick={() => handleOpenForm("Диагностика форсунок")}
+                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blур-sm border border-white/30"
+              >
+                Оставить заявку
+              </button>
+            </div>
+          </ServiceCard>
+          {/* 2 */}
           <ServiceCard delay="0.1s" bgImage="/images/card1.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Ремонт дизельных форсунок
@@ -113,7 +142,7 @@ export default function ServiceSection() {
             </div>
           </ServiceCard>
 
-          {/* 2 */}
+          {/* 3 */}
           <ServiceCard delay="0.1s" bgImage="/images/card2.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Профессиональный ремонт любых форсунок
@@ -136,7 +165,7 @@ export default function ServiceSection() {
             </div>
           </ServiceCard>
 
-          {/* 3 */}
+          {/* 4 */}
           <ServiceCard delay="0.1s" bgImage="/images/card3.jpg" onOpenForm={handleOpenForm}>
             <h3 className="text-lg font-bold mb-3 leading-tight text-white">
               Кодирование форсунок - присвоение ремонтных кодов
@@ -165,35 +194,7 @@ export default function ServiceSection() {
             </div>
           </ServiceCard>
 
-          {/* 4 */}
-          <ServiceCard delay="0.1s" bgImage="/images/card4.jpg" onOpenForm={handleOpenForm}>
-            <h3 className="text-lg font-bold mb-3 leading-tight text-white">Диагностика форсунок</h3>
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-                Bosch
-              </span>
-              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-                Delphi
-              </span>
-              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-                Siemens
-              </span>
-              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-sm border border-blue-400/30">
-                Denso
-              </span>
-            </div>
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-semibold text-white/90">от 800 ₽</span>
-              </div>
-              <button
-                onClick={() => handleOpenForm("Диагностика форсунок")}
-                className="w-full font-bold bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl transition-all duration-300 backdrop-blур-sm border border-white/30"
-              >
-                Оставить заявку
-              </button>
-            </div>
-          </ServiceCard>
+         
 
           {/* 5 */}
           <ServiceCard delay="0.1s" bgImage="/images/card5.jpg" onOpenForm={handleOpenForm}>
