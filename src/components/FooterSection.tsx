@@ -93,7 +93,7 @@ export default function FooterSection() {
                                 <p className="text-xs sm:text-sm text-foreground/50">Ремонт форсунок</p>
                                 <a href="tel:+79113001755" className="font-medium text-sm sm:text-base
                                  hover:text-foreground hover:underline">+7 (911) 3001199</a>
-                                <p className="text-xs sm:text-sm text-foreground/50">Ремонт форсунок</p>
+                                <p className="text-xs sm:text-sm text-foreground/50">Ремонт турбин</p>
                             </div>
                             <div>
                                 <a href="https://wa.me/79533023022"
