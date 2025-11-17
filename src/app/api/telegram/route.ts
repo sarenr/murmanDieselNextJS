@@ -63,17 +63,43 @@ export async function POST(req: NextRequest) {
 
   const text = rows.join("\n");
 
-  try {
+ try {
+  async function send(chatId: string) {
     const r = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: CHAT, text, disable_web_page_preview: true }),
+      body: JSON.stringify({
+        chat_id: chatId,
+        text,
+        disable_web_page_preview: true
+      }),
     });
 
-    const body = await r.text();
-    return NextResponse.json({ ok: r.ok, status: r.status, body });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : "Unexpected error";
-    return NextResponse.json({ ok: false, error: msg }, { status: 500 });
+    const json = await r.json();
+
+    // Миграция
+    if (!json.ok && json.parameters?.migrate_to_chat_id) {
+      const newChatId = json.parameters.migrate_to_chat_id.toString();
+
+      console.log("🔄 Группа мигрировала! Новый chat_id:", newChatId);
+
+      // Повторная отправка
+      return send(newChatId);
+    }
+
+    return {
+      ok: json.ok,
+      status: r.status,
+      body: json
+    };
   }
+
+  const result = await send(CHAT);
+  return NextResponse.json(result);
+
+} catch (err) {
+  const msg = err instanceof Error ? err.message : "Unexpected error";
+  return NextResponse.json({ ok: false, error: msg }, { status: 500 });
+}
+
 }
