@@ -2,7 +2,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { z } from "zod";
 import toast from "react-hot-toast";
 
-/** ========= 1) Схемы валидации под два сценария ========= */
+/** ========= 1) Схемы валидации под два  сценария ========= */
 // const fullSchema = z.object({
 //   name: z.string()
 //   .min(2, "Имя должно содержать минимум 2 буквы!")
@@ -50,7 +50,7 @@ export type FormData = z.infer<typeof mainSchema>;
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
 // Режим модалки
-type ModalKind = "main" | "callback" | null;
+type ModalKind = "заявка по кнопке" | "обратная связь" | null;
 
 /** ========= 2) Нормализация телефона ========= */
 function normalizePhone(raw: string) {
@@ -67,8 +67,8 @@ export const useFormModal = () => {
   const [modalKind, setModalKind] = useState<ModalKind>(null);
 
   // удобные булевы флаги
-  const isMainOpen = modalKind === "main";
-  const isCallbackOpen = modalKind === "callback";
+  const isMainOpen = modalKind === "заявка по кнопке";
+  const isCallbackOpen = modalKind === "обратная связь";
   const isFormOpen = modalKind !== null;
 
   // данные формы
@@ -186,13 +186,13 @@ if (!parsed.success) {
   const openFormWithService = (service: string) => {
     setFormData((prev) => ({ ...prev, service }));
     setErrors({});
-    setModalKind("main");
+    setModalKind("заявка по кнопке");
   };
 
   const openCallbackForm = (serviceLabel = "Обратный звонок") => {
     setFormData((prev) => ({ ...prev, service: serviceLabel }));
     setErrors({});
-    setModalKind("callback");
+    setModalKind("обратная связь");
   };
 
   /** Закрыть/сброс */

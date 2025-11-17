@@ -119,9 +119,8 @@ export default function FooterSection() {
                 </div>
 
                 {/* Нижняя часть */}
-                    <div className="w-full border-t border-foreground/10 pt-6 sm:pt-8 text-foreground/50">
-                    <div className="max-w-7xl mx-auto  flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-center sm:text-left">
-                        
+                    <div className="w-full border-t border-foreground/10 pt-6 sm:pt-8 text-foreground/50 mb-5 md:mb-1 ">
+                    <div className="w-full mx-auto flex flex-col sm:flex-row items-center justify-between  text-xs sm:text-sm  sm:text-left">
                         {/* Левая часть */}
                         <p className="text-foreground/50">
                         {currentYear} &copy; ООО &quot;Мурман-Дизель&quot; — Все права защищены
@@ -142,6 +141,48 @@ export default function FooterSection() {
                         >
                             Политика использования Cookies
                         </Link>
+                        </div>
+                    </div>
+                    </div>
+                     {/* поддержка */}
+                    <div className="w-full pt-1 sm:pt-8 text-foreground/50">
+                    <div className="w-full mx-auto  flex flex-col sm:flex-col lg:flex-row items-center justify-between gap-4 text-xs sm:text-sm  sm:text-left">
+                        {/* Левая часть */}
+                        <p className="text-xm text-foreground/50 font-bold">
+                        Создано при поддержке Правительства Мурманской области и Центра поддержки предпринимательства Мурманской области
+                        </p>
+
+                         {/* Логотипы */}
+                        <div className="flex items-center justify-center sm:justify-end gap-2">
+                               
+                           <a
+                            href="https://xn--51-9kcqjf0b7a.xn--p1ai/"
+                            target="_blank"
+                            className="block"
+                        >
+                        <div className="relative w-60 h-36" >
+                            <Image
+                            src="/images/help-center.jpg"
+                            alt="Центр поддержки предпринимательства"
+                            fill
+                            className="object-contain transition-transform duration-200 hover:scale-105"
+                            />
+                        </div>
+                        </a>
+                        <a
+                            href="https://gov-murman.ru/"
+                            target="_blank"
+                            className="block"
+                        >
+                        <div className="relative w-20 h-20">
+                            <Image
+                            src="/images/murman-region.jpg"
+                            alt="Герб Мурманской области"
+                            fill
+                            className="object-contain transition-transform duration-200 hover:scale-105"
+                            />
+                        </div>
+                        </a>
                         </div>
                     </div>
                     </div>
