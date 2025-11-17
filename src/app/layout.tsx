@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://murmandiesel.ru"),
+  metadataBase: new URL("https://murman-diesel.ru"),
   title: {
     default: "Ремонт дизельных форсунок в Мурманске | MurmanDiesel",
     template: "%s | MurmanDiesel",
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ru_RU",
-    url: "https://murmandiesel.ru/",
+    url: "https://murman-diesel.ru/",
     siteName: "MurmanDiesel",
     title: "MurmanDiesel — ремонт дизельных форсунок в Мурманске",
     description:
       "Диагностика на стенде, ремонт форсунок Bosch/Delphi/Denso. Сроки от 1 дня. Гарантия.",
     images: [
       {
-        url: "images/og/murmandiesel-og.jpg",
+        url: "images/og/murman-diesel-og.jpg",
         width: 1200,
         height: 630,
         alt: "MurmanDiesel — ремонт дизельных форсунок в Мурманске",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     title: "Ремонт дизельных форсунок в Мурманске | MurmanDiesel",
     description:
       "Стенд, калибровка, кодировка. Оригинальные детали, гарантия.",
-    images: ["/og/murmandiesel-og.jpg"],
+    images: ["/og/murman-diesel-og.jpg"],
   },
   robots: {
     index: true,

@@ -12,10 +12,10 @@ export default function Home() {
   const orgLd = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    "@id": "https://murmandiesel.ru/#murman-diesel",
+    "@id": "https://murman-diesel.ru/#murman-diesel",
     "name": "MurmanDiesel",
-    "url": "https://murmandiesel.ru/",
-    "image": "https://murmandiesel.ru/images/og/murmandiesel-og.jpg",
+    "url": "https://murman-diesel.ru/",
+    "image": "https://murman-diesel.ru/images/og/murmandiesel-og.jpg",
     "telephone": "+7-911-300-17-55",
     "address": {
       "@type": "PostalAddress",
@@ -35,11 +35,11 @@ export default function Home() {
   const siteLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://murmandiesel.ru#murman-diesel",
-    "url": "https://murmandiesel.ru/",
+    "@id": "https://murman-diesel.ru#murman-diesel",
+    "url": "https://murman-diesel.ru/",
     "name": "MurmanDiesel",
     "inLanguage": "ru-RU",
-    "publisher": { "@id": "https://murmandiesel.ru/#murman-diesel" },
+    "publisher": { "@id": "https://murman-diesel.ru/#murman-diesel" },
     // "potentialAction": {
     //   "@type": "SearchAction",
     //   "target": "https://murmandiesel.ru/search/?text={search_term_string}",
@@ -51,7 +51,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://murmandiesel.ru/" }
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://murman-diesel.ru/" }
     ]
   };
 
@@ -60,9 +60,9 @@ export default function Home() {
     "@type": "ItemList",
     "name": "Услуги MurmanDiesel",
     "itemListElement": [
-      { "@type": "Service", "name": "Ремонт дизельных форсунок", "provider": { "@id": "https://murmandiesel.ru/#organization" }, "url": "https://murmandiesel.ru/#service" },
-      { "@type": "Service", "name": "Диагностика форсунок", "provider": { "@id": "https://murmandiesel.ru/#organization" }, "url": "https://murmandiesel.ru/#service" },
-      { "@type": "Service", "name": "Ремонт топливной системы", "provider": { "@id": "https://murmandiesel.ru/#organization" }, "url": "https://murmandiesel.ru/#service" }
+      { "@type": "Service", "name": "Ремонт дизельных форсунок", "provider": { "@id": "https://murman-diesel.ru/#organization" }, "url": "https://murman-diesel.ru/#service" },
+      { "@type": "Service", "name": "Диагностика форсунок", "provider": { "@id": "https://murman-diesel.ru/#organization" }, "url": "https://murman-diesel.ru/#service" },
+      { "@type": "Service", "name": "Ремонт топливной системы", "provider": { "@id": "https://murman-diesel.ru/#organization" }, "url": "https://murman-diesel.ru/#service" }
     ]
   };
 

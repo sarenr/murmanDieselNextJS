@@ -5,19 +5,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     {
-      url: "https://murmandiesel.ru/",
+      url: "https://murman-diesel.ru/",
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://murmandiesel.ru/privacy",
+      url: "https://murman-diesel.ru/privacy",
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
-      url: "https://murmandiesel.ru/cookie",
+      url: "https://murman-diesel.ru/cookie",
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.3,
