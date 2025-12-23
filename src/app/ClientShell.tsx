@@ -1,12 +1,16 @@
 "use client";
 
+import CookieConsent from "@/components/CookieConsent";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import CookieConsent from "@/components/CookieConsent";
 
-export default function ClientShell({ children }: { children: React.ReactNode }) {
+export default function ClientShell({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
 
@@ -35,7 +39,11 @@ export default function ClientShell({ children }: { children: React.ReactNode })
         </div>
       )}
 
-      <div className={loading ? "opacity-0" : "opacity-100 transition-opacity duration-300"}>
+      <div
+        className={
+          loading ? "opacity-0" : "opacity-100 transition-opacity duration-300"
+        }
+      >
         {children}
       </div>
 
@@ -59,7 +67,42 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       />
       <noscript>
         <div>
-          <Image src="https://mc.yandex.ru/watch/104725408" style={{ position: "absolute", left: "-9999px" }} alt="" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://mc.yandex.ru/watch/104725408"
+            style={{ position: "absolute", left: "-9999px" }}
+            alt=""
+          />
+        </div>
+      </noscript>
+
+      {/* Top.Mail.Ru counter + fallback no js enabled */}
+      {/* https://top.mail.ru/help/ru/code/ajax */}
+      <Script
+        id="top-mail-ru-counter"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            var _tmr = window._tmr || (window._tmr = []);
+            _tmr.push({id: "3729400", type: "pageView", start: (new Date()).getTime(), pid: "USER_ID"});
+            (function (d, w, id) {
+              if (d.getElementById(id)) return;
+              var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+              ts.src = "https://top-fwz1.mail.ru/js/code.js";
+              var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+              if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+            })(document, window, "tmr-code");
+          `,
+        }}
+      />
+      <noscript>
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://top-fwz1.mail.ru/counter?id=3729400;js=na"
+            style={{ position: "absolute", left: "-9999px" }}
+            alt="Top.Mail.Ru"
+          />
         </div>
       </noscript>
     </>
